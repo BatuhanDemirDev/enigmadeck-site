@@ -21,6 +21,8 @@
     --violet: #8b5cf6;
     --magenta: #f24fc4;
     --gold: #f5c263;
+    --mx: 50%;
+    --my: 26%;
   }
   * { box-sizing: border-box; }
   html { color-scheme: dark; }
@@ -33,6 +35,47 @@
     -webkit-font-smoothing: antialiased;
   }
   a { color: inherit; }
+
+  /* ---------- flashlight-in-the-dark ambient layer ----------
+     A dossier hidden in the dark: a faint field of "?" marks that only
+     resolves into focus inside a soft glow that follows the cursor, like
+     reading a case file by flashlight. Static (centered, no glow) when
+     reduced motion is requested. */
+  .noir {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+  }
+  .noir .glow {
+    position: absolute; inset: 0;
+    animation: flicker 6s ease-in-out infinite;
+    background:
+      radial-gradient(120px circle at var(--mx) var(--my), rgba(255,232,180,0.20), transparent 60%),
+      radial-gradient(420px circle at var(--mx) var(--my), rgba(245,194,99,0.13), transparent 65%),
+      radial-gradient(820px circle at var(--mx) var(--my), rgba(139,92,246,0.11), transparent 72%);
+  }
+  @keyframes flicker {
+    0%, 100% { opacity: 1; }
+    47% { opacity: 1; }
+    48% { opacity: 0.88; }
+    50% { opacity: 1; }
+    76% { opacity: 1; }
+    77% { opacity: 0.93; }
+    79% { opacity: 1; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .noir .glow { animation: none; }
+  }
+  .noir .marks {
+    position: absolute; inset: 0;
+    opacity: 0.55;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Ctext x='18' y='58' font-family='Georgia,serif' font-size='40' fill='%23f4f1ff' opacity='0.55' transform='rotate(-8 18 58)'%3E%3F%3C/text%3E%3Ctext x='108' y='140' font-family='Georgia,serif' font-size='28' fill='%23f4f1ff' opacity='0.4' transform='rotate(10 108 140)'%3E%3F%3C/text%3E%3C/svg%3E");
+    background-size: 180px 180px;
+    -webkit-mask-image: radial-gradient(420px circle at var(--mx) var(--my), black, transparent 72%);
+            mask-image: radial-gradient(420px circle at var(--mx) var(--my), black, transparent 72%);
+  }
+  header.top, .hero, .dossier, footer { position: relative; z-index: 1; }
   a:focus-visible, button:focus-visible, .flip:focus-visible {
     outline: 2px solid var(--gold);
     outline-offset: 3px;
@@ -321,6 +364,11 @@
 </style>
 </head>
 <body>
+  <div class="noir" aria-hidden="true">
+    <div class="marks"></div>
+    <div class="glow"></div>
+  </div>
+
   <header class="top">
     <div class="top-inner">
       <a class="wordmark" href="/">
@@ -411,6 +459,46 @@
     document.querySelector('.flip').addEventListener('click', function () {
       this.classList.toggle('is-flipped');
     });
+
+    // El feneri — imleç ağır bir ışık kaynağı gibi hafif GECİKMEYLE takip
+    // eder (yumuşak "inertia"), gerçek bir lambanın anlık zıplamayan
+    // hareketine benzesin diye. Kart destesi de aynı konumdan hafifçe
+    // etkilenip zayıf bir 3D paralaks kazanıyor.
+    var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!reduceMotion) {
+      var root = document.documentElement;
+      var fan = document.querySelector('.fan');
+      var targetX = window.innerWidth / 2, targetY = window.innerHeight * 0.26;
+      var curX = targetX, curY = targetY;
+      var raf = null;
+
+      window.addEventListener('mousemove', function (e) {
+        targetX = e.clientX;
+        targetY = e.clientY;
+        if (!raf) raf = requestAnimationFrame(tick);
+      }, { passive: true });
+
+      function tick() {
+        curX += (targetX - curX) * 0.09;
+        curY += (targetY - curY) * 0.09;
+        root.style.setProperty('--mx', curX + 'px');
+        root.style.setProperty('--my', curY + 'px');
+
+        if (fan) {
+          var r = fan.getBoundingClientRect();
+          var cx = r.left + r.width / 2, cy = r.top + r.height / 2;
+          var dx = Math.max(-1, Math.min(1, (curX - cx) / 420));
+          var dy = Math.max(-1, Math.min(1, (curY - cy) / 420));
+          fan.style.transform = 'rotateX(' + (-dy * 5) + 'deg) rotateY(' + (dx * 7) + 'deg)';
+        }
+
+        if (Math.abs(targetX - curX) > 0.3 || Math.abs(targetY - curY) > 0.3) {
+          raf = requestAnimationFrame(tick);
+        } else {
+          raf = null;
+        }
+      }
+    }
   </script>
 </body>
 </html>
