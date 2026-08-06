@@ -3,257 +3,414 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="EnigmaDeck — arkadaşlarınla oynadığın Evet/Hayır bilmece kart oyunu. Destek ve iletişim.">
+<meta name="description" content="EnigmaDeck — arkadaşlarınla evet ya da hayırla cevap vererek gerçeği bulduğun bilmece kart oyunu. Destek ve iletişim.">
+<meta name="theme-color" content="#0B0A16">
 <title>EnigmaDeck — Evet/Hayır Bilmece Kart Oyunu</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%238B5CF6'/%3E%3Cstop offset='1' stop-color='%23F24FC4'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='url(%23g)'/%3E%3Ctext x='32' y='45' font-family='Georgia,serif' font-size='38' font-weight='700' fill='white' text-anchor='middle'%3E?%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,560;9..144,680&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #f7f7fb;
-    --surface: #ffffff;
-    --text: #1a1a2e;
-    --muted: #5c5c72;
-    --accent: #6c4cf0;
-    --accent2: #b23fd1;
-    --accent-soft: #f1ecfe;
-    --border: rgba(0,0,0,0.08);
-  }
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --bg: #101018;
-      --surface: #181824;
-      --text: #f2f2f7;
-      --muted: #a3a3b8;
-      --accent: #8c72ff;
-      --accent2: #d16bf0;
-      --accent-soft: #241f38;
-      --border: rgba(255,255,255,0.08);
-    }
+    --ink: #0b0a16;
+    --ink-2: #15132a;
+    --panel: rgba(255,255,255,0.045);
+    --line: rgba(255,255,255,0.10);
+    --paper: #f4f1ff;
+    --muted: #a8a2c9;
+    --violet: #8b5cf6;
+    --magenta: #f24fc4;
+    --gold: #f5c263;
   }
   * { box-sizing: border-box; }
+  html { color-scheme: dark; }
   body {
     margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    background: var(--bg);
-    color: var(--text);
+    background: radial-gradient(120% 70% at 50% -10%, #1c1638 0%, var(--ink) 55%) fixed;
+    color: var(--paper);
+    font-family: "IBM Plex Sans", -apple-system, sans-serif;
     line-height: 1.65;
     -webkit-font-smoothing: antialiased;
   }
-  a { color: var(--accent); }
-  a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-
-  .topbar {
-    border-bottom: 1px solid var(--border);
-    background: var(--surface);
+  a { color: inherit; }
+  a:focus-visible, button:focus-visible, .flip:focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 3px;
+    border-radius: 4px;
   }
-  .topbar-inner {
-    max-width: 760px;
+  ::selection { background: var(--violet); color: white; }
+
+  .display { font-family: "Fraunces", Georgia, serif; }
+  .mono {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+  }
+
+  .wrap { max-width: 980px; margin: 0 auto; padding: 0 24px; }
+
+  header.top {
+    border-bottom: 1px solid var(--line);
+  }
+  .top-inner {
+    max-width: 980px;
     margin: 0 auto;
-    padding: 18px 24px;
+    padding: 22px 24px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 12px;
   }
-  .brand-row { display: flex; align-items: center; gap: 12px; }
-  .mark {
-    width: 34px;
-    height: 34px;
-    border-radius: 10px;
-    background: linear-gradient(135deg, var(--accent), var(--accent2));
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-weight: 800;
+  .wordmark { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+  .wordmark .glyph {
+    width: 32px; height: 32px;
+    border-radius: 9px;
+    background: linear-gradient(135deg, var(--violet), var(--magenta));
+    display: flex; align-items: center; justify-content: center;
+    font-family: "Fraunces", Georgia, serif;
+    font-weight: 680;
     font-size: 17px;
-  }
-  .brand { font-weight: 700; font-size: 15px; }
-  .brand-sub { font-size: 13px; color: var(--muted); }
-  .topbar nav a {
-    font-size: 14px;
-    font-weight: 600;
-    text-decoration: none;
-    color: var(--muted);
-  }
-  .topbar nav a:hover { color: var(--accent); }
-
-  main {
-    max-width: 700px;
-    margin: 0 auto;
-    padding: 0 24px 96px;
-  }
-
-  .hero {
-    padding: 56px 0 40px;
-    text-align: center;
-  }
-  .hero .mark-lg {
-    width: 76px;
-    height: 76px;
-    margin: 0 auto 22px;
-    border-radius: 22px;
-    background: linear-gradient(135deg, var(--accent), var(--accent2));
-    display: flex;
-    align-items: center;
-    justify-content: center;
     color: white;
-    font-weight: 800;
-    font-size: 36px;
-    box-shadow: 0 16px 40px -12px rgba(108, 76, 240, 0.45);
   }
-  h1 {
-    font-size: clamp(30px, 6vw, 40px);
-    font-weight: 800;
-    line-height: 1.15;
-    margin: 0 0 12px;
-    background: linear-gradient(135deg, var(--accent), var(--accent2));
+  .wordmark .name { font-weight: 600; font-size: 15px; letter-spacing: -0.01em; }
+  header.top nav a {
+    text-decoration: none;
+    font-size: 13.5px;
+    font-weight: 500;
+    color: var(--muted);
+    border: 1px solid var(--line);
+    padding: 7px 14px;
+    border-radius: 100px;
+  }
+  header.top nav a:hover { color: var(--paper); border-color: var(--violet); }
+
+  /* ---------- Hero: the case file ---------- */
+  .hero {
+    position: relative;
+    overflow: clip;
+    padding: 76px 0 40px;
+  }
+  .hero-glow {
+    position: absolute;
+    top: -180px; left: 50%;
+    width: 900px; height: 560px;
+    transform: translateX(-50%);
+    background: radial-gradient(closest-side, rgba(245,194,99,0.16), rgba(139,92,246,0.10) 55%, transparent 75%);
+    pointer-events: none;
+  }
+  .hero-inner {
+    position: relative;
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 56px;
+    align-items: center;
+  }
+
+  /* the tilted case-file card fan + interactive flip card */
+  .fan {
+    position: relative;
+    width: 240px;
+    height: 300px;
+    justify-self: center;
+    perspective: 1400px;
+  }
+  .fan .deck {
+    position: absolute; inset: 0;
+    border-radius: 20px;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    box-shadow: 0 30px 60px -25px rgba(0,0,0,0.6);
+  }
+  .fan .deck::after {
+    content: "?";
+    position: absolute; right: 16px; bottom: 10px;
+    font-family: "Fraunces", Georgia, serif;
+    font-size: 40px;
+    color: rgba(244,241,255,0.10);
+  }
+  .fan .back-a { transform: rotate(-11deg) translate(-10px, 6px); }
+  .fan .back-b { transform: rotate(9deg) translate(8px, 10px); }
+
+  .flip {
+    position: absolute; inset: 0;
+    cursor: pointer;
+    border: none;
+    background: none;
+    padding: 0;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .flip-inner {
+    display: block;
+    position: relative;
+    width: 100%; height: 100%;
+    border-radius: 20px;
+    transform-style: preserve-3d;
+    transition: transform 0.7s cubic-bezier(.2,.9,.25,1.15);
+  }
+  .flip:hover .flip-inner,
+  .flip:focus-visible .flip-inner,
+  .flip.is-flipped .flip-inner { transform: rotateY(180deg); }
+
+  .face {
+    position: absolute; inset: 0;
+    border-radius: 20px;
+    backface-visibility: hidden;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 10px;
+    border: 1px solid var(--line);
+    box-shadow: 0 30px 70px -20px rgba(0,0,0,0.65);
+  }
+  .face .word {
+    font-family: "Fraunces", Georgia, serif;
+    font-weight: 680;
+    font-size: 34px;
+    letter-spacing: 0.01em;
+  }
+  .face .hint {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    opacity: 0.7;
+  }
+  .face.q {
+    background: linear-gradient(160deg, #201c3c, #171330);
+    color: var(--paper);
+  }
+  .face.q .word { font-size: 56px; color: rgba(244,241,255,0.9); }
+  .face.a {
+    transform: rotateY(180deg);
+    background: linear-gradient(160deg, var(--violet), var(--magenta) 120%);
+    color: white;
+  }
+
+  .hero h1 {
+    font-family: "Fraunces", Georgia, serif;
+    font-weight: 680;
+    font-size: clamp(32px, 4.6vw, 50px);
+    line-height: 1.08;
+    letter-spacing: -0.01em;
+    margin: 0 0 18px;
+    color: var(--paper);
+  }
+  .hero h1 em {
+    font-style: normal;
+    background: linear-gradient(100deg, var(--gold), var(--magenta));
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
   }
-  .hero p {
-    font-size: 16.5px;
+  .hero p.lede {
     color: var(--muted);
+    font-size: 17px;
     max-width: 46ch;
-    margin: 0 auto;
+    margin: 0;
+  }
+  .hero .try {
+    margin-top: 20px;
+    font-size: 13px;
+    color: var(--muted);
+    font-family: "IBM Plex Mono", monospace;
+    letter-spacing: 0.03em;
+  }
+  .hero .try b { color: var(--gold); font-weight: 500; }
+
+  @media (max-width: 760px) {
+    .hero-inner { grid-template-columns: 1fr; text-align: center; gap: 34px; }
+    .hero p.lede { margin: 0 auto; }
   }
 
-  .features {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 12px;
-    margin: 36px 0 48px;
+  /* ---------- feature strip ---------- */
+  .strip {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin: 52px 0 8px;
   }
-  .feature {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 18px 14px;
+  .chip {
+    display: flex; align-items: center; gap: 8px;
+    border: 1px solid var(--line);
+    background: var(--panel);
+    border-radius: 100px;
+    padding: 9px 16px;
+    font-size: 13.5px;
+    color: var(--muted);
+  }
+  .chip .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); flex-shrink: 0; }
+
+  /* ---------- dossier sections ---------- */
+  .dossier { padding: 84px 0 100px; }
+  .kicker {
+    display: block;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 12px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin: 0 0 40px;
     text-align: center;
   }
-  .feature .emoji { font-size: 24px; margin-bottom: 8px; }
-  .feature .label { font-size: 13px; font-weight: 700; }
-  @media (max-width: 520px) {
-    .features { grid-template-columns: 1fr; }
-    .feature { display: flex; align-items: center; gap: 12px; text-align: left; padding: 14px 16px; }
-    .feature .emoji { margin-bottom: 0; }
+  .kicker::before, .kicker::after {
+    content: "—";
+    color: var(--line);
+    margin: 0 12px;
   }
 
-  .eyebrow {
-    font-size: 12.5px;
-    font-weight: 700;
-    letter-spacing: 0.08em;
+  .panel {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: 28px 30px;
+    margin-bottom: 18px;
+  }
+  .panel .tab {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: var(--accent);
-    margin: 0 0 14px;
+    color: var(--muted);
+    margin: 0 0 10px;
   }
-
-  .card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 24px;
-    margin-bottom: 20px;
+  .panel h2 {
+    font-family: "Fraunces", Georgia, serif;
+    font-weight: 600;
+    font-size: 21px;
+    margin: 0 0 12px;
+    color: var(--paper);
   }
-  h2 { font-size: 19px; font-weight: 700; margin: 0 0 12px; }
-  p, li { margin: 0 0 10px; color: var(--text); }
-  p:last-child { margin-bottom: 0; }
-  strong { font-weight: 700; }
+  .panel p { color: var(--muted); margin: 0; font-size: 15px; }
 
-  .faq-item { padding: 14px 0; border-top: 1px solid var(--border); }
-  .faq-item:first-of-type { border-top: none; padding-top: 0; }
-  .faq-item strong { display: block; margin-bottom: 4px; font-size: 15px; }
-  .faq-item p { color: var(--muted); font-size: 14.5px; }
-
-  .contact-card {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-    flex-wrap: wrap;
+  .contact {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 20px; flex-wrap: wrap;
   }
-  .contact-card .label { font-size: 13px; color: var(--muted); margin-bottom: 4px; }
-  .contact-card .value { font-size: 16px; font-weight: 700; }
-  .contact-card a.btn {
+  .contact .to { font-size: 12px; color: var(--muted); font-family: "IBM Plex Mono", monospace; letter-spacing: 0.05em; }
+  .contact .addr { font-size: 17px; font-weight: 600; color: var(--paper); margin-top: 4px; }
+  .contact a.btn {
     text-decoration: none;
-    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    background: linear-gradient(135deg, var(--violet), var(--magenta));
     color: white;
-    font-size: 14px;
-    font-weight: 700;
-    padding: 10px 18px;
-    border-radius: 10px;
+    font-size: 14px; font-weight: 600;
+    padding: 12px 22px;
+    border-radius: 100px;
     flex-shrink: 0;
   }
 
-  footer {
-    text-align: center;
-    color: var(--muted);
-    font-size: 13px;
-    margin-top: 40px;
+  .faq-row {
+    border-top: 1px solid var(--line);
+    padding: 18px 0;
   }
-  footer a { color: var(--muted); font-weight: 400; }
+  .faq-row:first-of-type { border-top: none; padding-top: 0; }
+  .faq-row strong { display: block; font-size: 15px; color: var(--paper); margin-bottom: 5px; font-weight: 600; }
+  .faq-row p { color: var(--muted); font-size: 14.5px; margin: 0; }
+
+  footer {
+    border-top: 1px solid var(--line);
+    padding: 28px 24px 40px;
+    text-align: center;
+  }
+  footer .wrap { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+  footer, footer a { color: var(--muted); font-size: 13px; }
+  footer a { text-decoration: none; }
+  footer a:hover { color: var(--paper); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .flip-inner { transition: none; }
+  }
 </style>
 </head>
 <body>
-  <div class="topbar">
-    <div class="topbar-inner">
-      <div class="brand-row">
-        <div class="mark">?</div>
-        <div>
-          <div class="brand">EnigmaDeck</div>
-          <div class="brand-sub">Evet / Hayır Bilmece Kart Oyunu</div>
+  <header class="top">
+    <div class="top-inner">
+      <a class="wordmark" href="/">
+        <span class="glyph">?</span>
+        <span class="name">EnigmaDeck</span>
+      </a>
+      <nav><a href="/privacy.html">Gizlilik Politikası</a></nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-glow" aria-hidden="true"></div>
+    <div class="wrap hero-inner">
+      <div class="fan">
+        <div class="deck back-a" aria-hidden="true"></div>
+        <div class="deck back-b" aria-hidden="true"></div>
+        <button class="flip" type="button" aria-label="Örnek kartı çevir: Evet mi, Hayır mı?">
+          <span class="flip-inner">
+            <span class="face q">
+              <span class="word">?</span>
+              <span class="hint">Karta dokun</span>
+            </span>
+            <span class="face a">
+              <span class="word">EVET</span>
+              <span class="hint">ya da belki hayır</span>
+            </span>
+          </span>
+        </button>
+      </div>
+      <div>
+        <h1>Sorulara <em>evet</em> ya da <em>hayırla</em><br>cevap ver. Gerçeği bul.</h1>
+        <p class="lede">EnigmaDeck, arkadaşlarınla ya da tek başına oynadığın bir bilmece kart oyunu — akıllıca sorular sor, ipuçlarını birleştir, gizemi çöz.</p>
+        <p class="try">↑ <b>denemek ister misin?</b> kartın üstüne gel</p>
+      </div>
+    </div>
+
+    <div class="wrap strip">
+      <span class="chip"><span class="dot"></span>Yüzlerce bilmece</span>
+      <span class="chip"><span class="dot"></span>Arkadaşlarınla oyna</span>
+      <span class="chip"><span class="dot"></span>Zamana Karşı mod</span>
+    </div>
+  </section>
+
+  <section class="dossier">
+    <div class="wrap">
+      <span class="kicker">Destek Dosyası</span>
+
+      <div class="panel">
+        <div class="tab">İletişim</div>
+        <h2>Bize Ulaş</h2>
+        <p>Bir sorun mu yaşadın, öneri mi vermek istiyorsun, ya da sadece merhaba mı demek istiyorsun? E-posta ile ulaşabilirsin, genelde kısa süre içinde dönüş yaparız.</p>
+        <div class="contact" style="margin-top:20px;">
+          <div>
+            <div class="to">Destek e-postası</div>
+            <div class="addr">batuhandemirdev@gmail.com</div>
+          </div>
+          <a class="btn" href="mailto:batuhandemirdev@gmail.com">E-posta gönder</a>
         </div>
       </div>
-      <nav><a href="/privacy.html">Gizlilik</a></nav>
-    </div>
-  </div>
 
-  <main>
-    <div class="hero">
-      <div class="mark-lg">?</div>
-      <h1>Sorulara evet ya da hayırla cevap ver.<br>Gerçeği bul.</h1>
-      <p>EnigmaDeck, arkadaşlarınla ya da tek başına oynayabildiğin bir Evet/Hayır bilmece kart oyunu — ipuçlarını topla, akıl yürüt, gizemi çöz.</p>
-    </div>
-
-    <div class="features">
-      <div class="feature"><div class="emoji">🃏</div><div class="label">Yüzlerce bilmece</div></div>
-      <div class="feature"><div class="emoji">👥</div><div class="label">Arkadaşlarınla oyna</div></div>
-      <div class="feature"><div class="emoji">⏱️</div><div class="label">Zamana Karşı mod</div></div>
-    </div>
-
-    <p class="eyebrow">Destek</p>
-
-    <div class="card">
-      <h2>Bize Ulaş</h2>
-      <p>Bir sorun mu yaşadın, öneri mi vermek istiyorsun, ya da sadece merhaba mı demek istiyorsun? E-posta ile ulaşabilirsin, genelde kısa süre içinde dönüş yaparız.</p>
-      <div class="contact-card" style="margin-top: 16px;">
-        <div>
-          <div class="label">Destek e-postası</div>
-          <div class="value">batuhandemirdev@gmail.com</div>
+      <div class="panel">
+        <div class="tab">Sık Sorulanlar</div>
+        <div class="faq-row">
+          <strong>Satın alımımı geri yükleyemiyorum.</strong>
+          <p>Uygulama içinde Coin Mağazası veya Premium ekranındaki "Geri Yükle" butonunu kullan. Sorun devam ederse yukarıdaki e-postadan bize yaz.</p>
         </div>
-        <a class="btn" href="mailto:batuhandemirdev@gmail.com">E-posta gönder</a>
+        <div class="faq-row">
+          <strong>Hesabımı ve verilerimi silmek istiyorum.</strong>
+          <p>Profil → Hesap Ayarları → Hesabı Sil yoluyla uygulama içinden anında silebilirsin. Uygulamayı kullanamıyorsan yukarıdaki e-postadan bize ulaş.</p>
+        </div>
+        <div class="faq-row">
+          <strong>Bir hata / hatalı davranış bildirmek istiyorum.</strong>
+          <p>Lütfen ne yaptığını, ne beklediğini ve mümkünse bir ekran görüntüsünü e-posta ile gönder.</p>
+        </div>
       </div>
     </div>
+  </section>
 
-    <div class="card">
-      <h2>Sıkça Sorulanlar</h2>
-      <div class="faq-item">
-        <strong>Satın alımımı geri yükleyemiyorum.</strong>
-        <p>Uygulama içinde Coin Mağazası veya Premium ekranındaki "Geri Yükle" butonunu kullan. Sorun devam ederse yukarıdaki e-postadan bize yaz.</p>
-      </div>
-      <div class="faq-item">
-        <strong>Hesabımı ve verilerimi silmek istiyorum.</strong>
-        <p>Profil → Hesap Ayarları → Hesabı Sil yoluyla uygulama içinden anında silebilirsin. Uygulamayı kullanamıyorsan yukarıdaki e-postadan bize ulaş.</p>
-      </div>
-      <div class="faq-item">
-        <strong>Bir hata / hatalı davranış bildirmek istiyorum.</strong>
-        <p>Lütfen ne yaptığını, ne beklediğini ve mümkünse bir ekran görüntüsünü e-posta ile gönder.</p>
-      </div>
+  <footer>
+    <div class="wrap">
+      <span>© 2026 Batuhan Demir — EnigmaDeck</span>
+      <a href="/privacy.html">Gizlilik Politikası</a>
     </div>
+  </footer>
 
-    <footer>
-      © 2026 Batuhan Demir — EnigmaDeck · <a href="/privacy.html">Gizlilik Politikası</a>
-    </footer>
-  </main>
+  <script>
+    // Dokunmatik cihazlarda :hover çalışmadığı için tıklamayla da çevrilebilsin.
+    document.querySelector('.flip').addEventListener('click', function () {
+      this.classList.toggle('is-flipped');
+    });
+  </script>
 </body>
 </html>
