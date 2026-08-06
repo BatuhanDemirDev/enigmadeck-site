@@ -115,6 +115,7 @@
     color: white;
   }
   .wordmark .name { font-weight: 600; font-size: 15px; letter-spacing: -0.01em; }
+  header.top nav { display: flex; align-items: center; gap: 8px; }
   header.top nav a {
     text-decoration: none;
     font-size: 13.5px;
@@ -125,6 +126,19 @@
     border-radius: 100px;
   }
   header.top nav a:hover { color: var(--paper); border-color: var(--violet); }
+  .lang-toggle {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    color: var(--muted);
+    background: none;
+    border: 1px solid var(--line);
+    padding: 7px 12px;
+    border-radius: 100px;
+    cursor: pointer;
+  }
+  .lang-toggle:hover { color: var(--gold); border-color: var(--gold); }
 
   /* ---------- Hero: the case file ---------- */
   .hero {
@@ -375,7 +389,10 @@
         <span class="glyph">?</span>
         <span class="name">EnigmaDeck</span>
       </a>
-      <nav><a href="/privacy.html">Gizlilik Politikası</a></nav>
+      <nav>
+        <button class="lang-toggle" id="langToggle" type="button" aria-label="Switch language / Dili değiştir">EN</button>
+        <a href="/privacy.html" data-i18n="nav_privacy">Gizlilik Politikası</a>
+      </nav>
     </div>
   </header>
 
@@ -385,63 +402,63 @@
       <div class="fan">
         <div class="deck back-a" aria-hidden="true"></div>
         <div class="deck back-b" aria-hidden="true"></div>
-        <button class="flip" type="button" aria-label="Örnek kartı çevir: Evet mi, Hayır mı?">
+        <button class="flip" type="button" data-i18n-aria="flip_aria" aria-label="Örnek kartı çevir: Evet mi, Hayır mı?">
           <span class="flip-inner">
             <span class="face q">
               <span class="word">?</span>
-              <span class="hint">Karta dokun</span>
+              <span class="hint" data-i18n="hint_q">Karta dokun</span>
             </span>
             <span class="face a">
-              <span class="word">EVET</span>
-              <span class="hint">ya da belki hayır</span>
+              <span class="word" data-i18n="word_yes">EVET</span>
+              <span class="hint" data-i18n="hint_a">ya da belki hayır</span>
             </span>
           </span>
         </button>
       </div>
       <div>
-        <h1>Sorulara <em>evet</em> ya da <em>hayırla</em><br>cevap ver. Gerçeği bul.</h1>
-        <p class="lede">EnigmaDeck, arkadaşlarınla ya da tek başına oynadığın bir bilmece kart oyunu — akıllıca sorular sor, ipuçlarını birleştir, gizemi çöz.</p>
-        <p class="try">↑ <b>denemek ister misin?</b> karta dokun ya da üstüne gel</p>
+        <h1 data-i18n="hero_h1">Sorulara <em>evet</em> ya da <em>hayırla</em><br>cevap ver. Gerçeği bul.</h1>
+        <p class="lede" data-i18n="hero_lede">EnigmaDeck, arkadaşlarınla ya da tek başına oynadığın bir bilmece kart oyunu — akıllıca sorular sor, ipuçlarını birleştir, gizemi çöz.</p>
+        <p class="try" data-i18n="hero_try">↑ <b>denemek ister misin?</b> karta dokun ya da üstüne gel</p>
       </div>
     </div>
 
     <div class="wrap strip">
-      <span class="chip"><span class="dot"></span>Yüzlerce bilmece</span>
-      <span class="chip"><span class="dot"></span>Arkadaşlarınla oyna</span>
-      <span class="chip"><span class="dot"></span>Zamana Karşı mod</span>
+      <span class="chip"><span class="dot"></span><span data-i18n="chip1">Yüzlerce bilmece</span></span>
+      <span class="chip"><span class="dot"></span><span data-i18n="chip2">Arkadaşlarınla oyna</span></span>
+      <span class="chip"><span class="dot"></span><span data-i18n="chip3">Zamana Karşı mod</span></span>
     </div>
   </section>
 
   <section class="dossier">
     <div class="wrap">
-      <span class="kicker">Destek Dosyası</span>
+      <span class="kicker" data-i18n="kicker_support">Destek Dosyası</span>
 
       <div class="panel">
-        <div class="tab">İletişim</div>
-        <h2>Bize Ulaş</h2>
-        <p>Bir sorun mu yaşadın, öneri mi vermek istiyorsun, ya da sadece merhaba mı demek istiyorsun? E-posta ile ulaşabilirsin, genelde kısa süre içinde dönüş yaparız.</p>
+        <div class="tab" data-i18n="contact_tab">İletişim</div>
+        <h2 data-i18n="contact_h2">Bize Ulaş</h2>
+        <p data-i18n="contact_p">Bir sorun mu yaşadın, öneri mi vermek istiyorsun, ya da sadece merhaba mı demek istiyorsun? E-posta ile ulaşabilirsin, genelde kısa süre içinde dönüş yaparız.</p>
         <div class="contact" style="margin-top:20px;">
           <div>
-            <div class="to">Destek e-postası</div>
+            <div class="to" data-i18n="contact_to">Destek e-postası</div>
             <div class="addr">batuhandemirdev@gmail.com</div>
           </div>
-          <a class="btn" href="mailto:batuhandemirdev@gmail.com">E-posta gönder</a>
+          <a class="btn" href="mailto:batuhandemirdev@gmail.com" data-i18n="contact_btn">E-posta gönder</a>
         </div>
       </div>
 
       <div class="panel">
-        <div class="tab">Sık Sorulanlar</div>
+        <div class="tab" data-i18n="faq_tab">Sık Sorulanlar</div>
         <div class="faq-row">
-          <strong>Satın alımımı geri yükleyemiyorum.</strong>
-          <p>Uygulama içinde Coin Mağazası veya Premium ekranındaki "Geri Yükle" butonunu kullan. Sorun devam ederse yukarıdaki e-postadan bize yaz.</p>
+          <strong data-i18n="faq1_q">Satın alımımı geri yükleyemiyorum.</strong>
+          <p data-i18n="faq1_a">Uygulama içinde Coin Mağazası veya Premium ekranındaki "Geri Yükle" butonunu kullan. Sorun devam ederse yukarıdaki e-postadan bize yaz.</p>
         </div>
         <div class="faq-row">
-          <strong>Hesabımı ve verilerimi silmek istiyorum.</strong>
-          <p>Profil → Hesap Ayarları → Hesabı Sil yoluyla uygulama içinden anında silebilirsin. Uygulamayı kullanamıyorsan yukarıdaki e-postadan bize ulaş.</p>
+          <strong data-i18n="faq2_q">Hesabımı ve verilerimi silmek istiyorum.</strong>
+          <p data-i18n="faq2_a">Profil → Hesap Ayarları → Hesabı Sil yoluyla uygulama içinden anında silebilirsin. Uygulamayı kullanamıyorsan yukarıdaki e-postadan bize ulaş.</p>
         </div>
         <div class="faq-row">
-          <strong>Bir hata / hatalı davranış bildirmek istiyorum.</strong>
-          <p>Lütfen ne yaptığını, ne beklediğini ve mümkünse bir ekran görüntüsünü e-posta ile gönder.</p>
+          <strong data-i18n="faq3_q">Bir hata / hatalı davranış bildirmek istiyorum.</strong>
+          <p data-i18n="faq3_a">Lütfen ne yaptığını, ne beklediğini ve mümkünse bir ekran görüntüsünü e-posta ile gönder.</p>
         </div>
       </div>
     </div>
@@ -449,8 +466,8 @@
 
   <footer>
     <div class="wrap">
-      <span>© 2026 Batuhan Demir — EnigmaDeck</span>
-      <a href="/privacy.html">Gizlilik Politikası</a>
+      <span data-i18n="footer_copy">© 2026 Batuhan Demir — EnigmaDeck</span>
+      <a href="/privacy.html" data-i18n="nav_privacy">Gizlilik Politikası</a>
     </div>
   </footer>
 
@@ -458,6 +475,76 @@
     // Dokunmatik cihazlarda :hover çalışmadığı için tıklamayla da çevrilebilsin.
     document.querySelector('.flip').addEventListener('click', function () {
       this.classList.toggle('is-flipped');
+    });
+
+    // ---------- TR / EN dil değiştirme ----------
+    var I18N = {
+      nav_privacy: { tr: 'Gizlilik Politikası', en: 'Privacy Policy' },
+      flip_aria: { tr: 'Örnek kartı çevir: Evet mi, Hayır mı?', en: 'Flip the sample card: Yes or No?' },
+      hint_q: { tr: 'Karta dokun', en: 'Tap the card' },
+      word_yes: { tr: 'EVET', en: 'YES' },
+      hint_a: { tr: 'ya da belki hayır', en: 'or maybe no' },
+      hero_h1: {
+        tr: 'Sorulara <em>evet</em> ya da <em>hayırla</em><br>cevap ver. Gerçeği bul.',
+        en: 'Answer every question<br>with <em>yes</em> or <em>no</em>. Find the truth.'
+      },
+      hero_lede: {
+        tr: 'EnigmaDeck, arkadaşlarınla ya da tek başına oynadığın bir bilmece kart oyunu — akıllıca sorular sor, ipuçlarını birleştir, gizemi çöz.',
+        en: 'EnigmaDeck is a riddle card game you play with friends or solo — ask sharp questions, piece the clues together, crack the mystery.'
+      },
+      hero_try: {
+        tr: '↑ <b>denemek ister misin?</b> karta dokun ya da üstüne gel',
+        en: '↑ <b>want to try it?</b> tap the card, or hover over it'
+      },
+      chip1: { tr: 'Yüzlerce bilmece', en: 'Hundreds of riddles' },
+      chip2: { tr: 'Arkadaşlarınla oyna', en: 'Play with friends' },
+      chip3: { tr: 'Zamana Karşı mod', en: 'Time Challenge mode' },
+      kicker_support: { tr: 'Destek Dosyası', en: 'Support File' },
+      contact_tab: { tr: 'İletişim', en: 'Contact' },
+      contact_h2: { tr: 'Bize Ulaş', en: 'Get in Touch' },
+      contact_p: {
+        tr: 'Bir sorun mu yaşadın, öneri mi vermek istiyorsun, ya da sadece merhaba mı demek istiyorsun? E-posta ile ulaşabilirsin, genelde kısa süre içinde dönüş yaparız.',
+        en: 'Ran into a problem, have a suggestion, or just want to say hi? Reach us by email — we usually reply within a short while.'
+      },
+      contact_to: { tr: 'Destek e-postası', en: 'Support email' },
+      contact_btn: { tr: 'E-posta gönder', en: 'Send an email' },
+      faq_tab: { tr: 'Sık Sorulanlar', en: 'FAQ' },
+      faq1_q: { tr: 'Satın alımımı geri yükleyemiyorum.', en: "I can't restore my purchase." },
+      faq1_a: {
+        tr: 'Uygulama içinde Coin Mağazası veya Premium ekranındaki "Geri Yükle" butonunu kullan. Sorun devam ederse yukarıdaki e-postadan bize yaz.',
+        en: 'Use the "Restore" button on the Coin Shop or Premium screen inside the app. If it still doesn\'t work, email us at the address above.'
+      },
+      faq2_q: { tr: 'Hesabımı ve verilerimi silmek istiyorum.', en: 'I want to delete my account and data.' },
+      faq2_a: {
+        tr: 'Profil → Hesap Ayarları → Hesabı Sil yoluyla uygulama içinden anında silebilirsin. Uygulamayı kullanamıyorsan yukarıdaki e-postadan bize ulaş.',
+        en: 'You can delete it instantly in-app via Profile → Account Settings → Delete Account. Can\'t access the app? Email us at the address above.'
+      },
+      faq3_q: { tr: 'Bir hata / hatalı davranış bildirmek istiyorum.', en: 'I want to report a bug or unexpected behavior.' },
+      faq3_a: {
+        tr: 'Lütfen ne yaptığını, ne beklediğini ve mümkünse bir ekran görüntüsünü e-posta ile gönder.',
+        en: 'Please email us what you did, what you expected instead, and a screenshot if you can.'
+      },
+      footer_copy: { tr: '© 2026 Batuhan Demir — EnigmaDeck', en: '© 2026 Batuhan Demir — EnigmaDeck' }
+    };
+
+    function applyLang(lang) {
+      document.documentElement.lang = lang;
+      document.querySelectorAll('[data-i18n]').forEach(function (el) {
+        var entry = I18N[el.getAttribute('data-i18n')];
+        if (entry) el.innerHTML = entry[lang];
+      });
+      document.querySelectorAll('[data-i18n-aria]').forEach(function (el) {
+        var entry = I18N[el.getAttribute('data-i18n-aria')];
+        if (entry) el.setAttribute('aria-label', entry[lang]);
+      });
+      document.getElementById('langToggle').textContent = lang === 'tr' ? 'EN' : 'TR';
+      localStorage.setItem('enigmadeck_lang', lang);
+    }
+
+    var savedLang = localStorage.getItem('enigmadeck_lang') || 'tr';
+    applyLang(savedLang);
+    document.getElementById('langToggle').addEventListener('click', function () {
+      applyLang(document.documentElement.lang === 'tr' ? 'en' : 'tr');
     });
 
     // El feneri — imleç ağır bir ışık kaynağı gibi hafif GECİKMEYLE takip

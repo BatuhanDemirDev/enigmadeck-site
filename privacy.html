@@ -70,11 +70,20 @@
     font-family: "Fraunces", Georgia, serif; font-weight: 680; font-size: 17px; color: white;
   }
   .wordmark .name { font-weight: 600; font-size: 15px; }
+  header.top nav { display: flex; align-items: center; gap: 8px; }
   header.top nav a {
     text-decoration: none; font-size: 13.5px; font-weight: 500; color: var(--muted);
     border: 1px solid var(--line); padding: 7px 14px; border-radius: 100px;
   }
   header.top nav a:hover { color: var(--paper); border-color: var(--violet); }
+  .lang-toggle {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 12px; font-weight: 500; letter-spacing: 0.04em;
+    color: var(--muted); background: none;
+    border: 1px solid var(--line); padding: 7px 12px; border-radius: 100px;
+    cursor: pointer;
+  }
+  .lang-toggle:hover { color: var(--gold); border-color: var(--gold); }
 
   main { padding: 60px 0 100px; }
 
@@ -162,40 +171,43 @@
         <span class="glyph">?</span>
         <span class="name">EnigmaDeck</span>
       </a>
-      <nav><a href="/">Ana Sayfa</a></nav>
+      <nav>
+        <button class="lang-toggle" id="langToggle" type="button" aria-label="Switch language / Dili değiştir">EN</button>
+        <a href="/" data-i18n="nav_home">Ana Sayfa</a>
+      </nav>
     </div>
   </header>
 
   <main class="wrap">
-    <p class="mono-label">Dosya No. 07 — Yasal</p>
-    <h1>Gizlilik Politikası</h1>
-    <p class="updated">Son güncelleme — 6 Ağustos 2026</p>
-    <p class="lede">EnigmaDeck'in hangi verileri topladığını, neden topladığını ve bunları nasıl kontrol edip silebileceğini kısaca anlatıyoruz. Bir şey belirsizse, direkt yazabilirsin.</p>
+    <p class="mono-label" data-i18n="p_kicker">Dosya No. 07 — Yasal</p>
+    <h1 data-i18n="p_h1">Gizlilik Politikası</h1>
+    <p class="updated" data-i18n="p_updated">Son güncelleme — 6 Ağustos 2026</p>
+    <p class="lede" data-i18n="p_lede">EnigmaDeck'in hangi verileri topladığını, neden topladığını ve bunları nasıl kontrol edip silebileceğini kısaca anlatıyoruz. Bir şey belirsizse, direkt yazabilirsin.</p>
 
     <nav class="toc" aria-label="İçindekiler">
-      <p class="mono-label">Bu sayfada</p>
+      <p class="mono-label" data-i18n="p_toc_label">Bu sayfada</p>
       <ol>
-        <li><a href="#kim">Kim olduğumuz</a></li>
-        <li><a href="#veri">Topladığımız veriler</a></li>
-        <li><a href="#kullanim">Verilerini nasıl kullanıyoruz</a></li>
-        <li><a href="#ucuncu">Üçüncü taraf hizmetler</a></li>
-        <li><a href="#silme">Verilerini silme</a></li>
-        <li><a href="#cocuk">Çocukların gizliliği</a></li>
-        <li><a href="#iletisim">İletişim &amp; değişiklikler</a></li>
+        <li><a href="#kim" data-i18n="p_toc_1">Kim olduğumuz</a></li>
+        <li><a href="#veri" data-i18n="p_toc_2">Topladığımız veriler</a></li>
+        <li><a href="#kullanim" data-i18n="p_toc_3">Verilerini nasıl kullanıyoruz</a></li>
+        <li><a href="#ucuncu" data-i18n="p_toc_4">Üçüncü taraf hizmetler</a></li>
+        <li><a href="#silme" data-i18n="p_toc_5">Verilerini silme</a></li>
+        <li><a href="#cocuk" data-i18n="p_toc_6">Çocukların gizliliği</a></li>
+        <li><a href="#iletisim" data-i18n="p_toc_7">İletişim &amp; değişiklikler</a></li>
       </ol>
     </nav>
 
     <div class="panel" id="kim">
-      <div class="tab">Kimlik</div>
-      <h2>Kim Olduğumuz</h2>
-      <p>EnigmaDeck, Batuhan Demir tarafından geliştirilen bir Evet/Hayır bilmece kart oyunudur. Sorularınız için <a class="inline" href="mailto:batuhandemirdev@gmail.com">batuhandemirdev@gmail.com</a> adresinden bize ulaşabilirsiniz.</p>
+      <div class="tab" data-i18n="p_kim_tab">Kimlik</div>
+      <h2 data-i18n="p_kim_h2">Kim Olduğumuz</h2>
+      <p data-i18n="p_kim_body">EnigmaDeck, Batuhan Demir tarafından geliştirilen bir Evet/Hayır bilmece kart oyunudur. Sorularınız için <a class="inline" href="mailto:batuhandemirdev@gmail.com">batuhandemirdev@gmail.com</a> adresinden bize ulaşabilirsiniz.</p>
     </div>
 
     <div class="panel" id="veri">
-      <div class="tab">Veri Toplama</div>
-      <h2>Topladığımız Veriler</h2>
-      <p>Hesabını oluşturman ve uygulamayı kullanabilmen için aşağıdaki verileri topluyoruz:</p>
-      <ul>
+      <div class="tab" data-i18n="p_veri_tab">Veri Toplama</div>
+      <h2 data-i18n="p_veri_h2">Topladığımız Veriler</h2>
+      <p data-i18n="p_veri_intro">Hesabını oluşturman ve uygulamayı kullanabilmen için aşağıdaki verileri topluyoruz:</p>
+      <ul data-i18n="p_veri_list">
         <li><strong>E-posta adresi / telefon numarası</strong> — Google, Apple, e-posta ya da telefonla giriş yaparsan, hesabına giriş yapabilmen için (tek kullanımlık kod ile doğrulama).</li>
         <li><strong>Misafir hesabı</strong> — "Misafir Olarak Devam Et" ile giriş yaparsan, hiçbir kişisel kimlik bilgisi (e-posta, telefon, isim) toplamadan anonim bir hesap oluştururuz; istersen bu hesabı sonradan Google/Apple ile ilişkilendirip ilerlemeni koruyabilirsin.</li>
         <li><strong>Kullanıcı adı ve hesap kimliği</strong> — profilini ve ilerlemeni tanımlamak için.</li>
@@ -207,15 +219,15 @@
     </div>
 
     <div class="panel" id="kullanim">
-      <div class="tab">Kullanım Amacı</div>
-      <h2>Verilerini Nasıl Kullanıyoruz</h2>
-      <p>Topladığımız veriler yalnızca uygulamanın çalışması için kullanılır: hesabına giriş yapman, ilerlemenin kaydedilmesi, arkadaşlarınla iletişim kurabilmen, satın alımlarının işlenmesi, push bildirim gönderebilmemiz ve uygulama içi ekonominin (coin, satın alma) kötüye kullanıma karşı korunması için. Verilerini üçüncü taraflara satmıyoruz.</p>
+      <div class="tab" data-i18n="p_use_tab">Kullanım Amacı</div>
+      <h2 data-i18n="p_use_h2">Verilerini Nasıl Kullanıyoruz</h2>
+      <p data-i18n="p_use_body">Topladığımız veriler yalnızca uygulamanın çalışması için kullanılır: hesabına giriş yapman, ilerlemenin kaydedilmesi, arkadaşlarınla iletişim kurabilmen, satın alımlarının işlenmesi, push bildirim gönderebilmemiz ve uygulama içi ekonominin (coin, satın alma) kötüye kullanıma karşı korunması için. Verilerini üçüncü taraflara satmıyoruz.</p>
     </div>
 
     <div class="panel" id="ucuncu">
-      <div class="tab">Ortaklar</div>
-      <h2>Kullandığımız Üçüncü Taraf Hizmetler</h2>
-      <ul>
+      <div class="tab" data-i18n="p_third_tab">Ortaklar</div>
+      <h2 data-i18n="p_third_h2">Kullandığımız Üçüncü Taraf Hizmetler</h2>
+      <ul data-i18n="p_third_list">
         <li><strong>Supabase</strong> — hesap girişi ve veritabanı altyapımız.</li>
         <li><strong>Google Sign-In / Sign in with Apple</strong> — hesap doğrulama için.</li>
         <li><strong>Firebase Cloud Messaging (Google)</strong> — push bildirimleri göndermek için.</li>
@@ -225,39 +237,144 @@
     </div>
 
     <div class="panel" id="silme">
-      <div class="tab">Kontrol</div>
-      <h2>Verilerini Silme</h2>
-      <p>Hesabını istediğin an uygulama içinden <strong>Profil → Hesap Ayarları → Hesabı Sil</strong> yoluyla kalıcı olarak silebilirsin — profilin, oyun verilerin, mesajların ve satın alma geçmişin anında silinir. Uygulamayı kullanamıyorsan aşağıdaki e-postadan da bize ulaşabilirsin, talebini kısa süre içinde işleme alırız.</p>
+      <div class="tab" data-i18n="p_delete_tab">Kontrol</div>
+      <h2 data-i18n="p_delete_h2">Verilerini Silme</h2>
+      <p data-i18n="p_delete_body">Hesabını istediğin an uygulama içinden <strong>Profil → Hesap Ayarları → Hesabı Sil</strong> yoluyla kalıcı olarak silebilirsin — profilin, oyun verilerin, mesajların ve satın alma geçmişin anında silinir. Uygulamayı kullanamıyorsan aşağıdaki e-postadan da bize ulaşabilirsin, talebini kısa süre içinde işleme alırız.</p>
     </div>
 
     <div class="panel" id="cocuk">
-      <div class="tab">Yaş Sınırı</div>
-      <h2>Çocukların Gizliliği</h2>
-      <p>EnigmaDeck, bilerek 13 yaş altı çocuklardan veri toplamayı hedeflemez. 13 yaş altı bir çocuğun bize veri sağladığını düşünüyorsan lütfen bizimle iletişime geç, gerekli işlemi yapalım.</p>
+      <div class="tab" data-i18n="p_kids_tab">Yaş Sınırı</div>
+      <h2 data-i18n="p_kids_h2">Çocukların Gizliliği</h2>
+      <p data-i18n="p_kids_body">EnigmaDeck, bilerek 13 yaş altı çocuklardan veri toplamayı hedeflemez. 13 yaş altı bir çocuğun bize veri sağladığını düşünüyorsan lütfen bizimle iletişime geç, gerekli işlemi yapalım.</p>
     </div>
 
     <div class="panel" id="iletisim">
-      <div class="tab">İletişim</div>
-      <h2>İletişim &amp; Değişiklikler</h2>
-      <p>Bu gizlilik politikası zaman zaman güncellenebilir; en üstteki "Son güncelleme" tarihi her zaman güncel sürümü yansıtır.</p>
+      <div class="tab" data-i18n="p_contact_tab">İletişim</div>
+      <h2 data-i18n="p_contact_h2">İletişim &amp; Değişiklikler</h2>
+      <p data-i18n="p_contact_body">Bu gizlilik politikası zaman zaman güncellenebilir; en üstteki "Son güncelleme" tarihi her zaman güncel sürümü yansıtır.</p>
       <div class="contact">
         <div>
-          <div class="to">Sorularınız için</div>
+          <div class="to" data-i18n="p_contact_to">Sorularınız için</div>
           <div class="addr">batuhandemirdev@gmail.com</div>
         </div>
-        <a class="btn" href="mailto:batuhandemirdev@gmail.com">E-posta gönder</a>
+        <a class="btn" href="mailto:batuhandemirdev@gmail.com" data-i18n="p_contact_btn">E-posta gönder</a>
       </div>
     </div>
   </main>
 
   <footer>
     <div class="wrap">
-      <span>© 2026 Batuhan Demir — EnigmaDeck</span>
-      <a href="/">Destek sayfasına dön</a>
+      <span data-i18n="p_footer_copy">© 2026 Batuhan Demir — EnigmaDeck</span>
+      <a href="/" data-i18n="p_footer_back">Destek sayfasına dön</a>
     </div>
   </footer>
 
   <script>
+    // ---------- TR / EN dil değiştirme ----------
+    var I18N = {
+      nav_home: { tr: 'Ana Sayfa', en: 'Home' },
+      p_kicker: { tr: 'Dosya No. 07 — Yasal', en: 'File No. 07 — Legal' },
+      p_h1: { tr: 'Gizlilik Politikası', en: 'Privacy Policy' },
+      p_updated: { tr: 'Son güncelleme — 6 Ağustos 2026', en: 'Last updated — August 6, 2026' },
+      p_lede: {
+        tr: "EnigmaDeck'in hangi verileri topladığını, neden topladığını ve bunları nasıl kontrol edip silebileceğini kısaca anlatıyoruz. Bir şey belirsizse, direkt yazabilirsin.",
+        en: "Here's a plain-language summary of what data EnigmaDeck collects, why, and how you can control or delete it. If anything's unclear, just email us."
+      },
+      p_toc_label: { tr: 'Bu sayfada', en: 'On this page' },
+      p_toc_1: { tr: 'Kim olduğumuz', en: 'Who we are' },
+      p_toc_2: { tr: 'Topladığımız veriler', en: 'Data we collect' },
+      p_toc_3: { tr: 'Verilerini nasıl kullanıyoruz', en: 'How we use your data' },
+      p_toc_4: { tr: 'Üçüncü taraf hizmetler', en: 'Third-party services' },
+      p_toc_5: { tr: 'Verilerini silme', en: 'Deleting your data' },
+      p_toc_6: { tr: 'Çocukların gizliliği', en: "Children's privacy" },
+      p_toc_7: { tr: 'İletişim &amp; değişiklikler', en: 'Contact &amp; changes' },
+      p_kim_tab: { tr: 'Kimlik', en: 'Identity' },
+      p_kim_h2: { tr: 'Kim Olduğumuz', en: 'Who We Are' },
+      p_kim_body: {
+        tr: 'EnigmaDeck, Batuhan Demir tarafından geliştirilen bir Evet/Hayır bilmece kart oyunudur. Sorularınız için <a class="inline" href="mailto:batuhandemirdev@gmail.com">batuhandemirdev@gmail.com</a> adresinden bize ulaşabilirsiniz.',
+        en: 'EnigmaDeck is a Yes/No riddle card game developed by Batuhan Demir. For any questions, you can reach us at <a class="inline" href="mailto:batuhandemirdev@gmail.com">batuhandemirdev@gmail.com</a>.'
+      },
+      p_veri_tab: { tr: 'Veri Toplama', en: 'Data Collection' },
+      p_veri_h2: { tr: 'Topladığımız Veriler', en: 'Data We Collect' },
+      p_veri_intro: {
+        tr: 'Hesabını oluşturman ve uygulamayı kullanabilmen için aşağıdaki verileri topluyoruz:',
+        en: 'To create your account and let you use the app, we collect the following data:'
+      },
+      p_veri_list: {
+        tr: '<li><strong>E-posta adresi / telefon numarası</strong> — Google, Apple, e-posta ya da telefonla giriş yaparsan, hesabına giriş yapabilmen için (tek kullanımlık kod ile doğrulama).</li>'
+          + '<li><strong>Misafir hesabı</strong> — "Misafir Olarak Devam Et" ile giriş yaparsan, hiçbir kişisel kimlik bilgisi (e-posta, telefon, isim) toplamadan anonim bir hesap oluştururuz; istersen bu hesabı sonradan Google/Apple ile ilişkilendirip ilerlemeni koruyabilirsin.</li>'
+          + '<li><strong>Kullanıcı adı ve hesap kimliği</strong> — profilini ve ilerlemeni tanımlamak için.</li>'
+          + '<li><strong>Oyun verisi</strong> — çözdüğün bilmeceler, puanların, coin bakiyen, seri (streak) bilgin.</li>'
+          + '<li><strong>Sohbet mesajları</strong> — arkadaşlarınla uygulama içinde gönderdiğin mesajlar; sadece gönderen ve alıcı görebilir.</li>'
+          + '<li><strong>Satın alma geçmişi</strong> — coin paketleri, Premium abonelik ve destek satın alımların (ödeme bilgin bize hiç ulaşmaz, tamamen Apple/Google tarafından işlenir).</li>'
+          + '<li><strong>Cihaz/reklam kimliği</strong> — push bildirim gönderebilmek için, ve sadece izin verirsen (App Tracking Transparency) reklam ortağımız (Google AdMob) aracılığıyla daha ilgili ödüllü reklamlar gösterebilmek için. İzin vermezsen reklamlar yine gösterilir, sadece kişiselleştirilmemiş olur.</li>',
+        en: '<li><strong>Email address / phone number</strong> — if you sign in with Google, Apple, email, or phone, so you can log in to your account (verified with a one-time code).</li>'
+          + '<li><strong>Guest account</strong> — if you sign in with "Continue as Guest," we create an anonymous account without collecting any personal identifying information (email, phone, name); you can later link it to Google/Apple to keep your progress.</li>'
+          + '<li><strong>Username and account ID</strong> — to identify your profile and progress.</li>'
+          + '<li><strong>Game data</strong> — the riddles you\'ve solved, your score, coin balance, and streak information.</li>'
+          + '<li><strong>Chat messages</strong> — messages you send to friends inside the app; visible only to the sender and recipient.</li>'
+          + '<li><strong>Purchase history</strong> — your coin packs, Premium subscription, and support purchases (your payment details never reach us — they\'re handled entirely by Apple/Google).</li>'
+          + '<li><strong>Device / advertising identifier</strong> — to send push notifications, and, only if you allow it (App Tracking Transparency), to show more relevant rewarded ads through our ad partner (Google AdMob). If you don\'t allow it, ads are still shown, just not personalized.</li>'
+      },
+      p_use_tab: { tr: 'Kullanım Amacı', en: 'Purpose of Use' },
+      p_use_h2: { tr: 'Verilerini Nasıl Kullanıyoruz', en: 'How We Use Your Data' },
+      p_use_body: {
+        tr: 'Topladığımız veriler yalnızca uygulamanın çalışması için kullanılır: hesabına giriş yapman, ilerlemenin kaydedilmesi, arkadaşlarınla iletişim kurabilmen, satın alımlarının işlenmesi, push bildirim gönderebilmemiz ve uygulama içi ekonominin (coin, satın alma) kötüye kullanıma karşı korunması için. Verilerini üçüncü taraflara satmıyoruz.',
+        en: "The data we collect is used only to run the app: signing you in, saving your progress, letting you message friends, processing your purchases, sending push notifications, and protecting the in-app economy (coins, purchases) from abuse. We don't sell your data to third parties."
+      },
+      p_third_tab: { tr: 'Ortaklar', en: 'Partners' },
+      p_third_h2: { tr: 'Kullandığımız Üçüncü Taraf Hizmetler', en: 'Third-Party Services We Use' },
+      p_third_list: {
+        tr: '<li><strong>Supabase</strong> — hesap girişi ve veritabanı altyapımız.</li>'
+          + '<li><strong>Google Sign-In / Sign in with Apple</strong> — hesap doğrulama için.</li>'
+          + '<li><strong>Firebase Cloud Messaging (Google)</strong> — push bildirimleri göndermek için.</li>'
+          + '<li><strong>Google AdMob</strong> — ödüllü reklamları göstermek için.</li>'
+          + '<li><strong>Apple App Store / Google Play</strong> — uygulama içi satın alımların ödeme işlemleri tamamen bu platformlar tarafından yürütülür, kart bilgin bize hiç ulaşmaz.</li>',
+        en: '<li><strong>Supabase</strong> — our account login and database infrastructure.</li>'
+          + '<li><strong>Google Sign-In / Sign in with Apple</strong> — for account verification.</li>'
+          + '<li><strong>Firebase Cloud Messaging (Google)</strong> — to send push notifications.</li>'
+          + '<li><strong>Google AdMob</strong> — to show rewarded ads.</li>'
+          + '<li><strong>Apple App Store / Google Play</strong> — in-app purchase payments are handled entirely by these platforms; your card details never reach us.</li>'
+      },
+      p_delete_tab: { tr: 'Kontrol', en: 'Control' },
+      p_delete_h2: { tr: 'Verilerini Silme', en: 'Deleting Your Data' },
+      p_delete_body: {
+        tr: 'Hesabını istediğin an uygulama içinden <strong>Profil → Hesap Ayarları → Hesabı Sil</strong> yoluyla kalıcı olarak silebilirsin — profilin, oyun verilerin, mesajların ve satın alma geçmişin anında silinir. Uygulamayı kullanamıyorsan aşağıdaki e-postadan da bize ulaşabilirsin, talebini kısa süre içinde işleme alırız.',
+        en: 'You can permanently delete your account at any time from inside the app via <strong>Profile → Account Settings → Delete Account</strong> — your profile, game data, messages, and purchase history are removed instantly. If you can\'t access the app, email us below and we\'ll process your request shortly.'
+      },
+      p_kids_tab: { tr: 'Yaş Sınırı', en: 'Age Limit' },
+      p_kids_h2: { tr: 'Çocukların Gizliliği', en: "Children's Privacy" },
+      p_kids_body: {
+        tr: 'EnigmaDeck, bilerek 13 yaş altı çocuklardan veri toplamayı hedeflemez. 13 yaş altı bir çocuğun bize veri sağladığını düşünüyorsan lütfen bizimle iletişime geç, gerekli işlemi yapalım.',
+        en: 'EnigmaDeck does not knowingly collect data from children under 13. If you believe a child under 13 has provided us with data, please contact us so we can take the necessary action.'
+      },
+      p_contact_tab: { tr: 'İletişim', en: 'Contact' },
+      p_contact_h2: { tr: 'İletişim &amp; Değişiklikler', en: 'Contact &amp; Changes' },
+      p_contact_body: {
+        tr: 'Bu gizlilik politikası zaman zaman güncellenebilir; en üstteki "Son güncelleme" tarihi her zaman güncel sürümü yansıtır.',
+        en: 'This privacy policy may be updated from time to time; the "Last updated" date at the top always reflects the current version.'
+      },
+      p_contact_to: { tr: 'Sorularınız için', en: 'For questions' },
+      p_contact_btn: { tr: 'E-posta gönder', en: 'Send an email' },
+      p_footer_copy: { tr: '© 2026 Batuhan Demir — EnigmaDeck', en: '© 2026 Batuhan Demir — EnigmaDeck' },
+      p_footer_back: { tr: 'Destek sayfasına dön', en: 'Back to support page' }
+    };
+
+    function applyLang(lang) {
+      document.documentElement.lang = lang;
+      document.querySelectorAll('[data-i18n]').forEach(function (el) {
+        var entry = I18N[el.getAttribute('data-i18n')];
+        if (entry) el.innerHTML = entry[lang];
+      });
+      document.getElementById('langToggle').textContent = lang === 'tr' ? 'EN' : 'TR';
+      localStorage.setItem('enigmadeck_lang', lang);
+    }
+
+    applyLang(localStorage.getItem('enigmadeck_lang') || 'tr');
+    document.getElementById('langToggle').addEventListener('click', function () {
+      applyLang(document.documentElement.lang === 'tr' ? 'en' : 'tr');
+    });
+
     if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       var root = document.documentElement;
       var targetX = window.innerWidth / 2, targetY = window.innerHeight * 0.2;
