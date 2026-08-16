@@ -1,0 +1,340 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="EnigmaDeck Terms of Use (End User License Agreement) — the license agreement governing your use of the EnigmaDeck app.">
+<meta name="theme-color" content="#0B0A16">
+<title>EnigmaDeck — Terms of Use (EULA)</title>
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="icon" type="image/png" sizes="512x512" href="/favicon-512.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,560;9..144,680&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0b0a16;
+    --panel: rgba(255,255,255,0.045);
+    --line: rgba(255,255,255,0.10);
+    --paper: #f4f1ff;
+    --muted: #a8a2c9;
+    --violet: #8b5cf6;
+    --magenta: #f24fc4;
+    --gold: #f5c263;
+    --mx: 50%;
+    --my: 20%;
+  }
+  * { box-sizing: border-box; }
+  html { color-scheme: dark; }
+  body {
+    margin: 0;
+    background: radial-gradient(120% 50% at 50% -10%, #1c1638 0%, var(--ink) 55%) fixed;
+    color: var(--paper);
+    font-family: "IBM Plex Sans", -apple-system, sans-serif;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--gold); }
+
+  .noir { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+  .noir .glow {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(120px circle at var(--mx) var(--my), rgba(255,232,180,0.16), transparent 60%),
+      radial-gradient(420px circle at var(--mx) var(--my), rgba(245,194,99,0.10), transparent 65%),
+      radial-gradient(820px circle at var(--mx) var(--my), rgba(139,92,246,0.09), transparent 72%);
+  }
+  .noir .marks {
+    position: absolute; inset: 0;
+    opacity: 0.4;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Ctext x='18' y='58' font-family='Georgia,serif' font-size='40' fill='%23f4f1ff' opacity='0.55' transform='rotate(-8 18 58)'%3E%3F%3C/text%3E%3Ctext x='108' y='140' font-family='Georgia,serif' font-size='28' fill='%23f4f1ff' opacity='0.4' transform='rotate(10 108 140)'%3E%3F%3C/text%3E%3C/svg%3E");
+    background-size: 180px 180px;
+    -webkit-mask-image: radial-gradient(380px circle at var(--mx) var(--my), black, transparent 72%);
+            mask-image: radial-gradient(380px circle at var(--mx) var(--my), black, transparent 72%);
+  }
+  header.top, main, footer { position: relative; z-index: 1; }
+  a:focus-visible, .toc a:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; border-radius: 4px; }
+  ::selection { background: var(--violet); color: white; }
+
+  .wrap { max-width: 760px; margin: 0 auto; padding: 0 24px; }
+
+  header.top { border-bottom: 1px solid var(--line); }
+  .top-inner {
+    max-width: 760px; margin: 0 auto; padding: 22px 24px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .wordmark { display: flex; align-items: center; gap: 12px; text-decoration: none; color: inherit; }
+  .wordmark .glyph {
+    width: 32px; height: 32px; border-radius: 9px;
+    background: linear-gradient(135deg, var(--violet), var(--magenta));
+    display: flex; align-items: center; justify-content: center;
+    font-family: "Fraunces", Georgia, serif; font-weight: 680; font-size: 17px; color: white;
+  }
+  .wordmark .name { font-weight: 600; font-size: 15px; }
+  header.top nav { display: flex; align-items: center; gap: 8px; }
+  header.top nav a {
+    text-decoration: none; font-size: 13.5px; font-weight: 500; color: var(--muted);
+    border: 1px solid var(--line); padding: 7px 14px; border-radius: 100px;
+  }
+  header.top nav a:hover { color: var(--paper); border-color: var(--violet); }
+
+  main { padding: 60px 0 100px; }
+
+  .mono-label {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--gold); margin: 0 0 16px;
+  }
+  h1 {
+    font-family: "Fraunces", Georgia, serif;
+    font-weight: 680;
+    font-size: clamp(30px, 5vw, 42px);
+    line-height: 1.1;
+    margin: 0 0 12px;
+    color: var(--paper);
+  }
+  .updated { font-family: "IBM Plex Mono", monospace; font-size: 12.5px; color: var(--muted); margin: 0 0 28px; }
+  .lede { color: var(--muted); font-size: 16px; max-width: 58ch; margin: 0 0 44px; }
+
+  nav.toc {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 22px 26px;
+    margin: 0 0 40px;
+  }
+  nav.toc .mono-label { margin-bottom: 14px; }
+  nav.toc ol { margin: 0; padding: 0; list-style: none; display: grid; gap: 9px; grid-template-columns: 1fr 1fr; }
+  nav.toc a { text-decoration: none; color: var(--paper); font-size: 14.5px; font-weight: 500; }
+  nav.toc a:hover { color: var(--gold); }
+
+  .panel {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 26px 28px;
+    margin-bottom: 16px;
+    scroll-margin-top: 20px;
+  }
+  .panel .tab {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--muted); margin: 0 0 10px;
+  }
+  .panel h2 {
+    font-family: "Fraunces", Georgia, serif;
+    font-weight: 600; font-size: 20px; margin: 0 0 12px; color: var(--paper);
+  }
+  .panel p, .panel li { margin: 0 0 10px; color: #d8d4ee; font-size: 15px; }
+  .panel ul { padding-left: 20px; margin: 0 0 10px; }
+  .panel p:last-child, .panel ul:last-child { margin-bottom: 0; }
+  .panel p.legalcaps { text-transform: uppercase; font-size: 13px; color: #b8b2d8; }
+  strong { color: var(--paper); font-weight: 600; }
+  a.inline { font-weight: 600; text-decoration: none; }
+  a.inline:hover { text-decoration: underline; }
+
+  .notice {
+    background: rgba(245,194,99,0.08);
+    border: 1px solid rgba(245,194,99,0.28);
+    border-radius: 12px;
+    padding: 14px 18px;
+    font-size: 13.5px;
+    color: #e8dcc0;
+    margin-top: 10px;
+  }
+  .notice code { font-family: "IBM Plex Mono", monospace; color: var(--gold); }
+
+  .contact {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 16px; flex-wrap: wrap; margin-top: 6px;
+  }
+  .contact .to { font-family: "IBM Plex Mono", monospace; font-size: 11.5px; color: var(--muted); }
+  .contact .addr { font-size: 16px; font-weight: 600; color: var(--paper); margin-top: 3px; }
+  .contact a.btn {
+    text-decoration: none;
+    background: linear-gradient(135deg, var(--violet), var(--magenta));
+    color: white; font-size: 13.5px; font-weight: 600;
+    padding: 11px 20px; border-radius: 100px; flex-shrink: 0;
+  }
+
+  footer { border-top: 1px solid var(--line); padding: 28px 24px 40px; }
+  footer .wrap { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+  footer, footer a { color: var(--muted); font-size: 13px; }
+  footer a { text-decoration: none; }
+  footer a:hover { color: var(--paper); }
+
+  @media (max-width: 560px) {
+    nav.toc ol { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+  <div class="noir" aria-hidden="true">
+    <div class="marks"></div>
+    <div class="glow"></div>
+  </div>
+
+  <header class="top">
+    <div class="top-inner">
+      <a class="wordmark" href="/">
+        <span class="glyph">?</span>
+        <span class="name">EnigmaDeck</span>
+      </a>
+      <nav>
+        <a href="/privacy">Privacy Policy</a>
+        <a href="/">Home</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <p class="mono-label">File No. 08 — Legal</p>
+    <h1>Terms of Use (EULA)</h1>
+    <p class="updated">Effective date — August 8, 2026</p>
+    <p class="lede">This End User License Agreement ("EULA") is a legal agreement between <strong>you</strong> and <strong>Batuhan Demir</strong>, operating EnigmaDeck — not with Apple Inc. or Google LLC — governing your use of the EnigmaDeck mobile app. By downloading, installing, or using the app, you agree to be bound by this EULA.</p>
+
+    <nav class="toc" aria-label="On this page">
+      <p class="mono-label">On this page</p>
+      <ol>
+        <li><a href="#acknowledgment">1. Acknowledgment</a></li>
+        <li><a href="#license">2. License Grant</a></li>
+        <li><a href="#account">3. Your Account</a></li>
+        <li><a href="#support">4. Maintenance &amp; Support</a></li>
+        <li><a href="#warranty">5. Warranty Disclaimer</a></li>
+        <li><a href="#claims">6–7. Product &amp; IP Claims</a></li>
+        <li><a href="#compliance">8. Legal Compliance</a></li>
+        <li><a href="#beneficiary">9. Third-Party Beneficiary</a></li>
+        <li><a href="#virtual">10. Virtual Items</a></li>
+        <li><a href="#termination">11. Termination</a></li>
+        <li><a href="#law">12. Governing Law</a></li>
+        <li><a href="#contact">13. Contact</a></li>
+        <li><a href="#google-play">14. Google Play Note</a></li>
+      </ol>
+    </nav>
+
+    <div class="panel" id="acknowledgment">
+      <div class="tab">Section 1</div>
+      <h2>Acknowledgment</h2>
+      <p>This EULA is between you and the Developer only, not with Apple or Google. The Developer, not Apple or Google, is solely responsible for the app and its content. Where the app is downloaded from the Apple App Store, this EULA incorporates the minimum terms set out in Apple's <a class="inline" href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/" target="_blank" rel="noopener">Licensed Application End User License Agreement</a> (Schedule 1 of the Apple Developer Program License Agreement), which take precedence over any conflicting term below with respect to Apple-distributed copies of the app.</p>
+    </div>
+
+    <div class="panel" id="license">
+      <div class="tab">Section 2</div>
+      <h2>License Grant</h2>
+      <p>Subject to your compliance with this EULA, we grant you a limited, non-exclusive, non-transferable, non-sublicensable, revocable license to download, install, and use the app on Apple- or Android-branded devices that you own or control, and as permitted by the Apple App Store Terms of Service or Google Play Terms of Service, solely for your personal, non-commercial use.</p>
+      <p>You may not: (a) copy, modify, or create derivative works of the app; (b) reverse-engineer, decompile, or disassemble the app, except to the extent applicable law expressly permits; (c) rent, lease, lend, sell, redistribute, or sublicense the app; (d) remove or obscure any proprietary notices; or (e) use the app for any purpose not expressly permitted here.</p>
+    </div>
+
+    <div class="panel" id="account">
+      <div class="tab">Section 3</div>
+      <h2>Your Account</h2>
+      <p>You are responsible for maintaining the confidentiality of your login credentials (Google, Apple, or guest session) and for all activity under your account. Notify us promptly at <a class="inline" href="mailto:support@enigmadeck.com">support@enigmadeck.com</a> of any unauthorized use.</p>
+    </div>
+
+    <div class="panel" id="support">
+      <div class="tab">Section 4</div>
+      <h2>Maintenance and Support</h2>
+      <p>We are solely responsible for providing maintenance and support for the app, to the extent required by applicable law. <strong>Apple and Google have no obligation whatsoever to furnish any maintenance or support services</strong> for the app.</p>
+    </div>
+
+    <div class="panel" id="warranty">
+      <div class="tab">Section 5</div>
+      <h2>Warranty Disclaimer</h2>
+      <p class="legalcaps">To the maximum extent permitted by applicable law, the app is provided "as is" and "as available," without warranty of any kind, express or implied, including without limitation warranties of merchantability, fitness for a particular purpose, title, and non-infringement.</p>
+      <p><strong>In the event of any failure of the app to conform to any applicable warranty, you may notify Apple or Google, and Apple or Google (as applicable) will refund the purchase price, if any, for the app to you</strong>; to the maximum extent permitted by applicable law, Apple/Google will have no other warranty obligation whatsoever with respect to the app, and any other claims, losses, liabilities, damages, costs, or expenses attributable to any failure to conform to any warranty will be our sole responsibility, as governed by this EULA.</p>
+      <p>Nothing in this section limits any statutory consumer-protection rights you have that cannot be waived or limited by agreement under the law of your country of residence.</p>
+    </div>
+
+    <div class="panel" id="claims">
+      <div class="tab">Sections 6–7</div>
+      <h2>Product &amp; Intellectual Property Claims</h2>
+      <p>We, not Apple or Google, are responsible for addressing any claims by you or any third party relating to the app or your possession and/or use of it, including: (a) product liability claims; (b) any claim that the app fails to conform to any applicable legal or regulatory requirement; and (c) claims arising under consumer protection, privacy, or similar legislation. The app does not use HealthKit or HomeKit.</p>
+      <p>We, not Apple or Google, are responsible for the investigation, defense, settlement, and discharge of any claim that the app or your possession and use of it infringes a third party's intellectual property rights.</p>
+    </div>
+
+    <div class="panel" id="compliance">
+      <div class="tab">Section 8</div>
+      <h2>Legal Compliance</h2>
+      <p>You represent and warrant that (a) you are not located in a country subject to a U.S. Government embargo or designated as a "terrorist supporting" country, and (b) you are not listed on any U.S. Government list of prohibited or restricted parties.</p>
+    </div>
+
+    <div class="panel" id="beneficiary">
+      <div class="tab">Section 9</div>
+      <h2>Third-Party Beneficiary</h2>
+      <p>You acknowledge and agree that Apple and its subsidiaries are third-party beneficiaries of this EULA, and that, upon your acceptance, Apple has the right (and will be deemed to have accepted the right) to enforce this EULA against you as a third-party beneficiary of it.</p>
+    </div>
+
+    <div class="panel" id="virtual">
+      <div class="tab">Section 10</div>
+      <h2>Virtual Items</h2>
+      <p>Coins, premium tiers, cosmetics, and other virtual items are licensed, not sold, to you. This license terminates when your account is deleted or terminated.</p>
+    </div>
+
+    <div class="panel" id="termination">
+      <div class="tab">Section 11</div>
+      <h2>Termination</h2>
+      <p>This EULA is effective until terminated. Your rights under this EULA terminate automatically, without notice, if you fail to comply with any term. Upon termination, you must cease all use of the app and delete it from your devices. Sections 5–9 and 11–13 survive termination.</p>
+    </div>
+
+    <div class="panel" id="law">
+      <div class="tab">Section 12</div>
+      <h2>Governing Law</h2>
+      <p>This EULA is governed by the laws of the Republic of Turkey, without regard to conflict-of-law principles, except that if you are a consumer habitually resident in the EU/EEA or UK, the mandatory consumer-protection laws of your country of residence apply in addition and take precedence over any conflicting term here.</p>
+    </div>
+
+    <div class="panel" id="contact">
+      <div class="tab">Section 13</div>
+      <h2>Contact</h2>
+      <p>Batuhan Demir — <a class="inline" href="mailto:support@enigmadeck.com">support@enigmadeck.com</a></p>
+      <div class="notice">
+        A registered legal notice address is not yet published here — <code>{{LEGAL_ADDRESS}}</code> — it will be added as this document is finalized. Apple's Licensed Application EULA minimum terms name a developer address as a required element of any custom EULA; until then, contact us by email above.
+      </div>
+    </div>
+
+    <div class="panel" id="google-play">
+      <div class="tab">Section 14</div>
+      <h2>Google Play Note</h2>
+      <p>Where the app is distributed via Google Play, this EULA is between you and the Developer only. Google Play's own <a class="inline" href="https://play.google.com/intl/en_us/about/play-terms/" target="_blank" rel="noopener">Terms of Service</a> apply to your use of the Google Play Store itself and govern independently of this EULA.</p>
+      <div class="contact">
+        <div>
+          <div class="to">Questions about these terms</div>
+          <div class="addr">support@enigmadeck.com</div>
+        </div>
+        <a class="btn" href="mailto:support@enigmadeck.com">Send an email</a>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <span>© 2026 Batuhan Demir — EnigmaDeck</span>
+      <a href="/">Back to home</a>
+    </div>
+  </footer>
+
+  <script>
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      var root = document.documentElement;
+      var targetX = window.innerWidth / 2, targetY = window.innerHeight * 0.2;
+      var curX = targetX, curY = targetY, raf = null;
+      window.addEventListener('mousemove', function (e) {
+        targetX = e.clientX;
+        targetY = e.clientY;
+        if (!raf) raf = requestAnimationFrame(tick);
+      }, { passive: true });
+      function tick() {
+        curX += (targetX - curX) * 0.09;
+        curY += (targetY - curY) * 0.09;
+        root.style.setProperty('--mx', curX + 'px');
+        root.style.setProperty('--my', curY + 'px');
+        if (Math.abs(targetX - curX) > 0.3 || Math.abs(targetY - curY) > 0.3) {
+          raf = requestAnimationFrame(tick);
+        } else {
+          raf = null;
+        }
+      }
+    }
+  </script>
+</body>
+</html>
