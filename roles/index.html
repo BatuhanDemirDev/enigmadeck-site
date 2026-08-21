@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="EnigmaDeck'in Vampir Köylü oyunundaki 20 rolün ve Aşıklar mekaniğinin tam rehberi — ne işe yararlar, nasıl oynanır, ne claim edilmeli.">
+<meta name="theme-color" content="#0B0A16">
+<title>EnigmaDeck — Vampir Köylü Rol Rehberi</title>
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="icon" type="image/png" sizes="512x512" href="/favicon-512.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,560;9..144,680&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0b0a16;
+    --panel: rgba(255,255,255,0.045);
+    --line: rgba(255,255,255,0.10);
+    --paper: #f4f1ff;
+    --muted: #a8a2c9;
+    --violet: #8b5cf6;
+    --magenta: #f24fc4;
+    --gold: #f5c263;
+    --mx: 50%;
+    --my: 20%;
+  }
+  * { box-sizing: border-box; }
+  html { color-scheme: dark; }
+  body {
+    margin: 0;
+    background: radial-gradient(120% 50% at 50% -10%, #1c1638 0%, var(--ink) 55%) fixed;
+    color: var(--paper);
+    font-family: "IBM Plex Sans", -apple-system, sans-serif;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--gold); }
+
+  .noir { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+  .noir .glow {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(120px circle at var(--mx) var(--my), rgba(255,232,180,0.16), transparent 60%),
+      radial-gradient(420px circle at var(--mx) var(--my), rgba(245,194,99,0.10), transparent 65%),
+      radial-gradient(820px circle at var(--mx) var(--my), rgba(139,92,246,0.09), transparent 72%);
+  }
+  .noir .marks {
+    position: absolute; inset: 0;
+    opacity: 0.4;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Ctext x='18' y='58' font-family='Georgia,serif' font-size='40' fill='%23f4f1ff' opacity='0.55' transform='rotate(-8 18 58)'%3E%3F%3C/text%3E%3Ctext x='108' y='140' font-family='Georgia,serif' font-size='28' fill='%23f4f1ff' opacity='0.4' transform='rotate(10 108 140)'%3E%3F%3C/text%3E%3C/svg%3E");
+    background-size: 180px 180px;
+    -webkit-mask-image: radial-gradient(380px circle at var(--mx) var(--my), black, transparent 72%);
+            mask-image: radial-gradient(380px circle at var(--mx) var(--my), black, transparent 72%);
+  }
+  header.top, main, footer { position: relative; z-index: 1; }
+  a:focus-visible, .toc a:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; border-radius: 4px; }
+  ::selection { background: var(--violet); color: white; }
+
+  .wrap { max-width: 760px; margin: 0 auto; padding: 0 24px; }
+
+  header.top { border-bottom: 1px solid var(--line); }
+  .top-inner {
+    max-width: 760px; margin: 0 auto; padding: 22px 24px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .wordmark { display: flex; align-items: center; gap: 12px; text-decoration: none; color: inherit; }
+  .wordmark .glyph {
+    width: 32px; height: 32px; border-radius: 9px;
+    background: linear-gradient(135deg, var(--violet), var(--magenta));
+    display: flex; align-items: center; justify-content: center;
+    font-family: "Fraunces", Georgia, serif; font-weight: 680; font-size: 17px; color: white;
+  }
+  .wordmark .name { font-weight: 600; font-size: 15px; }
+  header.top nav { display: flex; align-items: center; gap: 8px; }
+  header.top nav a {
+    text-decoration: none; font-size: 13.5px; font-weight: 500; color: var(--muted);
+    border: 1px solid var(--line); padding: 7px 14px; border-radius: 100px;
+  }
+  header.top nav a:hover { color: var(--paper); border-color: var(--violet); }
+  .lang-toggle {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 12px; font-weight: 500; letter-spacing: 0.04em;
+    color: var(--muted); background: none;
+    border: 1px solid var(--line); padding: 7px 12px; border-radius: 100px;
+    cursor: pointer;
+  }
+  .lang-toggle:hover { color: var(--gold); border-color: var(--gold); }
+
+  main { padding: 60px 0 100px; }
+
+  .mono-label {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--gold); margin: 0 0 16px;
+  }
+  h1 {
+    font-family: "Fraunces", Georgia, serif;
+    font-weight: 680;
+    font-size: clamp(30px, 5vw, 42px);
+    line-height: 1.1;
+    margin: 0 0 12px;
+    color: var(--paper);
+  }
+  .updated { font-family: "IBM Plex Mono", monospace; font-size: 12.5px; color: var(--muted); margin: 0 0 28px; }
+  .lede { color: var(--muted); font-size: 16px; max-width: 58ch; margin: 0 0 44px; }
+
+  nav.toc {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 22px 26px;
+    margin: 0 0 40px;
+  }
+  nav.toc .mono-label { margin-bottom: 14px; }
+  nav.toc ol { margin: 0; padding: 0; list-style: none; display: grid; gap: 9px; }
+  nav.toc a { text-decoration: none; color: var(--paper); font-size: 14.5px; font-weight: 500; }
+  nav.toc a:hover { color: var(--gold); }
+
+  .panel {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 26px 28px;
+    margin-bottom: 16px;
+    scroll-margin-top: 20px;
+  }
+  .panel .tab {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--muted); margin: 0 0 10px;
+  }
+  .panel h2 {
+    font-family: "Fraunces", Georgia, serif;
+    font-weight: 600; font-size: 20px; margin: 0 0 12px; color: var(--paper);
+  }
+  .panel p, .panel li { margin: 0 0 10px; color: #d8d4ee; font-size: 15px; }
+  .panel ul { padding-left: 20px; margin: 0 0 10px; }
+  .panel p:last-child, .panel ul:last-child { margin-bottom: 0; }
+  strong { color: var(--paper); font-weight: 600; }
+  a.inline { font-weight: 600; text-decoration: none; }
+  a.inline:hover { text-decoration: underline; }
+
+  .contact {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 16px; flex-wrap: wrap; margin-top: 6px;
+  }
+  .contact .to { font-family: "IBM Plex Mono", monospace; font-size: 11.5px; color: var(--muted); }
+  .contact .addr { font-size: 16px; font-weight: 600; color: var(--paper); margin-top: 3px; }
+  .contact a.btn {
+    text-decoration: none;
+    background: linear-gradient(135deg, var(--violet), var(--magenta));
+    color: white; font-size: 13.5px; font-weight: 600;
+    padding: 11px 20px; border-radius: 100px; flex-shrink: 0;
+  }
+
+  footer { border-top: 1px solid var(--line); padding: 28px 24px 40px; }
+  footer .wrap { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+  footer, footer a { color: var(--muted); font-size: 13px; }
+  footer a { text-decoration: none; }
+  footer a:hover { color: var(--paper); }
+
+  .badge {
+    display: inline-block;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--gold); border: 1px solid rgba(245,194,99,0.35);
+    background: rgba(245,194,99,0.08);
+    padding: 4px 10px; border-radius: 100px; margin: 0 0 18px;
+  }
+  .role-grid { display: grid; gap: 10px; margin: 0; padding: 0; list-style: none; }
+  .role-grid li { margin: 0; }
+  .role-grid a { font-weight: 600; color: var(--paper); text-decoration: none; }
+  .role-grid a:hover { color: var(--gold); }
+  .role-grid .teaser { color: var(--muted); font-size: 14px; }
+</style>
+</head>
+<body>
+  <div class="noir" aria-hidden="true">
+    <div class="marks"></div>
+    <div class="glow"></div>
+  </div>
+
+  <header class="top">
+    <div class="top-inner">
+      <a class="wordmark" href="/">
+        <span class="glyph">?</span>
+        <span class="name">EnigmaDeck</span>
+      </a>
+      <nav>
+        <button class="lang-toggle" id="langToggle" type="button" aria-label="Switch language / Dili değiştir">EN</button>
+        <a href="/" data-i18n="nav_home">Ana Sayfa</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <p class="mono-label" data-i18n="p_kicker">Dosya No. 09 — Vampir Köylü Rol Rehberi</p>
+    <h1 data-i18n="p_h1">Vampir Köylü — Rol Rehberi</h1>
+    <p class="lede" data-i18n="p_lede">EnigmaDeck'in sosyal çıkarım oyunu Vampir Köylü'ndeki 20 rolün ve 1 çapraz mekaniğin tam rehberi — her birinin ne işe yaradığını, nasıl oynandığını, ne zaman claim edilmesi gerektiğini ve nelere dikkat edilmesi gerektiğini anlatıyoruz. Bir dosya seç, gerçeği çöz.</p>
+
+    <nav class="toc" aria-label="Bu sayfada">
+      <p class="mono-label" data-i18n="toc_label">Bu sayfada</p>
+      <ol>
+        <li><a href="#koy">Köylü Hizalı</a></li>
+        <li><a href="#vam">Vampir Hizalı</a></li>
+        <li><a href="#not">Nötr</a></li>
+        <li><a href="#mek">Çapraz Mekanik</a></li>
+      </ol>
+    </nav>
+
+    <div class="panel" id="koy">
+      <div class="tab" data-i18n="tab_koy">Hizalama: Köy</div>
+      <h2 data-i18n="h2_koy">Köylü Hizalı</h2>
+      <ul class="role-grid" data-i18n="list_koy"><li><a href="/roles/koylu.html">Köylü (Villager)</a> — <span class="teaser">Yeteneği yok — tek silahın oyun ve sezgin.</span></li><li><a href="/roles/doktor.html">Doktor (Doctor)</a> — <span class="teaser">Her gece birini vampir saldırısından korur.</span></li><li><a href="/roles/kahin.html">Kahin (Seer)</a> — <span class="teaser">Her gece birini sorgular, kesin sonuç alır: vampir mi, değil mi.</span></li><li><a href="/roles/avci.html">Avcı (Hunter)</a> — <span class="teaser">Öldürüldüğünde bir kişiyi daha kendinle götürür.</span></li><li><a href="/roles/cadi.html">Cadı (Witch)</a> — <span class="teaser">Bir kere iyileştirir, bir kere zehirler — ikisi de tek seferlik.</span></li><li><a href="/roles/koruyucu.html">Koruyucu (Bodyguard)</a> — <span class="teaser">Hedefini korurken saldırıyı üstlenir, bir vampiri ifşa eder.</span></li><li><a href="/roles/cirak.html">Çırak (Apprentice)</a> — <span class="teaser">Kahin ölürse otomatik olarak yeni Kahin olursun.</span></li><li><a href="/roles/serif.html">Şerif (Sheriff)</a> — <span class="teaser">Her gece inceler, ama sonucun daha belirsiz: şüpheli / temiz.</span></li><li><a href="/roles/gozcu.html">Gözcü (Lookout)</a> — <span class="teaser">Hedefini gözler, o gece kimlerin ona geldiğini öğrenir.</span></li><li><a href="/roles/muhafiz.html">Muhafız (Escort)</a> — <span class="teaser">Bir hedefi o gece için sessizce etkisiz bırakır.</span></li></ul>
+    </div>
+
+    <div class="panel" id="vam">
+      <div class="tab" data-i18n="tab_vam">Hizalama: Vampir</div>
+      <h2 data-i18n="h2_vam">Vampir Hizalı</h2>
+      <ul class="role-grid" data-i18n="list_vam"><li><a href="/roles/vampir.html">Vampir (Vampire)</a> — <span class="teaser">Her gece takımla oylayıp bir köylüyü öldürür.</span></li><li><a href="/roles/alfa-vampir.html">Alfa Vampir (Alpha Vampire)</a> — <span class="teaser">Beraberlikte oyu kazanır, ilk incelemede bağışıktır.</span></li><li><a href="/roles/suikastci.html">Suikastçı (Assassin)</a> — <span class="teaser">Oyun boyu bir kere, takım oyundan bağımsız öldürür.</span></li><li><a href="/roles/cerceveleyici.html">Çerçeveleyici (Framer)</a> — <span class="teaser">Bir hedefi o gece incelemede vampir gibi gösterir.</span></li><li><a href="/roles/vampir-ciragi.html">Vampir Çırağı (Fledgling Vampire)</a> — <span class="teaser">Bir vampir ölürse otomatik olarak saldırabilen Vampir olursun.</span></li><li><a href="/roles/sessizlestirici.html">Sessizleştirici (Blackmailer)</a> — <span class="teaser">Bir hedefi ertesi gün konuşamaz hale getirir.</span></li></ul>
+    </div>
+
+    <div class="panel" id="not">
+      <div class="tab" data-i18n="tab_not">Hizalama: Yok</div>
+      <h2 data-i18n="h2_not">Nötr</h2>
+      <ul class="role-grid" data-i18n="list_not"><li><a href="/roles/soytari.html">Soytarı (Jester)</a> — <span class="teaser">Linç edilirsen tek başına kazanırsın — şüpheli görünmek amacın.</span></li><li><a href="/roles/seri-katil.html">Seri Katil (Serial Killer)</a> — <span class="teaser">Her gece bağımsız öldürür, korumaya karşı bağışıktır, son kişi kalırsa kazanır.</span></li><li><a href="/roles/munzevi.html">Münzevi (Survivor)</a> — <span class="teaser">Takımsız — sadece hayatta kalmak istersin, 3 kere kendini koruyabilirsin.</span></li><li><a href="/roles/infazci.html">İnfazcı (Executioner)</a> — <span class="teaser">Gizli bir masum hedefin var — linçle elenmesini sağlamalısın.</span></li></ul>
+    </div>
+
+    <div class="panel" id="mek">
+      <div class="tab" data-i18n="tab_mek">Rol Değil</div>
+      <h2 data-i18n="h2_mek">Çapraz Mekanik</h2>
+      <ul class="role-grid" data-i18n="list_mek"><li><a href="/roles/asiklar.html">Aşıklar (Lovers)</a> — <span class="teaser">İki oyuncu gizlice birbirine bağlıdır — biri ölürse diğeri de ölür.</span></li></ul>
+    </div>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <span data-i18n="footer_copy">© 2026 Batuhan Demir — EnigmaDeck</span>
+      <a href="/" data-i18n="nav_home">Ana Sayfa</a>
+    </div>
+  </footer>
+
+  <script>
+    // ---------- TR / EN dil değiştirme ----------
+    var I18N = {
+      nav_home: { tr: "Ana Sayfa", en: "Home" },
+      p_kicker: { tr: "Dosya No. 09 — Vampir Köylü Rol Rehberi", en: "File No. 09 — Vampir Köylü Role Guide" },
+      p_h1: { tr: "Vampir Köylü — Rol Rehberi", en: "Vampir Köylü — Role Guide" },
+      p_lede: { tr: "EnigmaDeck'in sosyal çıkarım oyunu Vampir Köylü'ndeki 20 rolün ve 1 çapraz mekaniğin tam rehberi — her birinin ne işe yaradığını, nasıl oynandığını, ne zaman claim edilmesi gerektiğini ve nelere dikkat edilmesi gerektiğini anlatıyoruz. Bir dosya seç, gerçeği çöz.", en: "The complete guide to all 20 roles — plus 1 cross-cutting mechanic — in EnigmaDeck's social deduction game Vampir Köylü: what each one does, how to play it, when to claim it, and what to watch for. Pick a file, work out the truth." },
+      toc_label: { tr: "Bu sayfada", en: "On this page" },
+      tab_koy: { tr: "Hizalama: Köy", en: "Alignment: Village" },
+      h2_koy: { tr: "Köylü Hizalı", en: "Village-Aligned" },
+      list_koy: { tr: "<li><a href=\"/roles/koylu.html\">Köylü (Villager)</a> — <span class=\"teaser\">Yeteneği yok — tek silahın oyun ve sezgin.</span></li><li><a href=\"/roles/doktor.html\">Doktor (Doctor)</a> — <span class=\"teaser\">Her gece birini vampir saldırısından korur.</span></li><li><a href=\"/roles/kahin.html\">Kahin (Seer)</a> — <span class=\"teaser\">Her gece birini sorgular, kesin sonuç alır: vampir mi, değil mi.</span></li><li><a href=\"/roles/avci.html\">Avcı (Hunter)</a> — <span class=\"teaser\">Öldürüldüğünde bir kişiyi daha kendinle götürür.</span></li><li><a href=\"/roles/cadi.html\">Cadı (Witch)</a> — <span class=\"teaser\">Bir kere iyileştirir, bir kere zehirler — ikisi de tek seferlik.</span></li><li><a href=\"/roles/koruyucu.html\">Koruyucu (Bodyguard)</a> — <span class=\"teaser\">Hedefini korurken saldırıyı üstlenir, bir vampiri ifşa eder.</span></li><li><a href=\"/roles/cirak.html\">Çırak (Apprentice)</a> — <span class=\"teaser\">Kahin ölürse otomatik olarak yeni Kahin olursun.</span></li><li><a href=\"/roles/serif.html\">Şerif (Sheriff)</a> — <span class=\"teaser\">Her gece inceler, ama sonucun daha belirsiz: şüpheli / temiz.</span></li><li><a href=\"/roles/gozcu.html\">Gözcü (Lookout)</a> — <span class=\"teaser\">Hedefini gözler, o gece kimlerin ona geldiğini öğrenir.</span></li><li><a href=\"/roles/muhafiz.html\">Muhafız (Escort)</a> — <span class=\"teaser\">Bir hedefi o gece için sessizce etkisiz bırakır.</span></li>", en: "<li><a href=\"/roles/koylu.html\">Köylü (Villager)</a> — <span class=\"teaser\">No power — your only weapons are your vote and your instincts.</span></li><li><a href=\"/roles/doktor.html\">Doktor (Doctor)</a> — <span class=\"teaser\">Each night, protects one player from the vampires' attack.</span></li><li><a href=\"/roles/kahin.html\">Kahin (Seer)</a> — <span class=\"teaser\">Each night, investigates one player and gets an exact vampire/not-vampire result.</span></li><li><a href=\"/roles/avci.html\">Avcı (Hunter)</a> — <span class=\"teaser\">When killed, takes one more player down with them.</span></li><li><a href=\"/roles/cadi.html\">Cadı (Witch)</a> — <span class=\"teaser\">Heals once, poisons once — both are one-shot for the whole game.</span></li><li><a href=\"/roles/koruyucu.html\">Koruyucu (Bodyguard)</a> — <span class=\"teaser\">Takes the attack meant for their target — and exposes a vampire.</span></li><li><a href=\"/roles/cirak.html\">Çırak (Apprentice)</a> — <span class=\"teaser\">If the Seer dies, you automatically become the new Seer.</span></li><li><a href=\"/roles/serif.html\">Şerif (Sheriff)</a> — <span class=\"teaser\">Investigates each night, but with a vaguer result: suspicious / clean.</span></li><li><a href=\"/roles/gozcu.html\">Gözcü (Lookout)</a> — <span class=\"teaser\">Watches a target and learns who else visited them that night.</span></li><li><a href=\"/roles/muhafiz.html\">Muhafız (Escort)</a> — <span class=\"teaser\">Silently disables one target's night action.</span></li>" },
+      tab_vam: { tr: "Hizalama: Vampir", en: "Alignment: Vampire" },
+      h2_vam: { tr: "Vampir Hizalı", en: "Vampire-Aligned" },
+      list_vam: { tr: "<li><a href=\"/roles/vampir.html\">Vampir (Vampire)</a> — <span class=\"teaser\">Her gece takımla oylayıp bir köylüyü öldürür.</span></li><li><a href=\"/roles/alfa-vampir.html\">Alfa Vampir (Alpha Vampire)</a> — <span class=\"teaser\">Beraberlikte oyu kazanır, ilk incelemede bağışıktır.</span></li><li><a href=\"/roles/suikastci.html\">Suikastçı (Assassin)</a> — <span class=\"teaser\">Oyun boyu bir kere, takım oyundan bağımsız öldürür.</span></li><li><a href=\"/roles/cerceveleyici.html\">Çerçeveleyici (Framer)</a> — <span class=\"teaser\">Bir hedefi o gece incelemede vampir gibi gösterir.</span></li><li><a href=\"/roles/vampir-ciragi.html\">Vampir Çırağı (Fledgling Vampire)</a> — <span class=\"teaser\">Bir vampir ölürse otomatik olarak saldırabilen Vampir olursun.</span></li><li><a href=\"/roles/sessizlestirici.html\">Sessizleştirici (Blackmailer)</a> — <span class=\"teaser\">Bir hedefi ertesi gün konuşamaz hale getirir.</span></li>", en: "<li><a href=\"/roles/vampir.html\">Vampir (Vampire)</a> — <span class=\"teaser\">Each night, votes with the team to kill a villager.</span></li><li><a href=\"/roles/alfa-vampir.html\">Alfa Vampir (Alpha Vampire)</a> — <span class=\"teaser\">Wins tied votes, immune to the first investigation.</span></li><li><a href=\"/roles/suikastci.html\">Suikastçı (Assassin)</a> — <span class=\"teaser\">Once per game, kills independently of the team vote.</span></li><li><a href=\"/roles/cerceveleyici.html\">Çerçeveleyici (Framer)</a> — <span class=\"teaser\">Makes a target appear as a vampire to that night's investigation.</span></li><li><a href=\"/roles/vampir-ciragi.html\">Vampir Çırağı (Fledgling Vampire)</a> — <span class=\"teaser\">If a vampire dies, you automatically become a full attacking Vampire.</span></li><li><a href=\"/roles/sessizlestirici.html\">Sessizleştirici (Blackmailer)</a> — <span class=\"teaser\">Silences a target for the following day phase.</span></li>" },
+      tab_not: { tr: "Hizalama: Yok", en: "Alignment: None" },
+      h2_not: { tr: "Nötr", en: "Neutral" },
+      list_not: { tr: "<li><a href=\"/roles/soytari.html\">Soytarı (Jester)</a> — <span class=\"teaser\">Linç edilirsen tek başına kazanırsın — şüpheli görünmek amacın.</span></li><li><a href=\"/roles/seri-katil.html\">Seri Katil (Serial Killer)</a> — <span class=\"teaser\">Her gece bağımsız öldürür, korumaya karşı bağışıktır, son kişi kalırsa kazanır.</span></li><li><a href=\"/roles/munzevi.html\">Münzevi (Survivor)</a> — <span class=\"teaser\">Takımsız — sadece hayatta kalmak istersin, 3 kere kendini koruyabilirsin.</span></li><li><a href=\"/roles/infazci.html\">İnfazcı (Executioner)</a> — <span class=\"teaser\">Gizli bir masum hedefin var — linçle elenmesini sağlamalısın.</span></li>", en: "<li><a href=\"/roles/soytari.html\">Soytarı (Jester)</a> — <span class=\"teaser\">Win alone if you get lynched — looking suspicious is the whole point.</span></li><li><a href=\"/roles/seri-katil.html\">Seri Katil (Serial Killer)</a> — <span class=\"teaser\">Kills independently every night, immune to protection, wins if last standing.</span></li><li><a href=\"/roles/munzevi.html\">Münzevi (Survivor)</a> — <span class=\"teaser\">No team — you just want to survive, with 3 self-protect vests.</span></li><li><a href=\"/roles/infazci.html\">İnfazcı (Executioner)</a> — <span class=\"teaser\">You have a secret innocent target — get them lynched to win.</span></li>" },
+      tab_mek: { tr: "Rol Değil", en: "Not a Role" },
+      h2_mek: { tr: "Çapraz Mekanik", en: "Cross-Cutting Mechanic" },
+      list_mek: { tr: "<li><a href=\"/roles/asiklar.html\">Aşıklar (Lovers)</a> — <span class=\"teaser\">İki oyuncu gizlice birbirine bağlıdır — biri ölürse diğeri de ölür.</span></li>", en: "<li><a href=\"/roles/asiklar.html\">Aşıklar (Lovers)</a> — <span class=\"teaser\">Two players are secretly bound together — if one dies, the other dies too.</span></li>" },
+      footer_copy: { tr: "© 2026 Batuhan Demir — EnigmaDeck", en: "© 2026 Batuhan Demir — EnigmaDeck" },
+    };
+
+    function applyLang(lang) {
+      document.documentElement.lang = lang;
+      document.querySelectorAll('[data-i18n]').forEach(function (el) {
+        var entry = I18N[el.getAttribute('data-i18n')];
+        if (entry) el.innerHTML = entry[lang];
+      });
+      var toggle = document.getElementById('langToggle');
+      if (toggle) toggle.textContent = lang === 'tr' ? 'EN' : 'TR';
+      localStorage.setItem('enigmadeck_lang', lang);
+    }
+
+    applyLang(localStorage.getItem('enigmadeck_lang') || 'tr');
+    var langToggleBtn = document.getElementById('langToggle');
+    if (langToggleBtn) {
+      langToggleBtn.addEventListener('click', function () {
+        applyLang(document.documentElement.lang === 'tr' ? 'en' : 'tr');
+      });
+    }
+
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      var root = document.documentElement;
+      var targetX = window.innerWidth / 2, targetY = window.innerHeight * 0.2;
+      var curX = targetX, curY = targetY, raf = null;
+      window.addEventListener('mousemove', function (e) {
+        targetX = e.clientX;
+        targetY = e.clientY;
+        if (!raf) raf = requestAnimationFrame(tick);
+      }, { passive: true });
+      function tick() {
+        curX += (targetX - curX) * 0.09;
+        curY += (targetY - curY) * 0.09;
+        root.style.setProperty('--mx', curX + 'px');
+        root.style.setProperty('--my', curY + 'px');
+        if (Math.abs(targetX - curX) > 0.3 || Math.abs(targetY - curY) > 0.3) {
+          raf = requestAnimationFrame(tick);
+        } else {
+          raf = null;
+        }
+      }
+    }
+  </script>
+</body>
+</html>

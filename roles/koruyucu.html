@@ -1,0 +1,328 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="EnigmaDeck Vampir Köylü rol rehberi: Koruyucu (Bodyguard) — ne işe yarar, nasıl oynanır, ne claim edilmeli ve nelere dikkat edilmeli.">
+<meta name="theme-color" content="#0B0A16">
+<title>EnigmaDeck — Vampir Köylü: Koruyucu (Bodyguard)</title>
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="icon" type="image/png" sizes="512x512" href="/favicon-512.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,560;9..144,680&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0b0a16;
+    --panel: rgba(255,255,255,0.045);
+    --line: rgba(255,255,255,0.10);
+    --paper: #f4f1ff;
+    --muted: #a8a2c9;
+    --violet: #8b5cf6;
+    --magenta: #f24fc4;
+    --gold: #f5c263;
+    --mx: 50%;
+    --my: 20%;
+  }
+  * { box-sizing: border-box; }
+  html { color-scheme: dark; }
+  body {
+    margin: 0;
+    background: radial-gradient(120% 50% at 50% -10%, #1c1638 0%, var(--ink) 55%) fixed;
+    color: var(--paper);
+    font-family: "IBM Plex Sans", -apple-system, sans-serif;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--gold); }
+
+  .noir { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+  .noir .glow {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(120px circle at var(--mx) var(--my), rgba(255,232,180,0.16), transparent 60%),
+      radial-gradient(420px circle at var(--mx) var(--my), rgba(245,194,99,0.10), transparent 65%),
+      radial-gradient(820px circle at var(--mx) var(--my), rgba(139,92,246,0.09), transparent 72%);
+  }
+  .noir .marks {
+    position: absolute; inset: 0;
+    opacity: 0.4;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Ctext x='18' y='58' font-family='Georgia,serif' font-size='40' fill='%23f4f1ff' opacity='0.55' transform='rotate(-8 18 58)'%3E%3F%3C/text%3E%3Ctext x='108' y='140' font-family='Georgia,serif' font-size='28' fill='%23f4f1ff' opacity='0.4' transform='rotate(10 108 140)'%3E%3F%3C/text%3E%3C/svg%3E");
+    background-size: 180px 180px;
+    -webkit-mask-image: radial-gradient(380px circle at var(--mx) var(--my), black, transparent 72%);
+            mask-image: radial-gradient(380px circle at var(--mx) var(--my), black, transparent 72%);
+  }
+  header.top, main, footer { position: relative; z-index: 1; }
+  a:focus-visible, .toc a:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; border-radius: 4px; }
+  ::selection { background: var(--violet); color: white; }
+
+  .wrap { max-width: 760px; margin: 0 auto; padding: 0 24px; }
+
+  header.top { border-bottom: 1px solid var(--line); }
+  .top-inner {
+    max-width: 760px; margin: 0 auto; padding: 22px 24px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .wordmark { display: flex; align-items: center; gap: 12px; text-decoration: none; color: inherit; }
+  .wordmark .glyph {
+    width: 32px; height: 32px; border-radius: 9px;
+    background: linear-gradient(135deg, var(--violet), var(--magenta));
+    display: flex; align-items: center; justify-content: center;
+    font-family: "Fraunces", Georgia, serif; font-weight: 680; font-size: 17px; color: white;
+  }
+  .wordmark .name { font-weight: 600; font-size: 15px; }
+  header.top nav { display: flex; align-items: center; gap: 8px; }
+  header.top nav a {
+    text-decoration: none; font-size: 13.5px; font-weight: 500; color: var(--muted);
+    border: 1px solid var(--line); padding: 7px 14px; border-radius: 100px;
+  }
+  header.top nav a:hover { color: var(--paper); border-color: var(--violet); }
+  .lang-toggle {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 12px; font-weight: 500; letter-spacing: 0.04em;
+    color: var(--muted); background: none;
+    border: 1px solid var(--line); padding: 7px 12px; border-radius: 100px;
+    cursor: pointer;
+  }
+  .lang-toggle:hover { color: var(--gold); border-color: var(--gold); }
+
+  main { padding: 60px 0 100px; }
+
+  .mono-label {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--gold); margin: 0 0 16px;
+  }
+  h1 {
+    font-family: "Fraunces", Georgia, serif;
+    font-weight: 680;
+    font-size: clamp(30px, 5vw, 42px);
+    line-height: 1.1;
+    margin: 0 0 12px;
+    color: var(--paper);
+  }
+  .updated { font-family: "IBM Plex Mono", monospace; font-size: 12.5px; color: var(--muted); margin: 0 0 28px; }
+  .lede { color: var(--muted); font-size: 16px; max-width: 58ch; margin: 0 0 44px; }
+
+  nav.toc {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 22px 26px;
+    margin: 0 0 40px;
+  }
+  nav.toc .mono-label { margin-bottom: 14px; }
+  nav.toc ol { margin: 0; padding: 0; list-style: none; display: grid; gap: 9px; }
+  nav.toc a { text-decoration: none; color: var(--paper); font-size: 14.5px; font-weight: 500; }
+  nav.toc a:hover { color: var(--gold); }
+
+  .panel {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 26px 28px;
+    margin-bottom: 16px;
+    scroll-margin-top: 20px;
+  }
+  .panel .tab {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--muted); margin: 0 0 10px;
+  }
+  .panel h2 {
+    font-family: "Fraunces", Georgia, serif;
+    font-weight: 600; font-size: 20px; margin: 0 0 12px; color: var(--paper);
+  }
+  .panel p, .panel li { margin: 0 0 10px; color: #d8d4ee; font-size: 15px; }
+  .panel ul { padding-left: 20px; margin: 0 0 10px; }
+  .panel p:last-child, .panel ul:last-child { margin-bottom: 0; }
+  strong { color: var(--paper); font-weight: 600; }
+  a.inline { font-weight: 600; text-decoration: none; }
+  a.inline:hover { text-decoration: underline; }
+
+  .contact {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 16px; flex-wrap: wrap; margin-top: 6px;
+  }
+  .contact .to { font-family: "IBM Plex Mono", monospace; font-size: 11.5px; color: var(--muted); }
+  .contact .addr { font-size: 16px; font-weight: 600; color: var(--paper); margin-top: 3px; }
+  .contact a.btn {
+    text-decoration: none;
+    background: linear-gradient(135deg, var(--violet), var(--magenta));
+    color: white; font-size: 13.5px; font-weight: 600;
+    padding: 11px 20px; border-radius: 100px; flex-shrink: 0;
+  }
+
+  footer { border-top: 1px solid var(--line); padding: 28px 24px 40px; }
+  footer .wrap { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+  footer, footer a { color: var(--muted); font-size: 13px; }
+  footer a { text-decoration: none; }
+  footer a:hover { color: var(--paper); }
+
+  .badge {
+    display: inline-block;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--gold); border: 1px solid rgba(245,194,99,0.35);
+    background: rgba(245,194,99,0.08);
+    padding: 4px 10px; border-radius: 100px; margin: 0 0 18px;
+  }
+  .role-grid { display: grid; gap: 10px; margin: 0; padding: 0; list-style: none; }
+  .role-grid li { margin: 0; }
+  .role-grid a { font-weight: 600; color: var(--paper); text-decoration: none; }
+  .role-grid a:hover { color: var(--gold); }
+  .role-grid .teaser { color: var(--muted); font-size: 14px; }
+</style>
+</head>
+<body>
+  <div class="noir" aria-hidden="true">
+    <div class="marks"></div>
+    <div class="glow"></div>
+  </div>
+
+  <header class="top">
+    <div class="top-inner">
+      <a class="wordmark" href="/">
+        <span class="glyph">?</span>
+        <span class="name">EnigmaDeck</span>
+      </a>
+      <nav>
+        <button class="lang-toggle" id="langToggle" type="button" aria-label="Switch language / Dili değiştir">EN</button>
+        <a href="/roles/" data-i18n="nav_roles">Rol Rehberi</a>
+        <a href="/" data-i18n="nav_home">Ana Sayfa</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <p class="mono-label" data-i18n="p_kicker">Rol Dosyası — Köylü Hizalı</p>
+    <h1 data-i18n="p_h1">Koruyucu</h1>
+    <p class="updated" data-i18n="p_sub">(İngilizce: Bodyguard)</p>
+    <p class="lede" data-i18n="p_lede">Vücut siperi anlamıyla gerçek bir koruyucu. İşe yaradığında oyunun akışını tek başına değiştirebilir.</p>
+
+    <nav class="toc" aria-label="Bu sayfada">
+      <p class="mono-label" data-i18n="toc_label">Bu sayfada</p>
+      <ol>
+        <li><a href="#yetenek" data-i18n="toc1">Ne İşe Yarar</a></li>
+        <li><a href="#oynanis" data-i18n="toc2">Nasıl Oynanır</a></li>
+        <li><a href="#claim" data-i18n="toc3">Ne Claim Etmeli</a></li>
+        <li><a href="#davranis" data-i18n="toc4">Nasıl Davranmalı</a></li>
+        <li><a href="#ilgili" data-i18n="toc5">İlgili Roller</a></li>
+      </ol>
+    </nav>
+
+    <div class="panel" id="yetenek">
+      <div class="tab" data-i18n="sec1_tab">Yetenek</div>
+      <h2 data-i18n="sec1_h2">Ne İşe Yarar</h2>
+      <p data-i18n="s1">Her gece birini korumaya alırsın. Eğer koruduğun kişi vampirlerin saldırı hedefiyse, onun yerine SEN ölürsün ve saldıran vampirlerden biri herkese açık şekilde ifşa olur. Oyunun akışını değiştiren büyük bir tempo hamlesi.</p>
+    </div>
+
+    <div class="panel" id="oynanis">
+      <div class="tab" data-i18n="sec2_tab">Uygulama</div>
+      <h2 data-i18n="sec2_h2">Nasıl Oynanır</h2>
+      <p data-i18n="s2">Şüpheli olarak korunmaya en çok ihtiyaç duyan kişiyi seç — genelde açık Kahin/Doktor iddiasında bulunmuş biri. Her gece aynı kişiyi koruyabilirsin, ama değer yargını güncel tut: bilgi sahibi rolün değiştikçe koruma önceliğin de değişmeli.</p>
+    </div>
+
+    <div class="panel" id="claim">
+      <div class="tab" data-i18n="sec3_tab">İletişim Taktiği</div>
+      <h2 data-i18n="sec3_h2">Ne Claim Etmeli</h2>
+      <p data-i18n="s3">Koruyucu olduğunu erken claim etmek gerekli değil — sessiz kalman, sürpriz bir takas anını mümkün kılar. Ama takas gerçekleştiğinde (bir vampir ifşa olduğunda) hemen açık claim et; bu kanıt tartışmasız ve köyü anında doğru yöne çevirir.</p>
+    </div>
+
+    <div class="panel" id="davranis">
+      <div class="tab" data-i18n="sec4_tab">Davranış</div>
+      <h2 data-i18n="sec4_h2">Nasıl Davranmalı, Nelere Dikkat Etmeli</h2>
+      <p data-i18n="s4">Standart hamlen, en yüksek değerli hedefi (iddialı Kahin/Doktor) korumak. Takas gerçekleştiğinde utanmadan sonucu paylaş — bu senin en büyük katkın ve köyün ona güvenmesi gerekiyor. Takas olmadığı gecelerde sessiz kal; her gece kimi koruduğunu açıklamak, vampirlerin bir sonraki hedefini seçmesine yardım eder.</p>
+    </div>
+
+    <div class="panel" id="ilgili">
+      <div class="tab" data-i18n="sec5_tab">Bağlantılar</div>
+      <h2 data-i18n="sec5_h2">İlgili Roller</h2>
+      <ul data-i18n="related_list"><li><a href="/roles/doktor.html">Doktor (Doctor)</a> — Doktor, seninle aynı geceye aynı hedefi koruyabilir — çakışmaya dikkat.</li><li><a href="/roles/muhafiz.html">Muhafız (Escort)</a> — Muhafız'ın bloğu senin korumanı yanlışlıkla iptal edebilir.</li><li><a href="/roles/avci.html">Avcı (Hunter)</a> — Avcı da bir saldırıya karşılık veren rol, farklı bir zamanlamada.</li></ul>
+    </div>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <span data-i18n="footer_copy">© 2026 Batuhan Demir — EnigmaDeck</span>
+      <a href="/roles/" data-i18n="nav_roles">Rol Rehberi</a>
+    </div>
+  </footer>
+
+  <script>
+    // ---------- TR / EN dil değiştirme ----------
+    var I18N = {
+      nav_home: { tr: "Ana Sayfa", en: "Home" },
+      nav_roles: { tr: "Rol Rehberi", en: "Role Guide" },
+      sec1_tab: { tr: "Yetenek", en: "Ability" },
+      sec1_h2: { tr: "Ne İşe Yarar", en: "What It Does" },
+      sec2_tab: { tr: "Uygulama", en: "Execution" },
+      sec2_h2: { tr: "Nasıl Oynanır", en: "How To Play" },
+      sec3_tab: { tr: "İletişim Taktiği", en: "Claim Tactics" },
+      sec3_h2: { tr: "Ne Claim Etmeli", en: "What To Claim" },
+      sec4_tab: { tr: "Davranış", en: "Behavior" },
+      sec4_h2: { tr: "Nasıl Davranmalı, Nelere Dikkat Etmeli", en: "Behavior & Tells" },
+      sec5_tab: { tr: "Bağlantılar", en: "Connections" },
+      sec5_h2: { tr: "İlgili Roller", en: "Related Roles" },
+      toc_label: { tr: "Bu sayfada", en: "On this page" },
+      toc1: { tr: "Ne İşe Yarar", en: "What It Does" },
+      toc2: { tr: "Nasıl Oynanır", en: "How To Play" },
+      toc3: { tr: "Ne Claim Etmeli", en: "What To Claim" },
+      toc4: { tr: "Nasıl Davranmalı", en: "Behavior & Tells" },
+      toc5: { tr: "İlgili Roller", en: "Related Roles" },
+      footer_copy: { tr: "© 2026 Batuhan Demir — EnigmaDeck", en: "© 2026 Batuhan Demir — EnigmaDeck" },
+      p_kicker: { tr: "Rol Dosyası — Köylü Hizalı", en: "Role File — Village-Aligned" },
+      p_h1: { tr: "Koruyucu", en: "Bodyguard" },
+      p_sub: { tr: "(İngilizce: Bodyguard)", en: "(Turkish: Koruyucu)" },
+      p_lede: { tr: "Vücut siperi anlamıyla gerçek bir koruyucu. İşe yaradığında oyunun akışını tek başına değiştirebilir.", en: "A literal human shield. When it works, it can single-handedly flip the game's momentum." },
+      s1: { tr: "Her gece birini korumaya alırsın. Eğer koruduğun kişi vampirlerin saldırı hedefiyse, onun yerine SEN ölürsün ve saldıran vampirlerden biri herkese açık şekilde ifşa olur. Oyunun akışını değiştiren büyük bir tempo hamlesi.", en: "Each night you guard someone. If your guarded target is the vampires' attack target, YOU die in their place — and one of the attacking vampires gets publicly exposed to the whole room. A game-defining tempo swing when it triggers." },
+      s2: { tr: "Şüpheli olarak korunmaya en çok ihtiyaç duyan kişiyi seç — genelde açık Kahin/Doktor iddiasında bulunmuş biri. Her gece aynı kişiyi koruyabilirsin, ama değer yargını güncel tut: bilgi sahibi rolün değiştikçe koruma önceliğin de değişmeli.", en: "Pick whoever needs protection most — typically an openly-claimed Seer/Doctor. You can guard the same person every night, but keep your judgment current: as the information landscape shifts, your protection priority should shift with it." },
+      s3: { tr: "Koruyucu olduğunu erken claim etmek gerekli değil — sessiz kalman, sürpriz bir takas anını mümkün kılar. Ama takas gerçekleştiğinde (bir vampir ifşa olduğunda) hemen açık claim et; bu kanıt tartışmasız ve köyü anında doğru yöne çevirir.", en: "You don't need to claim Bodyguard early — staying silent keeps the surprise trade-off possible. But the moment a trade actually happens (a vampire gets exposed), claim openly right away; the evidence is undeniable and instantly redirects the village." },
+      s4: { tr: "Standart hamlen, en yüksek değerli hedefi (iddialı Kahin/Doktor) korumak. Takas gerçekleştiğinde utanmadan sonucu paylaş — bu senin en büyük katkın ve köyün ona güvenmesi gerekiyor. Takas olmadığı gecelerde sessiz kal; her gece kimi koruduğunu açıklamak, vampirlerin bir sonraki hedefini seçmesine yardım eder.", en: "Your standard move is guarding the highest-value target (a claimed Seer/Doctor). When a trade happens, share the result without hesitation — it's your biggest contribution and the village needs to trust it. On nights without a trade, stay quiet; announcing who you guarded every night just helps vampires pick their next target." },
+      related_list: { tr: "<li><a href=\"/roles/doktor.html\">Doktor (Doctor)</a> — Doktor, seninle aynı geceye aynı hedefi koruyabilir — çakışmaya dikkat.</li><li><a href=\"/roles/muhafiz.html\">Muhafız (Escort)</a> — Muhafız'ın bloğu senin korumanı yanlışlıkla iptal edebilir.</li><li><a href=\"/roles/avci.html\">Avcı (Hunter)</a> — Avcı da bir saldırıya karşılık veren rol, farklı bir zamanlamada.</li>", en: "<li><a href=\"/roles/doktor.html\">Doktor (Doctor)</a> — The Doctor might guard the same target the same night — watch for overlap.</li><li><a href=\"/roles/muhafiz.html\">Muhafız (Escort)</a> — The Escort's block can accidentally cancel your protection.</li><li><a href=\"/roles/avci.html\">Avcı (Hunter)</a> — The Hunter also strikes back at an attack, just on a different timeline.</li>" },
+    };
+
+    function applyLang(lang) {
+      document.documentElement.lang = lang;
+      document.querySelectorAll('[data-i18n]').forEach(function (el) {
+        var entry = I18N[el.getAttribute('data-i18n')];
+        if (entry) el.innerHTML = entry[lang];
+      });
+      var toggle = document.getElementById('langToggle');
+      if (toggle) toggle.textContent = lang === 'tr' ? 'EN' : 'TR';
+      localStorage.setItem('enigmadeck_lang', lang);
+    }
+
+    applyLang(localStorage.getItem('enigmadeck_lang') || 'tr');
+    var langToggleBtn = document.getElementById('langToggle');
+    if (langToggleBtn) {
+      langToggleBtn.addEventListener('click', function () {
+        applyLang(document.documentElement.lang === 'tr' ? 'en' : 'tr');
+      });
+    }
+
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      var root = document.documentElement;
+      var targetX = window.innerWidth / 2, targetY = window.innerHeight * 0.2;
+      var curX = targetX, curY = targetY, raf = null;
+      window.addEventListener('mousemove', function (e) {
+        targetX = e.clientX;
+        targetY = e.clientY;
+        if (!raf) raf = requestAnimationFrame(tick);
+      }, { passive: true });
+      function tick() {
+        curX += (targetX - curX) * 0.09;
+        curY += (targetY - curY) * 0.09;
+        root.style.setProperty('--mx', curX + 'px');
+        root.style.setProperty('--my', curY + 'px');
+        if (Math.abs(targetX - curX) > 0.3 || Math.abs(targetY - curY) > 0.3) {
+          raf = requestAnimationFrame(tick);
+        } else {
+          raf = null;
+        }
+      }
+    }
+  </script>
+</body>
+</html>
