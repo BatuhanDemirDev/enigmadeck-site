@@ -24,6 +24,10 @@
     --gold: #f5c263;
     --mx: 50%;
     --my: 20%;
+    --align-village: #7bc98d;
+    --align-vampire: #e0526a;
+    --align-neutral: #5b9fe0;
+    --align-lovers: #f291d0;
   }
   * { box-sizing: border-box; }
   html { color-scheme: dark; }
@@ -173,6 +177,49 @@
   .role-grid a { font-weight: 600; color: var(--paper); text-decoration: none; }
   .role-grid a:hover { color: var(--gold); }
   .role-grid .teaser { color: var(--muted); font-size: 14px; }
+
+  /* Alignment chips: reuse the site's pill/tag aesthetic, tinted per faction */
+  .kicker-chip {
+    display: inline-flex; align-items: center;
+    border: 1px solid var(--line); background: var(--panel);
+    padding: 5px 12px; border-radius: 100px;
+  }
+  .kicker-chip.align-koy { color: var(--align-village); border-color: rgba(123,201,141,.35); background: rgba(123,201,141,.08); }
+  .kicker-chip.align-vam { color: var(--align-vampire); border-color: rgba(224,82,106,.35); background: rgba(224,82,106,.08); }
+  .kicker-chip.align-not { color: var(--align-neutral); border-color: rgba(91,159,224,.35); background: rgba(91,159,224,.08); }
+  .kicker-chip.align-ask { color: var(--align-lovers); border-color: rgba(242,145,208,.35); background: rgba(242,145,208,.08); }
+  .panel .tab.align-koy { color: var(--align-village); }
+  .panel .tab.align-vam { color: var(--align-vampire); }
+  .panel .tab.align-not { color: var(--align-neutral); }
+  .panel .tab.align-ask { color: var(--align-lovers); }
+
+  /* Role emblem: gradient badge matching .wordmark .glyph, gold glyph on top */
+  .role-hero { display: flex; align-items: center; gap: 18px; margin: 0 0 12px; }
+  .role-hero h1 { margin: 0; }
+  .role-icon {
+    flex-shrink: 0; width: 64px; height: 64px; border-radius: 18px;
+    background: linear-gradient(135deg, var(--violet), var(--magenta));
+    border: 1px solid var(--line);
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 8px 22px rgba(139,92,246,.28);
+  }
+  .role-icon svg { width: 34px; height: 34px; color: var(--gold); display: block; }
+
+  /* Small role emblem + alignment ring, used in the roles/index.html lists */
+  .role-mini {
+    width: 30px; height: 30px; border-radius: 9px; flex-shrink: 0; margin-top: 1px;
+    display: flex; align-items: center; justify-content: center;
+    border: 1px solid var(--line); background: var(--panel);
+  }
+  .role-mini svg { width: 16px; height: 16px; color: var(--gold); display: block; }
+  .role-mini.align-koy { border-color: rgba(123,201,141,.4); background: rgba(123,201,141,.10); }
+  .role-mini.align-vam { border-color: rgba(224,82,106,.4); background: rgba(224,82,106,.10); }
+  .role-mini.align-not { border-color: rgba(91,159,224,.4); background: rgba(91,159,224,.10); }
+  .role-mini.align-ask { border-color: rgba(242,145,208,.4); background: rgba(242,145,208,.10); }
+  .role-grid li { display: flex; align-items: flex-start; gap: 12px; }
+  .role-grid .role-text { flex: 1; }
+
+  .icon-credit { color: var(--muted); font-size: 13px; }
 </style>
 </head>
 <body>
@@ -196,8 +243,11 @@
   </header>
 
   <main class="wrap">
-    <p class="mono-label" data-i18n="p_kicker">Rol Dosyası — Köylü Hizalı</p>
-    <h1 data-i18n="p_h1">Gözcü</h1>
+    <p class="mono-label kicker-chip align-koy" data-i18n="p_kicker">Rol Dosyası — Köylü Hizalı</p>
+    <div class="role-hero">
+      <span class="role-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M186.436 86.738c-9.044 0-19.112 5.87-26.735 21.114l-6.807 13.62c2.48-.203 4.968-.31 7.455-.31 18.02 0 36.005 5.363 51.87 15.977v-30.984c-7.5-13.917-17.102-19.418-25.782-19.418zm139.128 0c-8.68 0-18.28 5.5-25.78 19.418v30.994c18.064-12.06 38.895-17.28 59.345-15.638l-6.83-13.66c-7.624-15.245-17.692-21.114-26.736-21.114zm-165.216 51.926c-19.05 0-38.08 7.693-53.74 23l-37.38 65.418c14.492-6.743 30.633-10.518 47.64-10.518 39.96 0 75.16 20.792 95.35 52.124V159.846c-15.293-14.115-33.58-21.182-51.87-21.182zm192.433.033c-18.662-.306-37.39 6.74-52.997 21.145v108.845c20.19-31.33 55.39-52.123 95.348-52.123 17.01 0 33.15 3.775 47.643 10.518l-37.38-65.418c-15.35-15.003-33.95-22.66-52.612-22.967zM256 151.957c-5.113 0-11.882 2.775-25.783 9.627v133.014c7.246-5.314 16.164-8.467 25.783-8.467 9.62 0 18.537 3.154 25.783 8.468V161.584c-13.9-6.852-20.67-9.627-25.783-9.627zm-139.13 82.607c-52.767 0-95.35 42.582-95.35 95.348s42.583 95.35 95.35 95.35c52.765 0 95.347-42.584 95.347-95.35 0-52.766-42.582-95.348-95.348-95.348zm278.26 0c-52.765 0-95.347 42.582-95.347 95.348s42.582 95.35 95.348 95.35c52.767 0 95.35-42.584 95.35-95.35 0-52.766-42.583-95.348-95.35-95.348zm-279.827 19.004c1.223-.018 2.448-.008 3.674.03 7.344.225 14.694 1.462 21.77 3.816 36.842 11.343 59.745 51.664 50.622 89.11-7.652 37.743-45.455 64.51-83.595 59.17-38.748-3.865-69.376-39.578-67.16-78.483.167-11.41 3.133-22.336 8.2-32.124A26.087 26.087 0 0 0 73.39 312.52a26.087 26.087 0 0 0 26.09-26.084 26.087 26.087 0 0 0-17.447-24.584c9.058-4.694 19.097-7.594 29.606-8.147 1.218-.072 2.44-.118 3.663-.137zm278.26 0c1.223-.018 2.448-.008 3.673.03 7.344.225 14.696 1.462 21.774 3.816 36.84 11.343 59.742 51.664 50.62 89.11-7.652 37.742-45.453 64.51-83.59 59.173-38.75-3.865-69.38-39.582-67.163-78.488.167-11.41 3.133-22.334 8.2-32.122a26.087 26.087 0 0 0 24.575 17.433 26.087 26.087 0 0 0 26.086-26.084 26.087 26.087 0 0 0-17.443-24.584c9.057-4.694 19.095-7.594 29.603-8.147 1.22-.072 2.44-.118 3.664-.137zM256 304.13c-14.346 0-25.783 11.436-25.783 25.782s11.437 25.783 25.783 25.783c14.346 0 25.783-11.437 25.783-25.783 0-14.346-11.437-25.78-25.783-25.78z"/></svg></span>
+      <h1 data-i18n="p_h1">Gözcü</h1>
+    </div>
     <p class="updated" data-i18n="p_sub">(İngilizce: Lookout)</p>
     <p class="lede" data-i18n="p_lede">Doğrudan sonuç almazsın, ama trafiği görürsün — ve doğru gece doğru kişiyi izlersen bu, bir suçüstü yakalamaya dönüşebilir.</p>
 
@@ -227,7 +277,7 @@
     <div class="panel" id="claim">
       <div class="tab" data-i18n="sec3_tab">İletişim Taktiği</div>
       <h2 data-i18n="sec3_h2">Ne Claim Etmeli</h2>
-      <p data-i18n="s3">"X, Y'yi geceleri ziyaret etti" iddian, o gecenin ölüm sonucuyla örtüştüğünde çok güçlü bir kanıt — bunu paylaşmaktan çekinme. Ama izlediğin kişiyi de açık etmiş olursun, bu da o kişiyi (ya sen ya da izlediğin kişi) bir sonraki hedef yapabilir.</p>
+      <p data-i18n="s3">"X, Y'yi geceleri ziyaret etti" iddian, o gecenin ölüm sonucuyla örtüştüğünde çok güçlü bir kanıt — bunu paylaşmaktan çekinme. Ama izlediğin kişiyi de açık etmiş olursun, bu da o kişiyi (ya sen ya da izlediğin kişi) bir sonraki hedef yapabilir. Sorgulanırsan net bir gözlem sun: "Dün gece Y'yi izledim, gece X ona geldi — ve aynı gece bir saldırı oldu, tesadüf olmayabilir." Bunu söylerken kimi izlediğini de açık etmiş olacağını unutma, bu yüzden yalnızca gerçekten güçlü bir eşleşme olduğunda paylaş.</p>
     </div>
 
     <div class="panel" id="davranis">
@@ -246,7 +296,10 @@
   <footer>
     <div class="wrap">
       <span data-i18n="footer_copy">© 2026 Batuhan Demir — EnigmaDeck</span>
-      <a href="/roles/" data-i18n="nav_roles">Rol Rehberi</a>
+      <span style="display:flex; align-items:center; gap:16px;">
+        <a href="/roles/" data-i18n="nav_roles">Rol Rehberi</a>
+        <a class="icon-credit" href="https://game-icons.net" target="_blank" rel="noopener" data-i18n="icon_credit">İkonlar: game-icons.net</a>
+      </span>
     </div>
   </footer>
 
@@ -272,13 +325,14 @@
       toc4: { tr: "Nasıl Davranmalı", en: "Behavior & Tells" },
       toc5: { tr: "İlgili Roller", en: "Related Roles" },
       footer_copy: { tr: "© 2026 Batuhan Demir — EnigmaDeck", en: "© 2026 Batuhan Demir — EnigmaDeck" },
+      icon_credit: { tr: "İkonlar: game-icons.net", en: "Icons: game-icons.net" },
       p_kicker: { tr: "Rol Dosyası — Köylü Hizalı", en: "Role File — Village-Aligned" },
       p_h1: { tr: "Gözcü", en: "Lookout" },
       p_sub: { tr: "(İngilizce: Lookout)", en: "(Turkish: Gözcü)" },
       p_lede: { tr: "Doğrudan sonuç almazsın, ama trafiği görürsün — ve doğru gece doğru kişiyi izlersen bu, bir suçüstü yakalamaya dönüşebilir.", en: "You don't get a direct verdict, but you see the traffic — and watching the right person on the right night can turn into catching someone red-handed." },
       s1: { tr: "Her gece bir hedef izlersin ve o gece o kişiyi kimlerin ziyaret ettiğini/hedeflediğini öğrenirsin — ne yaptıklarını değil, sadece kim geldiğini. Bu dolaylı ama güçlü bir bilgi: bir vampir saldırısını yakalayabilir, ya da bir Doktor/Koruyucu'nun koruma yaptığını görebilirsin.", en: "Each night you watch a target and learn who visited/targeted that same player that night — not what they did, just who showed up. This is indirect but powerful information: you can catch a vampire mid-attack, or spot a Doctor/Bodyguard protecting someone." },
       s2: { tr: "Yüksek şüpheli ya da yüksek değerli hedefleri (muhtemel Doktor/Kahin) izle — buralarda trafik en anlamlı olur. Gördüğün isimleri o gecenin ölüm/yaşam sonucuyla eşleştir; bir isim bir saldırı gecesinde belirdiyse, güçlü bir vampir ipucudur.", en: "Watch high-suspicion or high-value targets (likely Doctor/Seer) — that's where the traffic is most meaningful. Cross-reference the names you see with that night's death/survival outcome; a name showing up on an attack night is a strong vampire lead." },
-      s3: { tr: "\"X, Y'yi geceleri ziyaret etti\" iddian, o gecenin ölüm sonucuyla örtüştüğünde çok güçlü bir kanıt — bunu paylaşmaktan çekinme. Ama izlediğin kişiyi de açık etmiş olursun, bu da o kişiyi (ya sen ya da izlediğin kişi) bir sonraki hedef yapabilir.", en: "Your claim of \"X visited Y last night\" is very strong evidence when it matches that night's death outcome — don't hesitate to share it. But doing so also reveals who you were watching, which can make either you or your watch target the next attack target." },
+      s3: { tr: "\"X, Y'yi geceleri ziyaret etti\" iddian, o gecenin ölüm sonucuyla örtüştüğünde çok güçlü bir kanıt — bunu paylaşmaktan çekinme. Ama izlediğin kişiyi de açık etmiş olursun, bu da o kişiyi (ya sen ya da izlediğin kişi) bir sonraki hedef yapabilir. Sorgulanırsan net bir gözlem sun: \"Dün gece Y'yi izledim, gece X ona geldi — ve aynı gece bir saldırı oldu, tesadüf olmayabilir.\" Bunu söylerken kimi izlediğini de açık etmiş olacağını unutma, bu yüzden yalnızca gerçekten güçlü bir eşleşme olduğunda paylaş.", en: "Your claim of \"X visited Y last night\" is very strong evidence when it matches that night's death outcome — don't hesitate to share it. But doing so also reveals who you were watching, which can make either you or your watch target the next attack target. If questioned, offer a concrete observation: \"I watched Y last night, and X visited them — the same night there was an attack, that might not be a coincidence.\" Remember that saying this also reveals who you were watching, so only share it when the match is genuinely strong." },
       s4: { tr: "İzlediğin kişiyi seçerken tahmin edilebilir olma — her gece \"en güçlü görünen\" kişiyi izlemek, vampirlerin senin desenini fark etmesine yol açabilir. Bir isim listesi tutup, iddiaların birbirini doğruladığında hepsini birden açıkla; parça parça bilgi vermek yerine tam bir örüntü sun.", en: "Don't be predictable when choosing who to watch — watching \"whoever looks strongest\" every night lets vampires notice your pattern. Keep a running list of names, and when your claims start corroborating each other, reveal them all at once; present a full pattern instead of dribbling out information piece by piece." },
       related_list: { tr: "<li><a href=\"/roles/muhafiz.html\">Muhafız (Escort)</a> — Muhafız'ın gece hamlesi de görünmez, ama seninki gibi iz bırakır.</li><li><a href=\"/roles/serif.html\">Şerif (Sheriff)</a> — Şerif'in şüpheli/temiz sonucu, senin gördüğün trafikle çapraz kontrol edilebilir.</li><li><a href=\"/roles/kahin.html\">Kahin (Seer)</a> — Kahin'in kesin sonucu, senin izlediğin geceyle örtüşürse ikisi birlikte çok güçlü.</li>", en: "<li><a href=\"/roles/muhafiz.html\">Muhafız (Escort)</a> — The Escort's move is invisible too, but leaves a trace like yours does.</li><li><a href=\"/roles/serif.html\">Şerif (Sheriff)</a> — The Sheriff's suspicious/clean result can be cross-checked against the traffic you saw.</li><li><a href=\"/roles/kahin.html\">Kahin (Seer)</a> — The Seer's exact result, matched against a night you watched, is very strong together.</li>" },
     };

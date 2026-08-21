@@ -24,6 +24,10 @@
     --gold: #f5c263;
     --mx: 50%;
     --my: 20%;
+    --align-village: #7bc98d;
+    --align-vampire: #e0526a;
+    --align-neutral: #5b9fe0;
+    --align-lovers: #f291d0;
   }
   * { box-sizing: border-box; }
   html { color-scheme: dark; }
@@ -173,6 +177,49 @@
   .role-grid a { font-weight: 600; color: var(--paper); text-decoration: none; }
   .role-grid a:hover { color: var(--gold); }
   .role-grid .teaser { color: var(--muted); font-size: 14px; }
+
+  /* Alignment chips: reuse the site's pill/tag aesthetic, tinted per faction */
+  .kicker-chip {
+    display: inline-flex; align-items: center;
+    border: 1px solid var(--line); background: var(--panel);
+    padding: 5px 12px; border-radius: 100px;
+  }
+  .kicker-chip.align-koy { color: var(--align-village); border-color: rgba(123,201,141,.35); background: rgba(123,201,141,.08); }
+  .kicker-chip.align-vam { color: var(--align-vampire); border-color: rgba(224,82,106,.35); background: rgba(224,82,106,.08); }
+  .kicker-chip.align-not { color: var(--align-neutral); border-color: rgba(91,159,224,.35); background: rgba(91,159,224,.08); }
+  .kicker-chip.align-ask { color: var(--align-lovers); border-color: rgba(242,145,208,.35); background: rgba(242,145,208,.08); }
+  .panel .tab.align-koy { color: var(--align-village); }
+  .panel .tab.align-vam { color: var(--align-vampire); }
+  .panel .tab.align-not { color: var(--align-neutral); }
+  .panel .tab.align-ask { color: var(--align-lovers); }
+
+  /* Role emblem: gradient badge matching .wordmark .glyph, gold glyph on top */
+  .role-hero { display: flex; align-items: center; gap: 18px; margin: 0 0 12px; }
+  .role-hero h1 { margin: 0; }
+  .role-icon {
+    flex-shrink: 0; width: 64px; height: 64px; border-radius: 18px;
+    background: linear-gradient(135deg, var(--violet), var(--magenta));
+    border: 1px solid var(--line);
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 8px 22px rgba(139,92,246,.28);
+  }
+  .role-icon svg { width: 34px; height: 34px; color: var(--gold); display: block; }
+
+  /* Small role emblem + alignment ring, used in the roles/index.html lists */
+  .role-mini {
+    width: 30px; height: 30px; border-radius: 9px; flex-shrink: 0; margin-top: 1px;
+    display: flex; align-items: center; justify-content: center;
+    border: 1px solid var(--line); background: var(--panel);
+  }
+  .role-mini svg { width: 16px; height: 16px; color: var(--gold); display: block; }
+  .role-mini.align-koy { border-color: rgba(123,201,141,.4); background: rgba(123,201,141,.10); }
+  .role-mini.align-vam { border-color: rgba(224,82,106,.4); background: rgba(224,82,106,.10); }
+  .role-mini.align-not { border-color: rgba(91,159,224,.4); background: rgba(91,159,224,.10); }
+  .role-mini.align-ask { border-color: rgba(242,145,208,.4); background: rgba(242,145,208,.10); }
+  .role-grid li { display: flex; align-items: flex-start; gap: 12px; }
+  .role-grid .role-text { flex: 1; }
+
+  .icon-credit { color: var(--muted); font-size: 13px; }
 </style>
 </head>
 <body>
@@ -196,8 +243,11 @@
   </header>
 
   <main class="wrap">
-    <p class="mono-label" data-i18n="p_kicker">Rol Dosyası — Nötr</p>
-    <h1 data-i18n="p_h1">İnfazcı</h1>
+    <p class="mono-label kicker-chip align-not" data-i18n="p_kicker">Rol Dosyası — Nötr</p>
+    <div class="role-hero">
+      <span class="role-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M326.1 32.71C225.6 59.65 191.7 102.6 180.2 136.3l-18.9 189c-33.4 27.9-75.14 45.3-122.16 60.9l18.31 37.3 38.59-13.8 22.06 21.4-17.3 27.6 36.2 19.1 20.5-29.9 36.8 7.2-10.9 30.4 41.8 9.9 12.6-37.5 42 .4 23 32.7 42.4-3.6-15.1-32.4 35.9-9.6 23.7 28.6 47.9-19.2-35.3-27.5 25.2-17.2 30.8 9.6 15.7-33c-42.9-18.7-87-37.1-114.8-59.9l-15.8-197.4c.6-19.4-43.1-50.58-17.3-96.69zM198.5 208c6 28.1 28.7 33.1 57.5 40.9-26.5.9-43.2 15.6-57.5 0-10.7-11.5-6.3-27.8 0-40.9zm131 0c6.3 13.1 10.7 29.4 0 40.9-14.3 15.6-31 .9-57.5 0 28.8-7.8 51.5-12.8 57.5-40.9z"/></svg></span>
+      <h1 data-i18n="p_h1">İnfazcı</h1>
+    </div>
     <p class="updated" data-i18n="p_sub">(İngilizce: Executioner)</p>
     <p class="lede" data-i18n="p_lede">Tek bir gizli görevin var: masum bir köylüyü linç ettirmek. Başarısız olursan bile oyunun sana yeni bir amaç sunması işten bile değil.</p>
 
@@ -227,7 +277,7 @@
     <div class="panel" id="claim">
       <div class="tab" data-i18n="sec3_tab">İletişim Taktiği</div>
       <h2 data-i18n="sec3_h2">Ne Claim Etmeli</h2>
-      <p data-i18n="s3">Hedefine neden bu kadar takıntılı olduğunu asla açıklama — gerçek sebebini bilen tek sensin ve hedefin (tasarım gereği) aslında masum, bu yüzden suçlamaların en azından yüzeysel olarak makul durmalı. Gerçek bir şüphe gibi, somut "kanıtlarla" (davranış tutarsızlığı, oy örüntüsü) sun, sadece ısrarcı görünme.</p>
+      <p data-i18n="s3">Hedefine neden bu kadar takıntılı olduğunu asla açıklama — gerçek sebebini bilen tek sensin ve hedefin (tasarım gereği) aslında masum, bu yüzden suçlamaların en azından yüzeysel olarak makul durmalı. Gerçek bir şüphe gibi, somut "kanıtlarla" (davranış tutarsızlığı, oy örüntüsü) sun, sadece ısrarcı görünme. Hedefine karşı neden bu kadar ısrarcı olduğun sorulursa asla gerçek sebebi (gizli görevin) söyleme; bunun yerine somut bir gerekçe uydur: "X'in dünkü oy değişimi çok tuhaftı, bence bir şey saklıyor" gibi normal bir şüpheci gerekçe sun — gerçek bir köylünün kuşkusundan ayırt edilemeyecek kadar sıradan dursun.</p>
     </div>
 
     <div class="panel" id="davranis">
@@ -246,7 +296,10 @@
   <footer>
     <div class="wrap">
       <span data-i18n="footer_copy">© 2026 Batuhan Demir — EnigmaDeck</span>
-      <a href="/roles/" data-i18n="nav_roles">Rol Rehberi</a>
+      <span style="display:flex; align-items:center; gap:16px;">
+        <a href="/roles/" data-i18n="nav_roles">Rol Rehberi</a>
+        <a class="icon-credit" href="https://game-icons.net" target="_blank" rel="noopener" data-i18n="icon_credit">İkonlar: game-icons.net</a>
+      </span>
     </div>
   </footer>
 
@@ -272,13 +325,14 @@
       toc4: { tr: "Nasıl Davranmalı", en: "Behavior & Tells" },
       toc5: { tr: "İlgili Roller", en: "Related Roles" },
       footer_copy: { tr: "© 2026 Batuhan Demir — EnigmaDeck", en: "© 2026 Batuhan Demir — EnigmaDeck" },
+      icon_credit: { tr: "İkonlar: game-icons.net", en: "Icons: game-icons.net" },
       p_kicker: { tr: "Rol Dosyası — Nötr", en: "Role File — Neutral" },
       p_h1: { tr: "İnfazcı", en: "Executioner" },
       p_sub: { tr: "(İngilizce: Executioner)", en: "(Turkish: İnfazcı)" },
       p_lede: { tr: "Tek bir gizli görevin var: masum bir köylüyü linç ettirmek. Başarısız olursan bile oyunun sana yeni bir amaç sunması işten bile değil.", en: "You have one secret mission: get an innocent villager lynched. Even if you fail at that, the game hands you a brand-new goal." },
       s1: { tr: "Oyun başında gizlice köy hizalı bir oyuncu sana hedef olarak atanır. TEK BAŞINA kazanırsın eğer köy bu hedefi LİNÇ EDER — yani oylamayla eler (gece saldırısı sayılmaz). Hedefin başka bir şekilde ölürse otomatik olarak Soytarı'ya dönüşürsün — yeni kazanma koşulun kendi linç edilmen olur.", en: "At game start, you're secretly assigned one village-aligned player as a target. You win ALONE if the town VOTES OUT that specific target — a lynch, not a night kill. If your target dies any other way first, you automatically convert into a Jester — your win condition becomes getting yourself lynched." },
       s2: { tr: "Gece aksiyonun yok. Tüm oyunun gündüz stratejisi: hedefine karşı sürekli, inandırıcı şüphe inşa etmek. Hedefin gece saldırısıyla ölürse rolün değişir — o andan itibaren tam tersine, kendi linç edilmen için çalışmaya başlarsın.", en: "You have no night action. Your entire game is a daytime strategy: continuously build believable suspicion against your target. If your target dies to a night attack instead, your role flips — from that point you start working toward getting yourself lynched instead." },
-      s3: { tr: "Hedefine neden bu kadar takıntılı olduğunu asla açıklama — gerçek sebebini bilen tek sensin ve hedefin (tasarım gereği) aslında masum, bu yüzden suçlamaların en azından yüzeysel olarak makul durmalı. Gerçek bir şüphe gibi, somut \"kanıtlarla\" (davranış tutarsızlığı, oy örüntüsü) sun, sadece ısrarcı görünme.", en: "Never explain why you're so fixated on your target — you're the only one who knows the real reason, and your target is (by design) actually innocent, so your accusations need to be at least superficially plausible. Frame it like genuine suspicion, backed with concrete-sounding \"evidence\" (behavioral inconsistency, voting patterns), not just persistence." },
+      s3: { tr: "Hedefine neden bu kadar takıntılı olduğunu asla açıklama — gerçek sebebini bilen tek sensin ve hedefin (tasarım gereği) aslında masum, bu yüzden suçlamaların en azından yüzeysel olarak makul durmalı. Gerçek bir şüphe gibi, somut \"kanıtlarla\" (davranış tutarsızlığı, oy örüntüsü) sun, sadece ısrarcı görünme. Hedefine karşı neden bu kadar ısrarcı olduğun sorulursa asla gerçek sebebi (gizli görevin) söyleme; bunun yerine somut bir gerekçe uydur: \"X'in dünkü oy değişimi çok tuhaftı, bence bir şey saklıyor\" gibi normal bir şüpheci gerekçe sun — gerçek bir köylünün kuşkusundan ayırt edilemeyecek kadar sıradan dursun.", en: "Never explain why you're so fixated on your target — you're the only one who knows the real reason, and your target is (by design) actually innocent, so your accusations need to be at least superficially plausible. Frame it like genuine suspicion, backed with concrete-sounding \"evidence\" (behavioral inconsistency, voting patterns), not just persistence. If asked why you're so fixated on your target, never reveal the real reason (your secret assignment); instead invent a concrete justification: \"X's vote flip yesterday was really strange, I think they're hiding something\" — an ordinary-sounding suspicion indistinguishable from a real Villager's read." },
       s4: { tr: "Hedefine karşı kampanyanı birkaç güne yay, tek bir günde aşırı ısrarcı olmak şüphe çeker. Eğer hedefin gece öldürülürse ve Soytarı'ya dönüştüğünü anlarsan, stratejini hemen tersine çevir — artık şüpheli görünmek yeni amacın, tıpkı gerçek bir Soytarı gibi davran.", en: "Spread your campaign against your target over several days — being overly insistent in a single day draws suspicion. If your target gets killed at night and you realize you've converted to a Jester, flip your strategy immediately — looking suspicious is now your new goal, so play it exactly like a real Jester would." },
       related_list: { tr: "<li><a href=\"/roles/soytari.html\">Soytarı (Jester)</a> — Hedefin senden önce başka bir şekilde ölürse doğrudan Soytarı'ya dönüşürsün.</li><li><a href=\"/roles/kahin.html\">Kahin (Seer)</a> — Kahin'in seni ya da hedefini araştırması, planını en çok bozabilecek şey.</li>", en: "<li><a href=\"/roles/soytari.html\">Soytarı (Jester)</a> — If your target dies some other way first, you convert directly into a Jester.</li><li><a href=\"/roles/kahin.html\">Kahin (Seer)</a> — The Seer investigating you or your target is the thing most likely to derail your plan.</li>" },
     };

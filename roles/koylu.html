@@ -24,6 +24,10 @@
     --gold: #f5c263;
     --mx: 50%;
     --my: 20%;
+    --align-village: #7bc98d;
+    --align-vampire: #e0526a;
+    --align-neutral: #5b9fe0;
+    --align-lovers: #f291d0;
   }
   * { box-sizing: border-box; }
   html { color-scheme: dark; }
@@ -173,6 +177,49 @@
   .role-grid a { font-weight: 600; color: var(--paper); text-decoration: none; }
   .role-grid a:hover { color: var(--gold); }
   .role-grid .teaser { color: var(--muted); font-size: 14px; }
+
+  /* Alignment chips: reuse the site's pill/tag aesthetic, tinted per faction */
+  .kicker-chip {
+    display: inline-flex; align-items: center;
+    border: 1px solid var(--line); background: var(--panel);
+    padding: 5px 12px; border-radius: 100px;
+  }
+  .kicker-chip.align-koy { color: var(--align-village); border-color: rgba(123,201,141,.35); background: rgba(123,201,141,.08); }
+  .kicker-chip.align-vam { color: var(--align-vampire); border-color: rgba(224,82,106,.35); background: rgba(224,82,106,.08); }
+  .kicker-chip.align-not { color: var(--align-neutral); border-color: rgba(91,159,224,.35); background: rgba(91,159,224,.08); }
+  .kicker-chip.align-ask { color: var(--align-lovers); border-color: rgba(242,145,208,.35); background: rgba(242,145,208,.08); }
+  .panel .tab.align-koy { color: var(--align-village); }
+  .panel .tab.align-vam { color: var(--align-vampire); }
+  .panel .tab.align-not { color: var(--align-neutral); }
+  .panel .tab.align-ask { color: var(--align-lovers); }
+
+  /* Role emblem: gradient badge matching .wordmark .glyph, gold glyph on top */
+  .role-hero { display: flex; align-items: center; gap: 18px; margin: 0 0 12px; }
+  .role-hero h1 { margin: 0; }
+  .role-icon {
+    flex-shrink: 0; width: 64px; height: 64px; border-radius: 18px;
+    background: linear-gradient(135deg, var(--violet), var(--magenta));
+    border: 1px solid var(--line);
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 8px 22px rgba(139,92,246,.28);
+  }
+  .role-icon svg { width: 34px; height: 34px; color: var(--gold); display: block; }
+
+  /* Small role emblem + alignment ring, used in the roles/index.html lists */
+  .role-mini {
+    width: 30px; height: 30px; border-radius: 9px; flex-shrink: 0; margin-top: 1px;
+    display: flex; align-items: center; justify-content: center;
+    border: 1px solid var(--line); background: var(--panel);
+  }
+  .role-mini svg { width: 16px; height: 16px; color: var(--gold); display: block; }
+  .role-mini.align-koy { border-color: rgba(123,201,141,.4); background: rgba(123,201,141,.10); }
+  .role-mini.align-vam { border-color: rgba(224,82,106,.4); background: rgba(224,82,106,.10); }
+  .role-mini.align-not { border-color: rgba(91,159,224,.4); background: rgba(91,159,224,.10); }
+  .role-mini.align-ask { border-color: rgba(242,145,208,.4); background: rgba(242,145,208,.10); }
+  .role-grid li { display: flex; align-items: flex-start; gap: 12px; }
+  .role-grid .role-text { flex: 1; }
+
+  .icon-credit { color: var(--muted); font-size: 13px; }
 </style>
 </head>
 <body>
@@ -196,8 +243,11 @@
   </header>
 
   <main class="wrap">
-    <p class="mono-label" data-i18n="p_kicker">Rol Dosyası — Köylü Hizalı</p>
-    <h1 data-i18n="p_h1">Köylü</h1>
+    <p class="mono-label kicker-chip align-koy" data-i18n="p_kicker">Rol Dosyası — Köylü Hizalı</p>
+    <div class="role-hero">
+      <span class="role-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M105.9 19l25.7 58.8c.7.1 1.9.26 3.9 0 4.7-.57 11.8-2.8 18.5-5.87 6.6-3.07 13-7.02 16.8-10.3 1.5-1.33 2.2-2.27 2.7-2.96L156.2 19h-50.3zm75.3 57.39c-5.6 4.5-12.4 8.53-19.7 11.88-7.4 3.39-15 6.05-22.2 7.16l16.3 37.47 25.8 1.3 16.4-19.7-16.6-38.11zm110.1 18.32c-19.5-.35-46.8 5.79-75.6 15.59l3.1 7.2-26.5 31.7-2.9 3.4-45.8-2.3-3.3-7.5c-44.48 23.5-78.61 50.6-74.43 69C102.8 337 168.3 448.5 226 496.7l11.5-13.8c-51-42.7-115.5-149.4-152.01-268.6L127.5 196c37.4 121.2 101 228.2 157.2 275.1l11.5-13.8C245.1 414.6 180.6 308 144 188.8l42.1-18.4c37.4 121.2 101 228.2 157.3 275.1l11.4-13.8c-51-42.7-115.6-149.3-152.1-268.5l42.1-18.4C282.2 266 345.8 373 402 419.9l11.5-13.8c-51-42.7-115.6-149.3-152.1-268.5l42.1-18.4c37.4 121.1 101 228.3 157.2 275.1l11.4-13.8C420 336.9 353.8 226.6 317.7 104.4c-4.3-6.49-13.7-9.47-26.4-9.69z"/></svg></span>
+      <h1 data-i18n="p_h1">Köylü</h1>
+    </div>
     <p class="updated" data-i18n="p_sub">(İngilizce: Villager)</p>
     <p class="lede" data-i18n="p_lede">Vampir Köylü'nün en kalabalık, en az korunaklı rolü. Kartında hiçbir gece yeteneği yazmaz — ama bu bir zayıflık değil, gizli bir avantajdır.</p>
 
@@ -227,7 +277,7 @@
     <div class="panel" id="claim">
       <div class="tab" data-i18n="sec3_tab">İletişim Taktiği</div>
       <h2 data-i18n="sec3_h2">Ne Claim Etmeli</h2>
-      <p data-i18n="s3">Gerçek kimliğin zaten "Köylü" — saklayacak bir şey yok, ama bunu erken açık etmek de bir avantaj sağlamaz. Vampirler senin gerçek rolünü bilmiyor, bu yüzden sessiz kalman onları yanıltabilir; sana özel rol gibi davranıp seni hedef seçebilirler ya da tam tersi seni önemsiz sayıp gözden kaçırabilirler.</p>
+      <p data-i18n="s3">Gerçek kimliğin zaten "Köylü" — saklayacak bir şey yok, ama bunu erken açık etmek de bir avantaj sağlamaz. Vampirler senin gerçek rolünü bilmiyor, bu yüzden sessiz kalman onları yanıltabilir; sana özel rol gibi davranıp seni hedef seçebilirler ya da tam tersi seni önemsiz sayıp gözden kaçırabilirler. Biri seni sorgularsa net cevap ver: "Benim yeteneğim yok, sadece izliyorum — ve dün X'in oy değiştirmesi bana tuhaf geldi" gibi somut bir gözlemle karşılık ver; boş bir "ben köylüyüm" cümlesi tek başına inandırıcı değildir, gözleme dayalı bir detay eklemek seni gerçek bir Kahin/Doktor'dan çok gerçek bir Köylü'ye benzetir.</p>
     </div>
 
     <div class="panel" id="davranis">
@@ -246,7 +296,10 @@
   <footer>
     <div class="wrap">
       <span data-i18n="footer_copy">© 2026 Batuhan Demir — EnigmaDeck</span>
-      <a href="/roles/" data-i18n="nav_roles">Rol Rehberi</a>
+      <span style="display:flex; align-items:center; gap:16px;">
+        <a href="/roles/" data-i18n="nav_roles">Rol Rehberi</a>
+        <a class="icon-credit" href="https://game-icons.net" target="_blank" rel="noopener" data-i18n="icon_credit">İkonlar: game-icons.net</a>
+      </span>
     </div>
   </footer>
 
@@ -272,13 +325,14 @@
       toc4: { tr: "Nasıl Davranmalı", en: "Behavior & Tells" },
       toc5: { tr: "İlgili Roller", en: "Related Roles" },
       footer_copy: { tr: "© 2026 Batuhan Demir — EnigmaDeck", en: "© 2026 Batuhan Demir — EnigmaDeck" },
+      icon_credit: { tr: "İkonlar: game-icons.net", en: "Icons: game-icons.net" },
       p_kicker: { tr: "Rol Dosyası — Köylü Hizalı", en: "Role File — Village-Aligned" },
       p_h1: { tr: "Köylü", en: "Villager" },
       p_sub: { tr: "(İngilizce: Villager)", en: "(Turkish: Köylü)" },
       p_lede: { tr: "Vampir Köylü'nün en kalabalık, en az korunaklı rolü. Kartında hiçbir gece yeteneği yazmaz — ama bu bir zayıflık değil, gizli bir avantajdır.", en: "The most common, least protected role in Vampir Köylü. Your card has no night ability written on it — but that's a hidden advantage, not a weakness." },
       s1: { tr: "Köylü'nün gece yeteneği yoktur. Gücü tamamen gündüz fazında: gözlem, sorgulama ve oy. Sayıca en kalabalık grup olduğun için köy tarafının omurgasını sen oluşturursun; oyunun kaderini genelde köylülerin toplu okuması belirler.", en: "The Villager has no night ability. Your power lives entirely in the day phase: observation, questioning, and the vote. You make up the bulk of the village faction, so the collective read of villagers usually decides the game." },
       s2: { tr: "Her gece pas geçersin — bu senin avantajın, çünkü hiçbir gece aksiyonu senin başını belaya sokamaz. Gündüz sırasında konuşma sırasını, kimlerin sessiz kaldığını, kimlerin çok hızlı savunma yaptığını not al. Oyun sonuna kadar hayatta kalmak taktik değil, dikkatli gözlemin doğal sonucu olmalı.", en: "You pass every night — that's your edge, since no night action can get you in trouble. During the day, track speaking order, who stays quiet, who defends themselves too fast. Surviving to the end should be the natural result of careful observation, not a trick." },
-      s3: { tr: "Gerçek kimliğin zaten \"Köylü\" — saklayacak bir şey yok, ama bunu erken açık etmek de bir avantaj sağlamaz. Vampirler senin gerçek rolünü bilmiyor, bu yüzden sessiz kalman onları yanıltabilir; sana özel rol gibi davranıp seni hedef seçebilirler ya da tam tersi seni önemsiz sayıp gözden kaçırabilirler.", en: "Your real identity is already \"Villager\" — there's nothing to hide, but announcing it early gains you nothing either. The vampires don't know your true role, so your silence can mislead them; they might mistarget you as someone important, or dismiss you and overlook you." },
+      s3: { tr: "Gerçek kimliğin zaten \"Köylü\" — saklayacak bir şey yok, ama bunu erken açık etmek de bir avantaj sağlamaz. Vampirler senin gerçek rolünü bilmiyor, bu yüzden sessiz kalman onları yanıltabilir; sana özel rol gibi davranıp seni hedef seçebilirler ya da tam tersi seni önemsiz sayıp gözden kaçırabilirler. Biri seni sorgularsa net cevap ver: \"Benim yeteneğim yok, sadece izliyorum — ve dün X'in oy değiştirmesi bana tuhaf geldi\" gibi somut bir gözlemle karşılık ver; boş bir \"ben köylüyüm\" cümlesi tek başına inandırıcı değildir, gözleme dayalı bir detay eklemek seni gerçek bir Kahin/Doktor'dan çok gerçek bir Köylü'ye benzetir.", en: "Your real identity is already \"Villager\" — there's nothing to hide, but announcing it early gains you nothing either. The vampires don't know your true role, so your silence can mislead them; they might mistarget you as someone important, or dismiss you and overlook you. If someone questions you, answer plainly: \"I have no ability, I'm just watching — and X switching their vote yesterday looked off to me,\" pairing your claim with a concrete observation; a bare \"I'm just a Villager\" isn't convincing on its own, but backing it with an observed detail is what makes you sound like a real Villager rather than someone bluffing an information role." },
       s4: { tr: "En büyük silahın, kimsenin senin yeteneğin olmadığını bilmemesi. Kahin ya da Doktor gibi konuş — iddialı, gözlemci, sorgulayıcı ol — böylece vampirler kimin gerçek tehdit olduğunu ayırt etmekte zorlanır. Sessiz kalıp oy vermeyi geciktirenlere dikkat et; gerçek bir yeteneği olan biri genelde bilgiyi ne zaman açıklayacağını hesaplarken tereddüt eder.", en: "Your biggest weapon is that nobody knows you have no ability. Talk like a Seer or Doctor would — assertive, observant, asking sharp questions — so the vampires struggle to tell who the real threats are. Watch for people who stay quiet and delay their vote; someone with a real ability often hesitates while calculating when to reveal information." },
       related_list: { tr: "<li><a href=\"/roles/doktor.html\">Doktor (Doctor)</a> — Doktor'un iddiası, senin de fake-claim için örnek alabileceğin bir kalıp sunar.</li><li><a href=\"/roles/kahin.html\">Kahin (Seer)</a> — Kahin'in bilgi gücü, Köylü'nün en çok koruması gereken varlık.</li><li><a href=\"/roles/avci.html\">Avcı (Hunter)</a> — Avcı da senin gibi yeteneksiz görünür — ta ki ölene kadar.</li>", en: "<li><a href=\"/roles/doktor.html\">Doktor (Doctor)</a> — The Doctor's claim pattern is one you can borrow for your own fake-claim.</li><li><a href=\"/roles/kahin.html\">Kahin (Seer)</a> — The Seer's information power is the asset a Villager most needs to protect.</li><li><a href=\"/roles/avci.html\">Avcı (Hunter)</a> — The Hunter also looks powerless — until they die.</li>" },
     };

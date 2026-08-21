@@ -24,6 +24,10 @@
     --gold: #f5c263;
     --mx: 50%;
     --my: 20%;
+    --align-village: #7bc98d;
+    --align-vampire: #e0526a;
+    --align-neutral: #5b9fe0;
+    --align-lovers: #f291d0;
   }
   * { box-sizing: border-box; }
   html { color-scheme: dark; }
@@ -173,6 +177,49 @@
   .role-grid a { font-weight: 600; color: var(--paper); text-decoration: none; }
   .role-grid a:hover { color: var(--gold); }
   .role-grid .teaser { color: var(--muted); font-size: 14px; }
+
+  /* Alignment chips: reuse the site's pill/tag aesthetic, tinted per faction */
+  .kicker-chip {
+    display: inline-flex; align-items: center;
+    border: 1px solid var(--line); background: var(--panel);
+    padding: 5px 12px; border-radius: 100px;
+  }
+  .kicker-chip.align-koy { color: var(--align-village); border-color: rgba(123,201,141,.35); background: rgba(123,201,141,.08); }
+  .kicker-chip.align-vam { color: var(--align-vampire); border-color: rgba(224,82,106,.35); background: rgba(224,82,106,.08); }
+  .kicker-chip.align-not { color: var(--align-neutral); border-color: rgba(91,159,224,.35); background: rgba(91,159,224,.08); }
+  .kicker-chip.align-ask { color: var(--align-lovers); border-color: rgba(242,145,208,.35); background: rgba(242,145,208,.08); }
+  .panel .tab.align-koy { color: var(--align-village); }
+  .panel .tab.align-vam { color: var(--align-vampire); }
+  .panel .tab.align-not { color: var(--align-neutral); }
+  .panel .tab.align-ask { color: var(--align-lovers); }
+
+  /* Role emblem: gradient badge matching .wordmark .glyph, gold glyph on top */
+  .role-hero { display: flex; align-items: center; gap: 18px; margin: 0 0 12px; }
+  .role-hero h1 { margin: 0; }
+  .role-icon {
+    flex-shrink: 0; width: 64px; height: 64px; border-radius: 18px;
+    background: linear-gradient(135deg, var(--violet), var(--magenta));
+    border: 1px solid var(--line);
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 8px 22px rgba(139,92,246,.28);
+  }
+  .role-icon svg { width: 34px; height: 34px; color: var(--gold); display: block; }
+
+  /* Small role emblem + alignment ring, used in the roles/index.html lists */
+  .role-mini {
+    width: 30px; height: 30px; border-radius: 9px; flex-shrink: 0; margin-top: 1px;
+    display: flex; align-items: center; justify-content: center;
+    border: 1px solid var(--line); background: var(--panel);
+  }
+  .role-mini svg { width: 16px; height: 16px; color: var(--gold); display: block; }
+  .role-mini.align-koy { border-color: rgba(123,201,141,.4); background: rgba(123,201,141,.10); }
+  .role-mini.align-vam { border-color: rgba(224,82,106,.4); background: rgba(224,82,106,.10); }
+  .role-mini.align-not { border-color: rgba(91,159,224,.4); background: rgba(91,159,224,.10); }
+  .role-mini.align-ask { border-color: rgba(242,145,208,.4); background: rgba(242,145,208,.10); }
+  .role-grid li { display: flex; align-items: flex-start; gap: 12px; }
+  .role-grid .role-text { flex: 1; }
+
+  .icon-credit { color: var(--muted); font-size: 13px; }
 </style>
 </head>
 <body>
@@ -196,8 +243,11 @@
   </header>
 
   <main class="wrap">
-    <p class="mono-label" data-i18n="p_kicker">Rol Dosyası — Köylü Hizalı</p>
-    <h1 data-i18n="p_h1">Koruyucu</h1>
+    <p class="mono-label kicker-chip align-koy" data-i18n="p_kicker">Rol Dosyası — Köylü Hizalı</p>
+    <div class="role-hero">
+      <span class="role-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 20c-64 96-128 88-192 104 0 256 64 320 192 368 128-48 192-112 192-368-64-16-128-8-192-104zm0 32a9 9 0 1 1 0 18 9 9 0 0 1 0-18zm.291 30.152a269.17 269.17 0 0 0 13.84 14.15c34.949 35.385 82.966 45.887 130.685 56.428 2.732 1.184 6.62.508 8.864 1.958-2.683 64.84-5.522 131.649-32.315 191.746-12.685 31.46-36.26 57.602-64.37 76.144-15.452 10.864-32.847 18.227-49.884 26.115-6.586 4.573-13.697-.448-20.242-2.46-43.648-17.847-84.444-48.619-105.056-92.266-29.065-62.018-32.949-131.823-35.815-199.393 57.423-8.808 112.578-27.8 152.441-70.418zM256 124l-27.512 68.78C211.228 189.067 190.45 182.15 160 172c0 32-16 48-32 64 0 16 64 32 80 32 13.173-8.782 22.72-15.138 30.646-19.1C234.19 277.441 218.65 337.35 192 364c32 16 48 32 64 48 16-16 32-32 64-48-26.65-26.65-42.19-86.559-46.646-115.1 7.926 3.962 17.473 10.318 30.646 19.1 16 0 80-16 80-32-16-16-32-32-32-64-30.45 10.15-51.228 17.068-68.488 20.78zm-172 8a9 9 0 1 1 0 18 9 9 0 0 1 0-18zm344 0a9 9 0 1 1 0 18 9 9 0 0 1 0-18zM96 282a9 9 0 1 1 0 18 9 9 0 0 1 0-18zm320 0a9 9 0 1 1 0 18 9 9 0 0 1 0-18zM160 410a9 9 0 1 1 0 18 9 9 0 0 1 0-18zm192 0a9 9 0 1 1 0 18 9 9 0 0 1 0-18zm-96 50a9 9 0 1 1 0 18 9 9 0 0 1 0-18z"/></svg></span>
+      <h1 data-i18n="p_h1">Koruyucu</h1>
+    </div>
     <p class="updated" data-i18n="p_sub">(İngilizce: Bodyguard)</p>
     <p class="lede" data-i18n="p_lede">Vücut siperi anlamıyla gerçek bir koruyucu. İşe yaradığında oyunun akışını tek başına değiştirebilir.</p>
 
@@ -227,7 +277,7 @@
     <div class="panel" id="claim">
       <div class="tab" data-i18n="sec3_tab">İletişim Taktiği</div>
       <h2 data-i18n="sec3_h2">Ne Claim Etmeli</h2>
-      <p data-i18n="s3">Koruyucu olduğunu erken claim etmek gerekli değil — sessiz kalman, sürpriz bir takas anını mümkün kılar. Ama takas gerçekleştiğinde (bir vampir ifşa olduğunda) hemen açık claim et; bu kanıt tartışmasız ve köyü anında doğru yöne çevirir.</p>
+      <p data-i18n="s3">Koruyucu olduğunu erken claim etmek gerekli değil — sessiz kalman, sürpriz bir takas anını mümkün kılar. Ama takas gerçekleştiğinde (bir vampir ifşa olduğunda) hemen açık claim et; bu kanıt tartışmasız ve köyü anında doğru yöne çevirir. Takas gerçekleşmeden önce sorgulanırsan sıradan bir köylü gibi davran: "Belirli bir bilgim yok, sadece gözlemliyorum." Takas gerçekleştiğinde (bir vampir ifşa olduğunda) ise hiç çekinmeden açık konuş: "Dün gece X'i korudum, saldırıyı ben karşıladım ve Y'nin vampir olduğu ortaya çıktı — işte kanıtım." Bu, tartışmasız bir kanıt olduğu için köyü anında ikna eder.</p>
     </div>
 
     <div class="panel" id="davranis">
@@ -246,7 +296,10 @@
   <footer>
     <div class="wrap">
       <span data-i18n="footer_copy">© 2026 Batuhan Demir — EnigmaDeck</span>
-      <a href="/roles/" data-i18n="nav_roles">Rol Rehberi</a>
+      <span style="display:flex; align-items:center; gap:16px;">
+        <a href="/roles/" data-i18n="nav_roles">Rol Rehberi</a>
+        <a class="icon-credit" href="https://game-icons.net" target="_blank" rel="noopener" data-i18n="icon_credit">İkonlar: game-icons.net</a>
+      </span>
     </div>
   </footer>
 
@@ -272,13 +325,14 @@
       toc4: { tr: "Nasıl Davranmalı", en: "Behavior & Tells" },
       toc5: { tr: "İlgili Roller", en: "Related Roles" },
       footer_copy: { tr: "© 2026 Batuhan Demir — EnigmaDeck", en: "© 2026 Batuhan Demir — EnigmaDeck" },
+      icon_credit: { tr: "İkonlar: game-icons.net", en: "Icons: game-icons.net" },
       p_kicker: { tr: "Rol Dosyası — Köylü Hizalı", en: "Role File — Village-Aligned" },
       p_h1: { tr: "Koruyucu", en: "Bodyguard" },
       p_sub: { tr: "(İngilizce: Bodyguard)", en: "(Turkish: Koruyucu)" },
       p_lede: { tr: "Vücut siperi anlamıyla gerçek bir koruyucu. İşe yaradığında oyunun akışını tek başına değiştirebilir.", en: "A literal human shield. When it works, it can single-handedly flip the game's momentum." },
       s1: { tr: "Her gece birini korumaya alırsın. Eğer koruduğun kişi vampirlerin saldırı hedefiyse, onun yerine SEN ölürsün ve saldıran vampirlerden biri herkese açık şekilde ifşa olur. Oyunun akışını değiştiren büyük bir tempo hamlesi.", en: "Each night you guard someone. If your guarded target is the vampires' attack target, YOU die in their place — and one of the attacking vampires gets publicly exposed to the whole room. A game-defining tempo swing when it triggers." },
       s2: { tr: "Şüpheli olarak korunmaya en çok ihtiyaç duyan kişiyi seç — genelde açık Kahin/Doktor iddiasında bulunmuş biri. Her gece aynı kişiyi koruyabilirsin, ama değer yargını güncel tut: bilgi sahibi rolün değiştikçe koruma önceliğin de değişmeli.", en: "Pick whoever needs protection most — typically an openly-claimed Seer/Doctor. You can guard the same person every night, but keep your judgment current: as the information landscape shifts, your protection priority should shift with it." },
-      s3: { tr: "Koruyucu olduğunu erken claim etmek gerekli değil — sessiz kalman, sürpriz bir takas anını mümkün kılar. Ama takas gerçekleştiğinde (bir vampir ifşa olduğunda) hemen açık claim et; bu kanıt tartışmasız ve köyü anında doğru yöne çevirir.", en: "You don't need to claim Bodyguard early — staying silent keeps the surprise trade-off possible. But the moment a trade actually happens (a vampire gets exposed), claim openly right away; the evidence is undeniable and instantly redirects the village." },
+      s3: { tr: "Koruyucu olduğunu erken claim etmek gerekli değil — sessiz kalman, sürpriz bir takas anını mümkün kılar. Ama takas gerçekleştiğinde (bir vampir ifşa olduğunda) hemen açık claim et; bu kanıt tartışmasız ve köyü anında doğru yöne çevirir. Takas gerçekleşmeden önce sorgulanırsan sıradan bir köylü gibi davran: \"Belirli bir bilgim yok, sadece gözlemliyorum.\" Takas gerçekleştiğinde (bir vampir ifşa olduğunda) ise hiç çekinmeden açık konuş: \"Dün gece X'i korudum, saldırıyı ben karşıladım ve Y'nin vampir olduğu ortaya çıktı — işte kanıtım.\" Bu, tartışmasız bir kanıt olduğu için köyü anında ikna eder.", en: "You don't need to claim Bodyguard early — staying silent keeps the surprise trade-off possible. But the moment a trade actually happens (a vampire gets exposed), claim openly right away; the evidence is undeniable and instantly redirects the village. Before a swap happens, if questioned, act like a plain Villager: \"No specific info, just watching.\" But once the swap does happen (a vampire gets exposed), speak up without hesitation: \"I protected X last night, took the hit myself, and Y turned out to be the vampire — that's my proof.\" It's undeniable evidence, so it convinces the room instantly." },
       s4: { tr: "Standart hamlen, en yüksek değerli hedefi (iddialı Kahin/Doktor) korumak. Takas gerçekleştiğinde utanmadan sonucu paylaş — bu senin en büyük katkın ve köyün ona güvenmesi gerekiyor. Takas olmadığı gecelerde sessiz kal; her gece kimi koruduğunu açıklamak, vampirlerin bir sonraki hedefini seçmesine yardım eder.", en: "Your standard move is guarding the highest-value target (a claimed Seer/Doctor). When a trade happens, share the result without hesitation — it's your biggest contribution and the village needs to trust it. On nights without a trade, stay quiet; announcing who you guarded every night just helps vampires pick their next target." },
       related_list: { tr: "<li><a href=\"/roles/doktor.html\">Doktor (Doctor)</a> — Doktor, seninle aynı geceye aynı hedefi koruyabilir — çakışmaya dikkat.</li><li><a href=\"/roles/muhafiz.html\">Muhafız (Escort)</a> — Muhafız'ın bloğu senin korumanı yanlışlıkla iptal edebilir.</li><li><a href=\"/roles/avci.html\">Avcı (Hunter)</a> — Avcı da bir saldırıya karşılık veren rol, farklı bir zamanlamada.</li>", en: "<li><a href=\"/roles/doktor.html\">Doktor (Doctor)</a> — The Doctor might guard the same target the same night — watch for overlap.</li><li><a href=\"/roles/muhafiz.html\">Muhafız (Escort)</a> — The Escort's block can accidentally cancel your protection.</li><li><a href=\"/roles/avci.html\">Avcı (Hunter)</a> — The Hunter also strikes back at an attack, just on a different timeline.</li>" },
     };

@@ -24,6 +24,10 @@
     --gold: #f5c263;
     --mx: 50%;
     --my: 20%;
+    --align-village: #7bc98d;
+    --align-vampire: #e0526a;
+    --align-neutral: #5b9fe0;
+    --align-lovers: #f291d0;
   }
   * { box-sizing: border-box; }
   html { color-scheme: dark; }
@@ -173,6 +177,49 @@
   .role-grid a { font-weight: 600; color: var(--paper); text-decoration: none; }
   .role-grid a:hover { color: var(--gold); }
   .role-grid .teaser { color: var(--muted); font-size: 14px; }
+
+  /* Alignment chips: reuse the site's pill/tag aesthetic, tinted per faction */
+  .kicker-chip {
+    display: inline-flex; align-items: center;
+    border: 1px solid var(--line); background: var(--panel);
+    padding: 5px 12px; border-radius: 100px;
+  }
+  .kicker-chip.align-koy { color: var(--align-village); border-color: rgba(123,201,141,.35); background: rgba(123,201,141,.08); }
+  .kicker-chip.align-vam { color: var(--align-vampire); border-color: rgba(224,82,106,.35); background: rgba(224,82,106,.08); }
+  .kicker-chip.align-not { color: var(--align-neutral); border-color: rgba(91,159,224,.35); background: rgba(91,159,224,.08); }
+  .kicker-chip.align-ask { color: var(--align-lovers); border-color: rgba(242,145,208,.35); background: rgba(242,145,208,.08); }
+  .panel .tab.align-koy { color: var(--align-village); }
+  .panel .tab.align-vam { color: var(--align-vampire); }
+  .panel .tab.align-not { color: var(--align-neutral); }
+  .panel .tab.align-ask { color: var(--align-lovers); }
+
+  /* Role emblem: gradient badge matching .wordmark .glyph, gold glyph on top */
+  .role-hero { display: flex; align-items: center; gap: 18px; margin: 0 0 12px; }
+  .role-hero h1 { margin: 0; }
+  .role-icon {
+    flex-shrink: 0; width: 64px; height: 64px; border-radius: 18px;
+    background: linear-gradient(135deg, var(--violet), var(--magenta));
+    border: 1px solid var(--line);
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 8px 22px rgba(139,92,246,.28);
+  }
+  .role-icon svg { width: 34px; height: 34px; color: var(--gold); display: block; }
+
+  /* Small role emblem + alignment ring, used in the roles/index.html lists */
+  .role-mini {
+    width: 30px; height: 30px; border-radius: 9px; flex-shrink: 0; margin-top: 1px;
+    display: flex; align-items: center; justify-content: center;
+    border: 1px solid var(--line); background: var(--panel);
+  }
+  .role-mini svg { width: 16px; height: 16px; color: var(--gold); display: block; }
+  .role-mini.align-koy { border-color: rgba(123,201,141,.4); background: rgba(123,201,141,.10); }
+  .role-mini.align-vam { border-color: rgba(224,82,106,.4); background: rgba(224,82,106,.10); }
+  .role-mini.align-not { border-color: rgba(91,159,224,.4); background: rgba(91,159,224,.10); }
+  .role-mini.align-ask { border-color: rgba(242,145,208,.4); background: rgba(242,145,208,.10); }
+  .role-grid li { display: flex; align-items: flex-start; gap: 12px; }
+  .role-grid .role-text { flex: 1; }
+
+  .icon-credit { color: var(--muted); font-size: 13px; }
 </style>
 </head>
 <body>
@@ -196,8 +243,11 @@
   </header>
 
   <main class="wrap">
-    <p class="mono-label" data-i18n="p_kicker">Rol Dosyası — Vampir Hizalı</p>
-    <h1 data-i18n="p_h1">Vampir</h1>
+    <p class="mono-label kicker-chip align-vam" data-i18n="p_kicker">Rol Dosyası — Vampir Hizalı</p>
+    <div class="role-hero">
+      <span class="role-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 19c-47.103.059-104.37 1.514-134.777 35.078-19.272 22.051-22.113 59.34-22.141 91.55-.013 15.25.89 29.319 1.84 40.03 3.42 2.125 6.765 3.998 10.168 5.508 1.906-6.213 4.188-12.19 6.889-17.853a411.19 411.19 0 0 1-.897-27.668c.004-4.162.11-8.397.309-12.645H128v-18h-9.143c.568-4.797 1.279-9.49 2.141-14H144V83h-18.324c2.45-7.015 5.462-12.914 9.101-17.078 30.825-28.62 70.834-28.757 108.229-28.904L256 76l12.994-38.982c36.423.166 84.794 3.054 108.229 28.904 3.639 4.164 6.652 10.063 9.101 17.078H368v18h23.002c.862 4.51 1.573 9.203 2.14 14H384v18h10.61c.197 4.248.304 8.483.308 12.645a411.356 411.356 0 0 1-.897 27.667c2.701 5.664 4.983 11.64 6.89 17.854 3.402-1.51 6.748-3.383 10.167-5.508.95-10.711 1.853-24.78 1.84-40.03-.028-32.21-2.869-69.499-22.14-91.55C352.365 17.425 303.361 18.985 256 19zm-91.682 128.897C132.974 165.035 121 205.545 121 252v48c2.884 29.924 30.052 42.574 48 60.271V444c0 4.935 2.352 9.45 7.75 14.36 20.432 15.936 53.229 24.47 79.21 24.64h.04c28.357-3.426 58.33-5.59 79.395-24.613C340.683 453.505 343 449 343 444v-83.729c18.205-18.5 47.537-34.698 48-60.271v-48c0-46.455-11.974-86.965-43.318-104.104-11.741-6.42-25.102-6.616-40.256-2.98-19.464 5.613-35.334 13.104-51.426 21.147-17.188-7.926-35.068-17.077-51.426-21.147-13.699-3.296-28.23-3.457-40.256 2.98zm-106.84 34.318c1.809 22.782 8.967 56.005 18.95 82.625 5.798 15.461 12.661 28.809 18.986 36.398 3.162 3.795 6.131 6.012 6.967 5.13.835-.883.619-3.576.619-6.368v-48c0-14.72 1.138-29.342 3.768-43.207-9.004-3.482-16.74-8.624-23.76-13.305-8.927-5.95-16.756-11.044-25.53-13.273zm397.043 0c-8.773 2.23-16.602 7.322-25.529 13.273-7.02 4.68-14.756 9.823-23.76 13.305C407.862 222.658 409 237.281 409 252v48c0 2.792-.216 5.485.62 6.367.835.883 3.804-1.334 6.966-5.129 6.325-7.59 13.188-20.937 18.986-36.398 9.983-26.62 17.141-59.842 18.95-82.625zM176 207.27l70.363 70.366-10.32 10.32C238.517 292.391 240 296.565 240 300h-96c0-16 16-48 48-48 1.182 0 2.46.194 3.797.523L176 232.727l-25.637 25.636-12.726-12.726zM192 300c8.837 0 16-7.163 16-16s-7.163-16-16-16-16 7.163-16 16 7.163 16 16 16zm144-92.729l38.363 38.366-12.726 12.726L336 232.727l-19.797 19.796c1.337-.33 2.615-.523 3.797-.523 32 0 48 32 48 48h-96c0-3.435 1.483-7.609 3.957-12.043l-10.32-10.32zM320 300c8.837 0 16-7.163 16-16s-7.163-16-16-16-16 7.163-16 16 7.163 16 16 16zm-203.393 36.496c-28.117 11.146-58.94 25.26-93.828 42.373 39.48 16.026 70 37.572 90.092 61.317 14.463 17.092 23.58 35.612 26.248 53.814h70.611c-16.114-4.813-33.438-11.931-45.091-22.324C156.82 464.566 151 455.065 151 444v-76.002c-12.82-11.535-24.674-19.302-34.393-31.502zm278.786 0c-9.543 12.279-23.267 21.558-34.393 31.502V444c0 11-5.683 20.495-13.395 27.613-14.023 11.575-28.946 17.825-44.95 22.387h70.226c2.667-18.202 11.785-36.722 26.248-53.814 20.092-23.745 50.613-45.29 90.092-61.317-34.889-17.114-65.71-31.227-93.828-42.373zm-165.784 4.467c7.613 4.7 16.541 13.529 26.391 14.037 10.283-2.687 17.928-7.524 26.39-14.037l11.22 14.074C282.997 362.708 267.95 372.778 256 373c-14.83-1.544-26.226-9.059-37.61-17.963zm-31.293 48.625L211.93 403h88.433l13.25-13.342 12.774 12.684L307.855 421H301l-13 39-13-39h-38l-13 39-13-39h-6.447l-18.87-18.588z"/></svg></span>
+      <h1 data-i18n="p_h1">Vampir</h1>
+    </div>
     <p class="updated" data-i18n="p_sub">(İngilizce: Vampire)</p>
     <p class="lede" data-i18n="p_lede">Vampir takımının çekirdeği. Gece takım oyuyla öldürür, gündüz köylü gibi konuşursun.</p>
 
@@ -227,7 +277,7 @@
     <div class="panel" id="claim">
       <div class="tab" data-i18n="sec3_tab">İletişim Taktiği</div>
       <h2 data-i18n="sec3_h2">Ne Claim Etmeli</h2>
-      <p data-i18n="s3">Asla vampir olduğunu açık etme. Gündüz kimliğini korumak için köy rollerinden birine (Köylü, ya da daha riskli ama etkili biçimde Doktor/Kahin gibi bir bilgi rolü) sahte iddia yapmak standart bir taktik — ama sahte claim, gerçek sahibiyle çakışırsa seni hemen ele verir, bu yüzden dikkatli seç.</p>
+      <p data-i18n="s3">Asla vampir olduğunu açık etme. Gündüz kimliğini korumak için köy rollerinden birine (Köylü, ya da daha riskli ama etkili biçimde Doktor/Kahin gibi bir bilgi rolü) sahte iddia yapmak standart bir taktik — ama sahte claim, gerçek sahibiyle çakışırsa seni hemen ele verir, bu yüzden dikkatli seç. Sorgulanırsan Köylü gibi davran ve şöyle de: "Ben sadece köylüyüm, gerçek şüphem hâlâ konuşmayan Y — bilgisi olan biri neden hâlâ sessiz?" Gerçek bilgisi olmayan bir köylünün doğal refleksi budur, sessiz kalanlara işaret etmek — bu yüzden bu yönlendirme inandırıcı durur.</p>
     </div>
 
     <div class="panel" id="davranis">
@@ -246,7 +296,10 @@
   <footer>
     <div class="wrap">
       <span data-i18n="footer_copy">© 2026 Batuhan Demir — EnigmaDeck</span>
-      <a href="/roles/" data-i18n="nav_roles">Rol Rehberi</a>
+      <span style="display:flex; align-items:center; gap:16px;">
+        <a href="/roles/" data-i18n="nav_roles">Rol Rehberi</a>
+        <a class="icon-credit" href="https://game-icons.net" target="_blank" rel="noopener" data-i18n="icon_credit">İkonlar: game-icons.net</a>
+      </span>
     </div>
   </footer>
 
@@ -272,13 +325,14 @@
       toc4: { tr: "Nasıl Davranmalı", en: "Behavior & Tells" },
       toc5: { tr: "İlgili Roller", en: "Related Roles" },
       footer_copy: { tr: "© 2026 Batuhan Demir — EnigmaDeck", en: "© 2026 Batuhan Demir — EnigmaDeck" },
+      icon_credit: { tr: "İkonlar: game-icons.net", en: "Icons: game-icons.net" },
       p_kicker: { tr: "Rol Dosyası — Vampir Hizalı", en: "Role File — Vampire-Aligned" },
       p_h1: { tr: "Vampir", en: "Vampire" },
       p_sub: { tr: "(İngilizce: Vampire)", en: "(Turkish: Vampir)" },
       p_lede: { tr: "Vampir takımının çekirdeği. Gece takım oyuyla öldürür, gündüz köylü gibi konuşursun.", en: "The core of the vampire faction. You kill by team vote at night, and talk like a villager by day." },
       s1: { tr: "Her gece diğer vampirlerle birlikte kimin öldürüleceğine oy verirsin; çoğunluk kazanır, berabere kalırsa rastgele biri seçilir. Oda büyüklüğüne göre vampir sayısı ölçeklenir (yaklaşık her 5 oyuncuya 1 vampir).", en: "Each night you vote with the other vampires on who to kill; majority wins, ties are broken randomly. The number of vampires scales with room size (roughly 1 per 5 players)." },
       s2: { tr: "Takım içi koordinasyon her şeydir — gece sohbetinde net bir hedef üzerinde anlaşın, dağınık oylar kolayca berabere biter ve rastgele sonuç sizi zayıflatabilir. Kahin/Şerif gibi görünen ya da güçlü sosyal etkisi olan oyuncular öncelikli hedeftir.", en: "Team coordination is everything — agree on a clear target in the night chat; scattered votes tie easily and a random result works against you. Players who look like Seer/Sheriff, or who hold strong social influence, are priority targets." },
-      s3: { tr: "Asla vampir olduğunu açık etme. Gündüz kimliğini korumak için köy rollerinden birine (Köylü, ya da daha riskli ama etkili biçimde Doktor/Kahin gibi bir bilgi rolü) sahte iddia yapmak standart bir taktik — ama sahte claim, gerçek sahibiyle çakışırsa seni hemen ele verir, bu yüzden dikkatli seç.", en: "Never reveal you're a vampire. Fake-claiming a village role (Villager, or more riskily but more effectively an information role like Doctor/Seer) to protect your day identity is standard — but a fake claim that collides with the real holder exposes you instantly, so choose carefully." },
+      s3: { tr: "Asla vampir olduğunu açık etme. Gündüz kimliğini korumak için köy rollerinden birine (Köylü, ya da daha riskli ama etkili biçimde Doktor/Kahin gibi bir bilgi rolü) sahte iddia yapmak standart bir taktik — ama sahte claim, gerçek sahibiyle çakışırsa seni hemen ele verir, bu yüzden dikkatli seç. Sorgulanırsan Köylü gibi davran ve şöyle de: \"Ben sadece köylüyüm, gerçek şüphem hâlâ konuşmayan Y — bilgisi olan biri neden hâlâ sessiz?\" Gerçek bilgisi olmayan bir köylünün doğal refleksi budur, sessiz kalanlara işaret etmek — bu yüzden bu yönlendirme inandırıcı durur.", en: "Never reveal you're a vampire. Fake-claiming a village role (Villager, or more riskily but more effectively an information role like Doctor/Seer) to protect your day identity is standard — but a fake claim that collides with the real holder exposes you instantly, so choose carefully. If questioned, play it as a Villager and say something like: \"I'm just a Villager — my real suspicion is Y, who still hasn't said anything. Why so quiet if you actually know something?\" Pointing at the quietest player is exactly what an info-less Villager naturally does, so the deflection reads as genuine." },
       s4: { tr: "Gündüz, bir köylü gibi davran: makul şüpheler öne sür, ama asla masum bir oyuncuyu çok agresif biçimde savunma — bu ittifak izlenimi yaratır. Diğer vampirlerle gündüz açıkça anlaşıyor gibi görünmekten kaçın; onlara oy verirken bile makul bir gerekçe sun, kör sadakat şüphe çeker.", en: "During the day, act like a villager: raise reasonable suspicions, but never defend an innocent player too aggressively — it reads as an alliance. Avoid looking too coordinated with the other vampires in daytime; even when voting for one of them, give a plausible reason — blind loyalty is a tell." },
       related_list: { tr: "<li><a href=\"/roles/alfa-vampir.html\">Alfa Vampir (Alpha Vampire)</a> — Alfa, gece oylamandaki beraberlikleri kendi lehine çevirir.</li><li><a href=\"/roles/suikastci.html\">Suikastçı (Assassin)</a> — Suikastçı, takım oyu tıkandığında devreye giren yedek bıçak.</li><li><a href=\"/roles/vampir-ciragi.html\">Vampir Çırağı (Fledgling Vampire)</a> — Sen ölürsen takımın öldürme gücünü gizlice o taşır.</li>", en: "<li><a href=\"/roles/alfa-vampir.html\">Alfa Vampir (Alpha Vampire)</a> — The Alpha swings your night vote's ties their way.</li><li><a href=\"/roles/suikastci.html\">Suikastçı (Assassin)</a> — The Assassin is the backup blade when the team vote stalls.</li><li><a href=\"/roles/vampir-ciragi.html\">Vampir Çırağı (Fledgling Vampire)</a> — If you die, they silently carry your team's killing power forward.</li>" },
     };

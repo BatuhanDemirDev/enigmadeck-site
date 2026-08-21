@@ -24,6 +24,10 @@
     --gold: #f5c263;
     --mx: 50%;
     --my: 20%;
+    --align-village: #7bc98d;
+    --align-vampire: #e0526a;
+    --align-neutral: #5b9fe0;
+    --align-lovers: #f291d0;
   }
   * { box-sizing: border-box; }
   html { color-scheme: dark; }
@@ -173,6 +177,49 @@
   .role-grid a { font-weight: 600; color: var(--paper); text-decoration: none; }
   .role-grid a:hover { color: var(--gold); }
   .role-grid .teaser { color: var(--muted); font-size: 14px; }
+
+  /* Alignment chips: reuse the site's pill/tag aesthetic, tinted per faction */
+  .kicker-chip {
+    display: inline-flex; align-items: center;
+    border: 1px solid var(--line); background: var(--panel);
+    padding: 5px 12px; border-radius: 100px;
+  }
+  .kicker-chip.align-koy { color: var(--align-village); border-color: rgba(123,201,141,.35); background: rgba(123,201,141,.08); }
+  .kicker-chip.align-vam { color: var(--align-vampire); border-color: rgba(224,82,106,.35); background: rgba(224,82,106,.08); }
+  .kicker-chip.align-not { color: var(--align-neutral); border-color: rgba(91,159,224,.35); background: rgba(91,159,224,.08); }
+  .kicker-chip.align-ask { color: var(--align-lovers); border-color: rgba(242,145,208,.35); background: rgba(242,145,208,.08); }
+  .panel .tab.align-koy { color: var(--align-village); }
+  .panel .tab.align-vam { color: var(--align-vampire); }
+  .panel .tab.align-not { color: var(--align-neutral); }
+  .panel .tab.align-ask { color: var(--align-lovers); }
+
+  /* Role emblem: gradient badge matching .wordmark .glyph, gold glyph on top */
+  .role-hero { display: flex; align-items: center; gap: 18px; margin: 0 0 12px; }
+  .role-hero h1 { margin: 0; }
+  .role-icon {
+    flex-shrink: 0; width: 64px; height: 64px; border-radius: 18px;
+    background: linear-gradient(135deg, var(--violet), var(--magenta));
+    border: 1px solid var(--line);
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 8px 22px rgba(139,92,246,.28);
+  }
+  .role-icon svg { width: 34px; height: 34px; color: var(--gold); display: block; }
+
+  /* Small role emblem + alignment ring, used in the roles/index.html lists */
+  .role-mini {
+    width: 30px; height: 30px; border-radius: 9px; flex-shrink: 0; margin-top: 1px;
+    display: flex; align-items: center; justify-content: center;
+    border: 1px solid var(--line); background: var(--panel);
+  }
+  .role-mini svg { width: 16px; height: 16px; color: var(--gold); display: block; }
+  .role-mini.align-koy { border-color: rgba(123,201,141,.4); background: rgba(123,201,141,.10); }
+  .role-mini.align-vam { border-color: rgba(224,82,106,.4); background: rgba(224,82,106,.10); }
+  .role-mini.align-not { border-color: rgba(91,159,224,.4); background: rgba(91,159,224,.10); }
+  .role-mini.align-ask { border-color: rgba(242,145,208,.4); background: rgba(242,145,208,.10); }
+  .role-grid li { display: flex; align-items: flex-start; gap: 12px; }
+  .role-grid .role-text { flex: 1; }
+
+  .icon-credit { color: var(--muted); font-size: 13px; }
 </style>
 </head>
 <body>
@@ -196,8 +243,11 @@
   </header>
 
   <main class="wrap">
-    <p class="mono-label" data-i18n="p_kicker">Rol Dosyası — Köylü Hizalı</p>
-    <h1 data-i18n="p_h1">Şerif</h1>
+    <p class="mono-label kicker-chip align-koy" data-i18n="p_kicker">Rol Dosyası — Köylü Hizalı</p>
+    <div class="role-hero">
+      <span class="role-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="m 237.59142,23.950128 c -15.48769,9.432598 -34.17058,12.318766 -44.1673,12.318766 -10.00366,0 -23.79926,-0.194925 -43.9503,-11.829131 -8.35467,-4.823577 -9.86134,-5.708699 -14.34686,-5.708699 -12.91322,0 -71.396413,58.375934 -72.363034,66.334414 -0.966622,7.958452 32.120593,28.163932 33.71248,57.150952 1.591887,28.98703 -19.183619,61.80636 -27.756183,87.39706 -17.765566,52.9498 -22.581636,58.94861 -22.581622,85.85861 3.91678,77.65208 56.609859,131.68607 130.916129,144.25034 31.84641,4.83094 44.87352,9.46439 59.11229,21.0237 5.93519,4.34906 12.47815,10.68983 19.74398,11.52033 l 0,0.0278 c 0.0299,-0.003 0.0591,-0.01 0.089,-0.0142 0.0299,0.003 0.0591,0.0114 0.089,0.0142 l 0,-0.0278 c 7.26582,-0.8305 13.80879,-7.17127 19.74397,-11.52033 14.23877,-11.55931 27.26588,-16.19276 59.11229,-21.0237 74.30628,-12.56427 126.99934,-66.59826 130.91614,-144.25034 0,-26.91 -4.81606,-32.90881 -22.58162,-85.85861 -8.57257,-25.5907 -29.34807,-58.41003 -27.75619,-87.39706 1.59189,-28.98702 34.6791,-49.1925 33.71248,-57.150952 -0.96662,-7.95848 -59.44983,-66.334414 -72.36304,-66.334414 -4.48553,0 -5.99218,0.885122 -14.34685,5.708699 -20.15104,11.634206 -33.94664,11.829131 -43.95031,11.829131 -9.99671,0 -28.6796,-2.886168 -44.16729,-12.318766 -4.52967,-2.74526 -10.03057,-5.344254 -18.40861,-5.344254 -6.60122,0 -13.34704,2.294383 -18.4086,5.344254 z"/></svg></span>
+      <h1 data-i18n="p_h1">Şerif</h1>
+    </div>
     <p class="updated" data-i18n="p_sub">(İngilizce: Sheriff)</p>
     <p class="lede" data-i18n="p_lede">Kahin'in daha az kesin konuşan kardeşi. Aynı gerçeği görürsün, ama kelimelerin daha az güç taşır — güvenilirliğini zamanla inşa etmen gerekir.</p>
 
@@ -227,7 +277,7 @@
     <div class="panel" id="claim">
       <div class="tab" data-i18n="sec3_tab">İletişim Taktiği</div>
       <h2 data-i18n="sec3_h2">Ne Claim Etmeli</h2>
-      <p data-i18n="s3">İfaden daha belirsiz olduğu için claim'in Kahin'inkinden daha az ağırlık taşır — şüpheyle karşılanmayı bekle. Aynı hedef için birden fazla gece tutarlı okuma verdiğinde bu güvenilirliğini artırır; tek bir "şüpheli" sonucuyla linç çağırmak yerine örüntü kurmaya çalış.</p>
+      <p data-i18n="s3">İfaden daha belirsiz olduğu için claim'in Kahin'inkinden daha az ağırlık taşır — şüpheyle karşılanmayı bekle. Aynı hedef için birden fazla gece tutarlı okuma verdiğinde bu güvenilirliğini artırır; tek bir "şüpheli" sonucuyla linç çağırmak yerine örüntü kurmaya çalış. Sorgulanırsan sonuçlarını netleştir ama abartma: "X'i inceledim, sonuç şüpheli — kesin vampir demiyorum ama dikkatli olun." Bir Kahin'le çelişki çıkarsa panikleme, şöyle söyle: "Benim sonucum daha belirsiz olabilir ama art arda iki gecedir aynı isme işaret ediyorum, bu bir örüntü."</p>
     </div>
 
     <div class="panel" id="davranis">
@@ -246,7 +296,10 @@
   <footer>
     <div class="wrap">
       <span data-i18n="footer_copy">© 2026 Batuhan Demir — EnigmaDeck</span>
-      <a href="/roles/" data-i18n="nav_roles">Rol Rehberi</a>
+      <span style="display:flex; align-items:center; gap:16px;">
+        <a href="/roles/" data-i18n="nav_roles">Rol Rehberi</a>
+        <a class="icon-credit" href="https://game-icons.net" target="_blank" rel="noopener" data-i18n="icon_credit">İkonlar: game-icons.net</a>
+      </span>
     </div>
   </footer>
 
@@ -272,13 +325,14 @@
       toc4: { tr: "Nasıl Davranmalı", en: "Behavior & Tells" },
       toc5: { tr: "İlgili Roller", en: "Related Roles" },
       footer_copy: { tr: "© 2026 Batuhan Demir — EnigmaDeck", en: "© 2026 Batuhan Demir — EnigmaDeck" },
+      icon_credit: { tr: "İkonlar: game-icons.net", en: "Icons: game-icons.net" },
       p_kicker: { tr: "Rol Dosyası — Köylü Hizalı", en: "Role File — Village-Aligned" },
       p_h1: { tr: "Şerif", en: "Sheriff" },
       p_sub: { tr: "(İngilizce: Sheriff)", en: "(Turkish: Şerif)" },
       p_lede: { tr: "Kahin'in daha az kesin konuşan kardeşi. Aynı gerçeği görürsün, ama kelimelerin daha az güç taşır — güvenilirliğini zamanla inşa etmen gerekir.", en: "The Seer's less certain-sounding sibling. You see the same truth, but your words carry less weight — you have to build credibility over time." },
       s1: { tr: "Her gece bir oyuncuyu incelersin, ama Kahin'den daha belirsiz bir sonuç alırsın: \"şüpheli\" ya da \"temiz\". Altta yatan gerçek Kahin'in kontrolüyle aynı, sadece ifade tarzı farklı — bu da Kahin de varsa aynı kişi için iki farklı ifadeli claim çatışmasına yol açabilir.", en: "Each night you investigate one player, but you get a vaguer result than the Seer: \"suspicious\" or \"clean.\" The underlying truth is the same check the Seer would make, just worded differently — which can create a claim conflict when a Seer also exists and both \"clear\" or \"suspect\" the same person with different-sounding language." },
       s2: { tr: "Hedeflerini Kahin gibi seç — en çok şüphe çekeni ya da sessiz kalanı incele. Sonuçların tek başına daha az ağırlık taşıdığı için, birkaç gece üst üste tutarlı okumalar biriktirmek, tek bir sonuca güvenmekten daha değerli.", en: "Pick targets the same way a Seer would — investigate the most suspicious or quietest player. Since each individual result carries less weight on its own, building up several nights of consistent reads matters more than trusting any single result." },
-      s3: { tr: "İfaden daha belirsiz olduğu için claim'in Kahin'inkinden daha az ağırlık taşır — şüpheyle karşılanmayı bekle. Aynı hedef için birden fazla gece tutarlı okuma verdiğinde bu güvenilirliğini artırır; tek bir \"şüpheli\" sonucuyla linç çağırmak yerine örüntü kurmaya çalış.", en: "Because your wording is vaguer, your claim carries less weight than a Seer's — expect to be doubted. Giving consistent reads on the same suspects across multiple nights builds credibility; rather than calling for a lynch off one \"suspicious\" result, try to build a pattern." },
+      s3: { tr: "İfaden daha belirsiz olduğu için claim'in Kahin'inkinden daha az ağırlık taşır — şüpheyle karşılanmayı bekle. Aynı hedef için birden fazla gece tutarlı okuma verdiğinde bu güvenilirliğini artırır; tek bir \"şüpheli\" sonucuyla linç çağırmak yerine örüntü kurmaya çalış. Sorgulanırsan sonuçlarını netleştir ama abartma: \"X'i inceledim, sonuç şüpheli — kesin vampir demiyorum ama dikkatli olun.\" Bir Kahin'le çelişki çıkarsa panikleme, şöyle söyle: \"Benim sonucum daha belirsiz olabilir ama art arda iki gecedir aynı isme işaret ediyorum, bu bir örüntü.\"", en: "Because your wording is vaguer, your claim carries less weight than a Seer's — expect to be doubted. Giving consistent reads on the same suspects across multiple nights builds credibility; rather than calling for a lynch off one \"suspicious\" result, try to build a pattern. If questioned, be precise but don't overclaim: \"I checked X, the result was suspicious — I'm not saying definite vampire, just be careful.\" If it conflicts with a Seer's claim, don't panic — say: \"My result is vaguer, sure, but it's pointed at the same name two nights running — that's a pattern.\"" },
       s4: { tr: "Bir Kahin claim ettiğinde ve sonuçlarınız çelişiyorsa panik yapma — ikinizden birinin yanlış (ya da sahte) olduğunu ima et, ama kimin sahte olduğuna dair kanıt sun; kendi geçmiş okumalarının tutarlılığı en güçlü kozun. Kelime seçimine dikkat et: \"şüpheli\" demek \"vampir\" demek değil, bunu köye net anlat, yoksa yanlış anlaşılıp gereksiz bir linçe sebep olabilirsin.", en: "If a Seer claims and your results conflict, don't panic — imply one of you is wrong (or lying), but back it with evidence, and the consistency of your own past reads is your strongest asset. Watch your wording: \"suspicious\" doesn't mean \"vampire\" — make that distinction clear to the village, or you risk causing an unnecessary lynch from a misunderstanding." },
       related_list: { tr: "<li><a href=\"/roles/kahin.html\">Kahin (Seer)</a> — Kahin'in kesin sonuçları, seninkini doğrulamak ya da çürütmek için referans noktan.</li><li><a href=\"/roles/gozcu.html\">Gözcü (Lookout)</a> — Gözcü'nün dolaylı kanıtı, senin belirsiz sonucunu güçlendirebilir.</li>", en: "<li><a href=\"/roles/kahin.html\">Kahin (Seer)</a> — The Seer's exact results are your reference point to confirm or contradict your own.</li><li><a href=\"/roles/gozcu.html\">Gözcü (Lookout)</a> — The Lookout's indirect evidence can reinforce your vaguer result.</li>" },
     };

@@ -24,6 +24,10 @@
     --gold: #f5c263;
     --mx: 50%;
     --my: 20%;
+    --align-village: #7bc98d;
+    --align-vampire: #e0526a;
+    --align-neutral: #5b9fe0;
+    --align-lovers: #f291d0;
   }
   * { box-sizing: border-box; }
   html { color-scheme: dark; }
@@ -173,6 +177,49 @@
   .role-grid a { font-weight: 600; color: var(--paper); text-decoration: none; }
   .role-grid a:hover { color: var(--gold); }
   .role-grid .teaser { color: var(--muted); font-size: 14px; }
+
+  /* Alignment chips: reuse the site's pill/tag aesthetic, tinted per faction */
+  .kicker-chip {
+    display: inline-flex; align-items: center;
+    border: 1px solid var(--line); background: var(--panel);
+    padding: 5px 12px; border-radius: 100px;
+  }
+  .kicker-chip.align-koy { color: var(--align-village); border-color: rgba(123,201,141,.35); background: rgba(123,201,141,.08); }
+  .kicker-chip.align-vam { color: var(--align-vampire); border-color: rgba(224,82,106,.35); background: rgba(224,82,106,.08); }
+  .kicker-chip.align-not { color: var(--align-neutral); border-color: rgba(91,159,224,.35); background: rgba(91,159,224,.08); }
+  .kicker-chip.align-ask { color: var(--align-lovers); border-color: rgba(242,145,208,.35); background: rgba(242,145,208,.08); }
+  .panel .tab.align-koy { color: var(--align-village); }
+  .panel .tab.align-vam { color: var(--align-vampire); }
+  .panel .tab.align-not { color: var(--align-neutral); }
+  .panel .tab.align-ask { color: var(--align-lovers); }
+
+  /* Role emblem: gradient badge matching .wordmark .glyph, gold glyph on top */
+  .role-hero { display: flex; align-items: center; gap: 18px; margin: 0 0 12px; }
+  .role-hero h1 { margin: 0; }
+  .role-icon {
+    flex-shrink: 0; width: 64px; height: 64px; border-radius: 18px;
+    background: linear-gradient(135deg, var(--violet), var(--magenta));
+    border: 1px solid var(--line);
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 8px 22px rgba(139,92,246,.28);
+  }
+  .role-icon svg { width: 34px; height: 34px; color: var(--gold); display: block; }
+
+  /* Small role emblem + alignment ring, used in the roles/index.html lists */
+  .role-mini {
+    width: 30px; height: 30px; border-radius: 9px; flex-shrink: 0; margin-top: 1px;
+    display: flex; align-items: center; justify-content: center;
+    border: 1px solid var(--line); background: var(--panel);
+  }
+  .role-mini svg { width: 16px; height: 16px; color: var(--gold); display: block; }
+  .role-mini.align-koy { border-color: rgba(123,201,141,.4); background: rgba(123,201,141,.10); }
+  .role-mini.align-vam { border-color: rgba(224,82,106,.4); background: rgba(224,82,106,.10); }
+  .role-mini.align-not { border-color: rgba(91,159,224,.4); background: rgba(91,159,224,.10); }
+  .role-mini.align-ask { border-color: rgba(242,145,208,.4); background: rgba(242,145,208,.10); }
+  .role-grid li { display: flex; align-items: flex-start; gap: 12px; }
+  .role-grid .role-text { flex: 1; }
+
+  .icon-credit { color: var(--muted); font-size: 13px; }
 </style>
 </head>
 <body>
@@ -196,8 +243,11 @@
   </header>
 
   <main class="wrap">
-    <p class="mono-label" data-i18n="p_kicker">Rol Dosyası — Nötr</p>
-    <h1 data-i18n="p_h1">Soytarı</h1>
+    <p class="mono-label kicker-chip align-not" data-i18n="p_kicker">Rol Dosyası — Nötr</p>
+    <div class="role-hero">
+      <span class="role-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M281.49 19.312c-25.16.153-60.41 33.046-86.097 68.937 3.964 3.373 7.804 7.028 11.492 10.948 9.436 10.03 18.148 21.76 26.144 34.612 11.52-18.005 23.463-33.81 35.724-46.87 19.07-20.313 39.165-34.398 60.04-38.75-12.726-17.32-28.263-28.186-47.304-28.878zm62.834 45.406c-.83.004-1.664.017-2.506.04l-.062.003-.063.003c-18.105.263-38.738 12.047-59.816 34.498-21.08 22.452-42.23 55.034-61.672 94.063-28.845 57.905-53.972 129.98-71.225 204.586 5.495 10.445 12.004 20.354 20.075 29.96 4.482-18.25 14.135-38.246 32.02-51.773l11.165-8.445 3.05 13.664c1.618 7.257 7.71 21.177 15.42 34.185 5.756 9.713 12.564 19.186 18.634 25.864 13.73-16.182 20.832-43.925 28.193-62.412l4.42-11.097 9.45 7.308c10.392 8.04 19.526 19.733 26.765 31.813 3.71 6.193 6.887 12.395 9.336 18.402 12.077-14.887 20.38-32.92 27.04-51.215-5.102-12.048-10.1-24.147-14.43-36.09-6.996-19.307-12.32-38.26-13.337-56.4-1.015-18.14 2.522-35.792 13.533-50.525 7.97-10.666 18.658-17.79 30.794-17.98 12.137-.187 23.963 6.146 35.348 17.265 18.01 17.59 36.405 48.284 55.545 94.338 1.338-54.69-3.184-113.508-17.436-161.142-8.99-30.052-21.805-55.49-38.615-72.785-16.285-16.753-35.92-26.245-61.626-26.125zm-205.11 18.18c-4.463.04-8.997.646-13.614 1.85-47.61 12.428-68.494 50.477-77.536 97.667-4.09 21.355-5.4 44.255-5.253 66.65 1.557.036 3.092.16 4.602.368 1.754-6.153 3.62-12.048 5.688-17.498 4.876-12.862 10.612-23.867 19.453-31.336 8.84-7.47 21.574-9.996 34.144-5.492 26.76 9.59 40.14 35.794 45.24 66.176 2.492 14.844 3.214 31.024 2.723 47.744 14.29-44.75 31.076-86.877 49.434-123.73 5.95-11.945 12.066-23.322 18.32-34.076-8.792-15.234-18.415-28.824-28.64-39.692-15.944-16.95-32.47-27.154-50.124-28.486-1.47-.11-2.95-.16-4.437-.146zm232.173 148.27c-5.544.085-10.803 2.923-16.655 10.753-1.167 1.564-2.213 3.172-3.164 4.817 7.204 9.21 14.374 19.512 21.377 30.682 3.887-1.5 8.052-2.428 12.393-2.665-1.107-12.588-2.46-26.452-4.14-40.98-3.758-1.902-7.04-2.65-9.81-2.608zm-329.56 35.87c-12.81 0-23 10.19-23 23s10.19 23 23 23c12.808 0 23-10.19 23-23s-10.192-23-23-23zm345.75 25.652c-12.808 0-23 10.19-23 23s10.192 23 23 23c12.81 0 23-10.19 23-23s-10.19-23-23-23zm82.597 56.465c-12.81 0-23 10.19-23 23s10.19 23 23 23 23-10.19 23-23-10.19-23-23-23zm-99.31 32.643c-8.713 23.945-20.526 48.82-41.428 67.93l-12.512 11.437-2.465-16.77c-.916-6.226-5.35-17.525-11.728-28.167-3.786-6.32-8.287-12.394-12.898-17.62-6.213 19.202-14.643 45.832-34.68 62.348l-5.763 4.75-5.73-4.787c-10.268-8.58-20.073-22.133-28.435-36.24-5.068-8.55-9.358-17.036-12.623-24.948-11.832 14.45-17.72 34.36-18.62 48.398l-1.246 19.457-14-13.568c-18.337-17.774-30.744-36.71-40.152-56.956l-11.453 48.67c-.337 5.734-.657 12.613-.34 18.48.332 6.097 2.332 10.952 1.98 10.55 4.148 4.767 20.086 11.37 42.304 14.553 22.218 3.185 50.507 4.065 80.176 2.844 59.338-2.44 124.766-13.612 159.164-29.15 4.968-2.245 13.87-15.99.5-35.91l-.014-.02z"/></svg></span>
+      <h1 data-i18n="p_h1">Soytarı</h1>
+    </div>
     <p class="updated" data-i18n="p_sub">(İngilizce: Jester)</p>
     <p class="lede" data-i18n="p_lede">Hiçbir takımın yok. Kazanma yolun, herkesin kaçındığı şeyi aktif olarak istemek: linç edilmek.</p>
 
@@ -227,7 +277,7 @@
     <div class="panel" id="claim">
       <div class="tab" data-i18n="sec3_tab">İletişim Taktiği</div>
       <h2 data-i18n="sec3_h2">Ne Claim Etmeli</h2>
-      <p data-i18n="s3">Asla Soytarı olduğunu açıkça söyleme — bu amacını tamamen boşa çıkarır. Bunun yerine belirsiz, çelişkili claim'ler yap; bir gün bir role sahip gibi davran, ertesi gün farklı bir iddiada bulun — kafa karışıklığı şüpheni artırır.</p>
+      <p data-i18n="s3">Asla Soytarı olduğunu açıkça söyleme — bu amacını tamamen boşa çıkarır. Bunun yerine belirsiz, çelişkili claim'ler yap; bir gün bir role sahip gibi davran, ertesi gün farklı bir iddiada bulun — kafa karışıklığı şüpheni artırır. Bariz görünmeden şüpheli olmak istiyorsan şöyle bir cümle dene: "Aslında dün gece uyuyakaldım, hiçbir şey görmedim" gibi hafif tuhaf, biraz fazla savunmasız ama gülünç olmayan bir cevap ver — bu, linç edilmeni istemene rağmen bilerek yapıyormuş gibi görünmeyecek kadar ince bir seçim.</p>
     </div>
 
     <div class="panel" id="davranis">
@@ -246,7 +296,10 @@
   <footer>
     <div class="wrap">
       <span data-i18n="footer_copy">© 2026 Batuhan Demir — EnigmaDeck</span>
-      <a href="/roles/" data-i18n="nav_roles">Rol Rehberi</a>
+      <span style="display:flex; align-items:center; gap:16px;">
+        <a href="/roles/" data-i18n="nav_roles">Rol Rehberi</a>
+        <a class="icon-credit" href="https://game-icons.net" target="_blank" rel="noopener" data-i18n="icon_credit">İkonlar: game-icons.net</a>
+      </span>
     </div>
   </footer>
 
@@ -272,13 +325,14 @@
       toc4: { tr: "Nasıl Davranmalı", en: "Behavior & Tells" },
       toc5: { tr: "İlgili Roller", en: "Related Roles" },
       footer_copy: { tr: "© 2026 Batuhan Demir — EnigmaDeck", en: "© 2026 Batuhan Demir — EnigmaDeck" },
+      icon_credit: { tr: "İkonlar: game-icons.net", en: "Icons: game-icons.net" },
       p_kicker: { tr: "Rol Dosyası — Nötr", en: "Role File — Neutral" },
       p_h1: { tr: "Soytarı", en: "Jester" },
       p_sub: { tr: "(İngilizce: Jester)", en: "(Turkish: Soytarı)" },
       p_lede: { tr: "Hiçbir takımın yok. Kazanma yolun, herkesin kaçındığı şeyi aktif olarak istemek: linç edilmek.", en: "You have no team. Your path to victory is actively wanting the one thing everyone else avoids: getting lynched." },
       s1: { tr: "Kendi takımın yok. Köy seni oylayıp linç ederse TEK BAŞINA kazanırsın (oyunu başkaları için bitirmez, sadece senin kişisel zaferin). Bu yüzden mümkün olduğunca şüpheli görünmek istersin — diğer her rolün içgüdüsünün tam tersi.", en: "You have no team. If the town votes you out, you win ALONE (it doesn't end the game for others — it's your personal win). So you actively want to look as suspicious as possible — the exact opposite instinct of every other role." },
       s2: { tr: "Gece aksiyonun yok. Tüm oyun gündüz fazında geçer: garip cevaplar ver, tutarsız savunmalar yap, gereksiz yere savunmacı ol — ama bunu doğal görünecek kadar ince ayarla, aşırıya kaçarsan köy senden şüphelenip seni BİLEREK yaşatabilir (klasik bir karşı-strateji).", en: "You have no night action. The entire game plays out in the day phase: give odd answers, make inconsistent defenses, act unnecessarily defensive — but tune it fine enough to look natural, because overdoing it lets the town spare you ON PURPOSE (a classic advanced counter-play)." },
-      s3: { tr: "Asla Soytarı olduğunu açıkça söyleme — bu amacını tamamen boşa çıkarır. Bunun yerine belirsiz, çelişkili claim'ler yap; bir gün bir role sahip gibi davran, ertesi gün farklı bir iddiada bulun — kafa karışıklığı şüpheni artırır.", en: "Never openly state you're the Jester — that completely defeats your purpose. Instead, make vague, contradictory claims; act like you have one role one day and a different claim the next — the confusion increases suspicion around you." },
+      s3: { tr: "Asla Soytarı olduğunu açıkça söyleme — bu amacını tamamen boşa çıkarır. Bunun yerine belirsiz, çelişkili claim'ler yap; bir gün bir role sahip gibi davran, ertesi gün farklı bir iddiada bulun — kafa karışıklığı şüpheni artırır. Bariz görünmeden şüpheli olmak istiyorsan şöyle bir cümle dene: \"Aslında dün gece uyuyakaldım, hiçbir şey görmedim\" gibi hafif tuhaf, biraz fazla savunmasız ama gülünç olmayan bir cevap ver — bu, linç edilmeni istemene rağmen bilerek yapıyormuş gibi görünmeyecek kadar ince bir seçim.", en: "Never openly state you're the Jester — that completely defeats your purpose. Instead, make vague, contradictory claims; act like you have one role one day and a different claim the next — the confusion increases suspicion around you. If you want to look suspicious without being obvious about wanting the lynch, try a line like \"Honestly, I dozed off last night, didn't see anything\" — mildly odd, a bit too undefended, but not absurd; it's subtle enough to not read as intentionally engineered." },
       s4: { tr: "Erratik davranmak stratejinin özü, ama \"bunu bilerek yapıyorum\" havası asla verme — çok bariz aptallık taklit etmek, tecrübeli bir köyün seni fark edip nöbetle affetmesine yol açar. Eğer köy Soytarı'nın oyunda olduğunu fark ederse (geçmiş oyunlardan biliyorlarsa) beklenmedik ölçüde makul davranmak bile ters bir hamle olabilir.", en: "Playing erratic is the whole strategy, but never give off an \"I'm doing this on purpose\" vibe — too obviously feigned foolishness lets an experienced town notice and spare you out of spite. If the town suspects a Jester is in play (say, from past games), even acting unexpectedly reasonable can be a viable counter-move." },
       related_list: { tr: "<li><a href=\"/roles/infazci.html\">İnfazcı (Executioner)</a> — İnfazcı da bazen senin gibi 'linç edilmeyi' hedefleyen bir role dönüşebilir.</li><li><a href=\"/roles/seri-katil.html\">Seri Katil (Serial Killer)</a> — İkiniz de takımsızsınız, ama kazanma koşullarınız taban tabana zıt.</li><li><a href=\"/roles/munzevi.html\">Münzevi (Survivor)</a> — Münzevi de tek başına oynar, ama senin tersine dikkat çekmekten kaçınır.</li>", en: "<li><a href=\"/roles/infazci.html\">İnfazcı (Executioner)</a> — The Executioner can also convert into a role that seeks a lynch, just like you.</li><li><a href=\"/roles/seri-katil.html\">Seri Katil (Serial Killer)</a> — You're both teamless, but your win conditions are polar opposites.</li><li><a href=\"/roles/munzevi.html\">Münzevi (Survivor)</a> — The Survivor also plays solo, but avoids attention instead of courting it.</li>" },
     };

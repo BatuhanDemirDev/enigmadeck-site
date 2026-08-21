@@ -24,6 +24,10 @@
     --gold: #f5c263;
     --mx: 50%;
     --my: 20%;
+    --align-village: #7bc98d;
+    --align-vampire: #e0526a;
+    --align-neutral: #5b9fe0;
+    --align-lovers: #f291d0;
   }
   * { box-sizing: border-box; }
   html { color-scheme: dark; }
@@ -173,6 +177,49 @@
   .role-grid a { font-weight: 600; color: var(--paper); text-decoration: none; }
   .role-grid a:hover { color: var(--gold); }
   .role-grid .teaser { color: var(--muted); font-size: 14px; }
+
+  /* Alignment chips: reuse the site's pill/tag aesthetic, tinted per faction */
+  .kicker-chip {
+    display: inline-flex; align-items: center;
+    border: 1px solid var(--line); background: var(--panel);
+    padding: 5px 12px; border-radius: 100px;
+  }
+  .kicker-chip.align-koy { color: var(--align-village); border-color: rgba(123,201,141,.35); background: rgba(123,201,141,.08); }
+  .kicker-chip.align-vam { color: var(--align-vampire); border-color: rgba(224,82,106,.35); background: rgba(224,82,106,.08); }
+  .kicker-chip.align-not { color: var(--align-neutral); border-color: rgba(91,159,224,.35); background: rgba(91,159,224,.08); }
+  .kicker-chip.align-ask { color: var(--align-lovers); border-color: rgba(242,145,208,.35); background: rgba(242,145,208,.08); }
+  .panel .tab.align-koy { color: var(--align-village); }
+  .panel .tab.align-vam { color: var(--align-vampire); }
+  .panel .tab.align-not { color: var(--align-neutral); }
+  .panel .tab.align-ask { color: var(--align-lovers); }
+
+  /* Role emblem: gradient badge matching .wordmark .glyph, gold glyph on top */
+  .role-hero { display: flex; align-items: center; gap: 18px; margin: 0 0 12px; }
+  .role-hero h1 { margin: 0; }
+  .role-icon {
+    flex-shrink: 0; width: 64px; height: 64px; border-radius: 18px;
+    background: linear-gradient(135deg, var(--violet), var(--magenta));
+    border: 1px solid var(--line);
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 8px 22px rgba(139,92,246,.28);
+  }
+  .role-icon svg { width: 34px; height: 34px; color: var(--gold); display: block; }
+
+  /* Small role emblem + alignment ring, used in the roles/index.html lists */
+  .role-mini {
+    width: 30px; height: 30px; border-radius: 9px; flex-shrink: 0; margin-top: 1px;
+    display: flex; align-items: center; justify-content: center;
+    border: 1px solid var(--line); background: var(--panel);
+  }
+  .role-mini svg { width: 16px; height: 16px; color: var(--gold); display: block; }
+  .role-mini.align-koy { border-color: rgba(123,201,141,.4); background: rgba(123,201,141,.10); }
+  .role-mini.align-vam { border-color: rgba(224,82,106,.4); background: rgba(224,82,106,.10); }
+  .role-mini.align-not { border-color: rgba(91,159,224,.4); background: rgba(91,159,224,.10); }
+  .role-mini.align-ask { border-color: rgba(242,145,208,.4); background: rgba(242,145,208,.10); }
+  .role-grid li { display: flex; align-items: flex-start; gap: 12px; }
+  .role-grid .role-text { flex: 1; }
+
+  .icon-credit { color: var(--muted); font-size: 13px; }
 </style>
 </head>
 <body>
@@ -196,8 +243,11 @@
   </header>
 
   <main class="wrap">
-    <p class="mono-label" data-i18n="p_kicker">Rol Dosyası — Nötr</p>
-    <h1 data-i18n="p_h1">Münzevi</h1>
+    <p class="mono-label kicker-chip align-not" data-i18n="p_kicker">Rol Dosyası — Nötr</p>
+    <div class="role-hero">
+      <span class="role-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M260.22 21.75c-35.407 0-63.024 5.19-82.345 12.844-9.66 3.827-17.072 8.22-22.78 13.437-2.856 2.61-5.355 5.53-7.126 8.75-20.707 18.986-35.955 48.755-45.845 81.72-9.45 31.5-13.837 66.035-11.47 97.563-1.78 22.768 10.688 55.117 24.97 81.03l.063.126.03.03c33.913 34.964 83.458 60.827 135.313 67.563V129.625c3.036.106 6.094.188 9.19.188 3.204 0 6.36-.088 9.5-.22v254.97c61.97-8.614 120.527-44.526 152.592-90.188 6.31-18.61 9.023-38.46 7.344-54.875 2.966-32.438-1.393-68.354-11.187-101-9.96-33.2-25.327-63.16-46.25-82.125-1.754-3.06-4.144-5.847-6.876-8.344-5.71-5.217-13.12-9.61-22.78-13.436-19.323-7.653-46.94-12.844-82.345-12.844zm0 18.688c33.573 0 59.057 5.236 75.342 11.687 8.143 3.224 14.168 6.298 17.5 9.344 3.333 3.043 3.5 5.482 3.5 5.843 0 10.54-8.305 21.148-25.687 29.78-17.382 8.633-42.673 14.032-70.656 14.032-28.098 0-53.343-5.08-70.658-13.438-17.314-8.355-25.718-18.457-25.718-30.374 0-.36.76-2.8 4.094-5.844 3.332-3.047 8.794-6.12 16.937-9.345 16.285-6.45 41.77-11.688 75.344-11.688zm111.374 43.25c11.81 15.68 21.998 36.85 29 60.187 7.59 25.3 11.598 53.038 11.22 78.625-16.25-13.403-28.542-34.667-36.627-57.406-8.665-24.372-12.573-51-8.03-73.844 1.744-2.406 3.22-4.942 4.437-7.563zm-222.875.374c.568 1.294 1.18 2.57 1.874 3.813 5.502 25.973.96 54.837-8.875 80.25-7.943 20.52-19.176 39.02-32.97 51.75-.08-24.852 3.918-51.563 11.25-76 6.946-23.153 17.027-44.17 28.72-59.813zm242.06 269.344c-36.57 28.03-82.68 46.99-130.56 51.063l-.783.06-.812-.06c-47.334-4.036-92.797-22.698-129.125-50.19-.956 3.05-1.438 6.11-1.438 9.158 0 15.545 12.548 31.48 36.438 43.937 23.89 12.458 58.006 20.563 95.78 20.563 37.777 0 71.893-8.105 95.783-20.563 23.89-12.458 36.437-28.392 36.437-43.938 0-3.338-.573-6.697-1.72-10.03zm-275.655 33.28c-17.37 12.854-26.563 27.47-26.563 41.845 0 11.535 10.293 29.294 26.157 43.095 14.044 12.22 31.883 21.216 47.31 23.125 9.7-22.68 20.252-41.555 31.657-56.438-13.913-3.702-26.666-8.546-37.843-14.375-18.425-9.608-33.094-22.287-40.72-37.25zm290.28.095c-7.636 14.925-22.297 27.568-40.686 37.158-11.228 5.854-24.048 10.697-38.033 14.406 11.398 14.872 21.96 33.744 31.657 56.375 14.686-1.997 32.556-10.938 46.72-23.095 16.113-13.833 26.748-31.68 26.748-43.094 0-14.332-9.13-28.923-26.406-41.75z"/></svg></span>
+      <h1 data-i18n="p_h1">Münzevi</h1>
+    </div>
     <p class="updated" data-i18n="p_sub">(İngilizce: Survivor)</p>
     <p class="lede" data-i18n="p_lede">Kimseyle savaşmıyorsun, kimseyi öldürmüyorsun. Tek hedefin son güne kadar hayatta kalmak.</p>
 
@@ -227,7 +277,7 @@
     <div class="panel" id="claim">
       <div class="tab" data-i18n="sec3_tab">İletişim Taktiği</div>
       <h2 data-i18n="sec3_h2">Ne Claim Etmeli</h2>
-      <p data-i18n="s3">Hiçbir güçlü iddiada bulunma — köy rolü gibi davranmak seni gereksiz yere hedef haline getirir. Amacın kazanmak değil (hiçbir takımın yok), sadece görünmez kalmak; en düşük profilli, en az fikir belirten oyuncu olmaya çalış.</p>
+      <p data-i18n="s3">Hiçbir güçlü iddiada bulunma — köy rolü gibi davranmak seni gereksiz yere hedef haline getirir. Amacın kazanmak değil (hiçbir takımın yok), sadece görünmez kalmak; en düşük profilli, en az fikir belirten oyuncu olmaya çalış. Sorgulanırsan iddialı olma, düşük profilli kal: "Benim özel bir bilgim yok, sadece hayatta kalmaya çalışıyorum, ne köyüm ne vampir" diyerek dürüst ama önemsiz görünen bir cevap ver — çünkü gerçekte de takımsızsın, bu cümle yalan değil ve şüphe çekmez.</p>
     </div>
 
     <div class="panel" id="davranis">
@@ -246,7 +296,10 @@
   <footer>
     <div class="wrap">
       <span data-i18n="footer_copy">© 2026 Batuhan Demir — EnigmaDeck</span>
-      <a href="/roles/" data-i18n="nav_roles">Rol Rehberi</a>
+      <span style="display:flex; align-items:center; gap:16px;">
+        <a href="/roles/" data-i18n="nav_roles">Rol Rehberi</a>
+        <a class="icon-credit" href="https://game-icons.net" target="_blank" rel="noopener" data-i18n="icon_credit">İkonlar: game-icons.net</a>
+      </span>
     </div>
   </footer>
 
@@ -272,13 +325,14 @@
       toc4: { tr: "Nasıl Davranmalı", en: "Behavior & Tells" },
       toc5: { tr: "İlgili Roller", en: "Related Roles" },
       footer_copy: { tr: "© 2026 Batuhan Demir — EnigmaDeck", en: "© 2026 Batuhan Demir — EnigmaDeck" },
+      icon_credit: { tr: "İkonlar: game-icons.net", en: "Icons: game-icons.net" },
       p_kicker: { tr: "Rol Dosyası — Nötr", en: "Role File — Neutral" },
       p_h1: { tr: "Münzevi", en: "Survivor" },
       p_sub: { tr: "(İngilizce: Survivor)", en: "(Turkish: Münzevi)" },
       p_lede: { tr: "Kimseyle savaşmıyorsun, kimseyi öldürmüyorsun. Tek hedefin son güne kadar hayatta kalmak.", en: "You're not fighting anyone, not killing anyone. Your only goal is surviving to the last day." },
       s1: { tr: "Hiçbir takımın yok, tek amacın sona kadar hayatta kalmak. Oyun boyunca 3 kere kullanabileceğin, sadece kendini hedef alan tek seferlik \"yelek\" korumaların var (kendi kendini hedef alabilen tek rolsün).", en: "You have no team — your only goal is to survive to the end. You have 3 one-time self-protect \"vests\" for the whole game, usable any night, targeting only yourself (you're the one role allowed to self-target)." },
       s2: { tr: "Yeleklerini rastgele değil, gerçek tehlike hissettiğin gecelerde kullan — 3 tanesi az, boşa harcarsan sonlara doğru savunmasız kalırsın. Riskli hissetmediğin gecelerde tamamen pas geç.", en: "Use your vests when you genuinely sense danger, not at random — 3 is not a lot, and wasting them leaves you exposed late-game. On nights that don't feel risky, pass entirely." },
-      s3: { tr: "Hiçbir güçlü iddiada bulunma — köy rolü gibi davranmak seni gereksiz yere hedef haline getirir. Amacın kazanmak değil (hiçbir takımın yok), sadece görünmez kalmak; en düşük profilli, en az fikir belirten oyuncu olmaya çalış.", en: "Don't make any strong claims — acting like a village role just makes you an unnecessary target. Your goal isn't to win for a team (you have none) — it's to stay invisible; aim to be the lowest-profile, least opinionated player at the table." },
+      s3: { tr: "Hiçbir güçlü iddiada bulunma — köy rolü gibi davranmak seni gereksiz yere hedef haline getirir. Amacın kazanmak değil (hiçbir takımın yok), sadece görünmez kalmak; en düşük profilli, en az fikir belirten oyuncu olmaya çalış. Sorgulanırsan iddialı olma, düşük profilli kal: \"Benim özel bir bilgim yok, sadece hayatta kalmaya çalışıyorum, ne köyüm ne vampir\" diyerek dürüst ama önemsiz görünen bir cevap ver — çünkü gerçekte de takımsızsın, bu cümle yalan değil ve şüphe çekmez.", en: "Don't make any strong claims — acting like a village role just makes you an unnecessary target. Your goal isn't to win for a team (you have none) — it's to stay invisible; aim to be the lowest-profile, least opinionated player at the table. If questioned, don't sound assertive, stay low-profile: say something like \"I don't have any special info, I'm just trying to survive, not village or vampire\" — an honest but unremarkable answer, since you genuinely have no team, so it isn't a lie and it doesn't attract suspicion." },
       s4: { tr: "Tartışmalarda köşeye sıkışmamaya çalış; net bir taraf tutmak seni ya vampir ya da köy hedefi listesine sokabilir. Yeleklerini, bir Kahin/Şerif seni işaret ettiği ya da hakkında ciddi bir suçlama yapıldığı geceler için sakla — erken temkinlilikle boşa harcamak yerine gerçek tehdit anına kadar bekle.", en: "Try not to get cornered in discussions; taking a clear side can put you on either the vampire's or the village's target list. Save your vests for nights when a Seer/Sheriff names you, or a serious accusation lands on you — hold out for the real threat rather than burning them early out of caution." },
       related_list: { tr: "<li><a href=\"/roles/soytari.html\">Soytarı (Jester)</a> — Soytarı da kimseye bağlı değildir, ama senin tersine ölmek ister.</li><li><a href=\"/roles/seri-katil.html\">Seri Katil (Serial Killer)</a> — Seri Katil de 'son kişi kalayım' mantığıyla oynar, ama seni de öldürebilir.</li>", en: "<li><a href=\"/roles/soytari.html\">Soytarı (Jester)</a> — The Jester is also unaffiliated, but unlike you, wants to die.</li><li><a href=\"/roles/seri-katil.html\">Seri Katil (Serial Killer)</a> — The Serial Killer also plays for 'last one standing,' but they can kill you too.</li>" },
     };

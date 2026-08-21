@@ -24,6 +24,10 @@
     --gold: #f5c263;
     --mx: 50%;
     --my: 20%;
+    --align-village: #7bc98d;
+    --align-vampire: #e0526a;
+    --align-neutral: #5b9fe0;
+    --align-lovers: #f291d0;
   }
   * { box-sizing: border-box; }
   html { color-scheme: dark; }
@@ -173,6 +177,49 @@
   .role-grid a { font-weight: 600; color: var(--paper); text-decoration: none; }
   .role-grid a:hover { color: var(--gold); }
   .role-grid .teaser { color: var(--muted); font-size: 14px; }
+
+  /* Alignment chips: reuse the site's pill/tag aesthetic, tinted per faction */
+  .kicker-chip {
+    display: inline-flex; align-items: center;
+    border: 1px solid var(--line); background: var(--panel);
+    padding: 5px 12px; border-radius: 100px;
+  }
+  .kicker-chip.align-koy { color: var(--align-village); border-color: rgba(123,201,141,.35); background: rgba(123,201,141,.08); }
+  .kicker-chip.align-vam { color: var(--align-vampire); border-color: rgba(224,82,106,.35); background: rgba(224,82,106,.08); }
+  .kicker-chip.align-not { color: var(--align-neutral); border-color: rgba(91,159,224,.35); background: rgba(91,159,224,.08); }
+  .kicker-chip.align-ask { color: var(--align-lovers); border-color: rgba(242,145,208,.35); background: rgba(242,145,208,.08); }
+  .panel .tab.align-koy { color: var(--align-village); }
+  .panel .tab.align-vam { color: var(--align-vampire); }
+  .panel .tab.align-not { color: var(--align-neutral); }
+  .panel .tab.align-ask { color: var(--align-lovers); }
+
+  /* Role emblem: gradient badge matching .wordmark .glyph, gold glyph on top */
+  .role-hero { display: flex; align-items: center; gap: 18px; margin: 0 0 12px; }
+  .role-hero h1 { margin: 0; }
+  .role-icon {
+    flex-shrink: 0; width: 64px; height: 64px; border-radius: 18px;
+    background: linear-gradient(135deg, var(--violet), var(--magenta));
+    border: 1px solid var(--line);
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 8px 22px rgba(139,92,246,.28);
+  }
+  .role-icon svg { width: 34px; height: 34px; color: var(--gold); display: block; }
+
+  /* Small role emblem + alignment ring, used in the roles/index.html lists */
+  .role-mini {
+    width: 30px; height: 30px; border-radius: 9px; flex-shrink: 0; margin-top: 1px;
+    display: flex; align-items: center; justify-content: center;
+    border: 1px solid var(--line); background: var(--panel);
+  }
+  .role-mini svg { width: 16px; height: 16px; color: var(--gold); display: block; }
+  .role-mini.align-koy { border-color: rgba(123,201,141,.4); background: rgba(123,201,141,.10); }
+  .role-mini.align-vam { border-color: rgba(224,82,106,.4); background: rgba(224,82,106,.10); }
+  .role-mini.align-not { border-color: rgba(91,159,224,.4); background: rgba(91,159,224,.10); }
+  .role-mini.align-ask { border-color: rgba(242,145,208,.4); background: rgba(242,145,208,.10); }
+  .role-grid li { display: flex; align-items: flex-start; gap: 12px; }
+  .role-grid .role-text { flex: 1; }
+
+  .icon-credit { color: var(--muted); font-size: 13px; }
 </style>
 </head>
 <body>
@@ -196,8 +243,11 @@
   </header>
 
   <main class="wrap">
-    <p class="mono-label" data-i18n="p_kicker">Rol Dosyası — Vampir Hizalı</p>
-    <h1 data-i18n="p_h1">Sessizleştirici</h1>
+    <p class="mono-label kicker-chip align-vam" data-i18n="p_kicker">Rol Dosyası — Vampir Hizalı</p>
+    <div class="role-hero">
+      <span class="role-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 19.313c-44.404 0-85.098 25.434-115.248 68.124C110.6 130.127 91.594 189.847 91.594 256c0 66.152 19.005 125.87 49.156 168.563 30.15 42.69 70.845 68.125 115.25 68.125 44.402 0 85.068-25.435 115.22-68.125 30.15-42.69 49.186-102.41 49.186-168.563 0-66.152-19.038-125.87-49.19-168.563-30.15-42.69-70.812-68.124-115.214-68.124H256zm-68.047 196.324c21.997.077 43.584 9.43 57.484 32.738C232.475 258.385 219.33 266.34 206 272c1.927-3.868 3-8.23 3-12.844 0-15.93-12.914-28.844-28.846-28.844s-28.84 12.914-28.84 28.844c0 9.317 4.425 17.6 11.28 22.875-.938.036-1.874.058-2.81.068-.937.01-1.874.007-2.815-.006h-.003c-15.953-.208-32.166-3.813-48.717-11.217 5.244-29.73 43.042-55.366 79.703-55.238zm136.094 0c36.66-.128 74.46 25.51 79.703 55.238-16.55 7.404-32.764 11.01-48.717 11.217h-.002c-.94.013-1.877.016-2.813.006-.937-.01-1.873-.032-2.81-.067 6.854-5.273 11.28-13.557 11.28-22.874 0-15.93-12.91-28.844-28.84-28.844-15.933 0-28.847 12.913-28.847 28.844 0 4.615 1.073 8.976 3 12.844-13.33-5.66-26.474-13.614-39.438-23.625 13.9-23.31 35.488-32.66 57.485-32.738zm-113.174 83.96c8.826-.03 18.155 3.6 25.693 11.14L256 330.17l19.434-19.434c7.538-7.538 16.867-11.168 25.693-11.14.588.002 1.175.02 1.758.054 9.33.55 17.723 4.835 23.974 11.086 6.25 6.252 10.536 14.644 11.085 23.975.55 9.332-3.045 19.41-11.086 27.45l-19.434 19.436 19.433 19.433c8.04 8.04 11.634 18.12 11.085 27.45-.55 9.332-4.834 17.724-11.086 23.975-6.252 6.25-14.644 10.537-23.975 11.086-9.33.55-19.41-3.044-27.45-11.085L256 433.02l-19.434 19.435c-8.04 8.04-18.12 11.635-27.45 11.086-9.332-.548-17.724-4.834-23.975-11.085-6.25-6.25-10.536-14.643-11.085-23.975-.55-9.33 3.045-19.41 11.086-27.45l19.434-19.434-19.433-19.436c-8.04-8.04-11.634-18.118-11.085-27.45.55-9.33 4.834-17.722 11.086-23.974 6.252-6.25 14.644-10.537 23.975-11.086.583-.034 1.17-.052 1.758-.054zm.943 18c-.55-.018-1.097-.01-1.644.022-4.374.256-8.882 2.42-12.305 5.843s-5.586 7.93-5.844 12.305c-.257 4.374.986 8.807 5.844 13.666l90.295 90.293c4.86 4.858 9.292 6.103 13.666 5.845 4.374-.257 8.882-2.422 12.305-5.845 3.423-3.423 5.586-7.93 5.844-12.303.257-4.374-.986-8.808-5.844-13.666l-90.295-90.295c-4.25-4.25-8.176-5.733-12.022-5.865zm88.368 0c-3.846.133-7.77 1.615-12.022 5.866l-19.435 19.435 25.97 25.97 19.436-19.434c4.858-4.86 6.1-9.292 5.844-13.666-.258-4.375-2.42-8.882-5.844-12.305-3.423-3.423-7.93-5.587-12.305-5.844-.547-.033-1.095-.04-1.644-.022zm-82.88 76.725l-19.437 19.436c-4.858 4.858-6.1 9.292-5.844 13.666.258 4.374 2.42 8.88 5.844 12.303 3.423 3.423 7.93 5.588 12.305 5.845 4.374.258 8.807-.987 13.666-5.845l19.433-19.434-25.967-25.97z"/></svg></span>
+      <h1 data-i18n="p_h1">Sessizleştirici</h1>
+    </div>
     <p class="updated" data-i18n="p_sub">(İngilizce: Blackmailer)</p>
     <p class="lede" data-i18n="p_lede">Bilgiyi öldürmenin ikinci yolu. Kimseyi eleyemezsin, ama tam doğru anda birinin ağzını kapatabilirsin.</p>
 
@@ -227,7 +277,7 @@
     <div class="panel" id="claim">
       <div class="tab" data-i18n="sec3_tab">İletişim Taktiği</div>
       <h2 data-i18n="sec3_h2">Ne Claim Etmeli</h2>
-      <p data-i18n="s3">Bu gücün varlığını asla açık etme; sessizleştirilen kişi neden konuşamadığını bilmiyor, bu kafa karışıklığı senin lehine. Susturma sonrası ortaya çıkan "neden konuşamıyor?" tartışmasını izle ama asla açıklama yapma.</p>
+      <p data-i18n="s3">Bu gücün varlığını asla açık etme; sessizleştirilen kişi neden konuşamadığını bilmiyor, bu kafa karışıklığı senin lehine. Susturma sonrası ortaya çıkan "neden konuşamıyor?" tartışmasını izle ama asla açıklama yapma. Sorgulanırsan susturduğun kişiyle ilgili hiçbir şey ima etme: "Neden konuşamadığını ben de merak ediyorum" gibi masum bir cümleyle diğerleriyle aynı şaşkınlığı paylaş. Kendi gücünü asla açık etme; sessizleştirme mekanik olduğu için kimse seni doğrudan suçlayamaz, sadece dolaylı kalırsan.</p>
     </div>
 
     <div class="panel" id="davranis">
@@ -246,7 +296,10 @@
   <footer>
     <div class="wrap">
       <span data-i18n="footer_copy">© 2026 Batuhan Demir — EnigmaDeck</span>
-      <a href="/roles/" data-i18n="nav_roles">Rol Rehberi</a>
+      <span style="display:flex; align-items:center; gap:16px;">
+        <a href="/roles/" data-i18n="nav_roles">Rol Rehberi</a>
+        <a class="icon-credit" href="https://game-icons.net" target="_blank" rel="noopener" data-i18n="icon_credit">İkonlar: game-icons.net</a>
+      </span>
     </div>
   </footer>
 
@@ -272,13 +325,14 @@
       toc4: { tr: "Nasıl Davranmalı", en: "Behavior & Tells" },
       toc5: { tr: "İlgili Roller", en: "Related Roles" },
       footer_copy: { tr: "© 2026 Batuhan Demir — EnigmaDeck", en: "© 2026 Batuhan Demir — EnigmaDeck" },
+      icon_credit: { tr: "İkonlar: game-icons.net", en: "Icons: game-icons.net" },
       p_kicker: { tr: "Rol Dosyası — Vampir Hizalı", en: "Role File — Vampire-Aligned" },
       p_h1: { tr: "Sessizleştirici", en: "Blackmailer" },
       p_sub: { tr: "(İngilizce: Blackmailer)", en: "(Turkish: Sessizleştirici)" },
       p_lede: { tr: "Bilgiyi öldürmenin ikinci yolu. Kimseyi eleyemezsin, ama tam doğru anda birinin ağzını kapatabilirsin.", en: "A second way to kill information. You can't eliminate anyone, but you can shut the right mouth at the right moment." },
       s1: { tr: "Her gece bir hedef seçersin; o kişi BİR SONRAKİ gündüz fazında sessize alınır — sesli sohbette mekanik olarak susturulur ve o gün tartışmaya katılamaz, hiçbir iddiada bulunamaz.", en: "Each night you pick a target; that player is silenced for the FOLLOWING day phase — mechanically muted in voice chat, unable to participate in discussion or make any claim that day." },
       s2: { tr: "Bu gücün en değerli anı, bir Kahin ya da Şerif'in tam o gün taze bir vampir sonucu açıklayacağını tahmin ettiğin zaman. Hedefin sessize alınacağını, susturulan kişinin kendisi de dahil kimse önceden bilmez — bu yüzden zamanlaman tamamen tahmine dayalı.", en: "This power's most valuable moment is when you predict a Seer or Sheriff is about to announce a fresh vampire result that exact day. Nobody — not even the target — knows in advance they'll be silenced, so your timing has to be based purely on prediction." },
-      s3: { tr: "Bu gücün varlığını asla açık etme; sessizleştirilen kişi neden konuşamadığını bilmiyor, bu kafa karışıklığı senin lehine. Susturma sonrası ortaya çıkan \"neden konuşamıyor?\" tartışmasını izle ama asla açıklama yapma.", en: "Never reveal this power exists; the silenced player doesn't know why they can't speak, and that confusion works in your favor. Watch the \"why can't they talk?\" discussion that follows a silencing, but never explain it." },
+      s3: { tr: "Bu gücün varlığını asla açık etme; sessizleştirilen kişi neden konuşamadığını bilmiyor, bu kafa karışıklığı senin lehine. Susturma sonrası ortaya çıkan \"neden konuşamıyor?\" tartışmasını izle ama asla açıklama yapma. Sorgulanırsan susturduğun kişiyle ilgili hiçbir şey ima etme: \"Neden konuşamadığını ben de merak ediyorum\" gibi masum bir cümleyle diğerleriyle aynı şaşkınlığı paylaş. Kendi gücünü asla açık etme; sessizleştirme mekanik olduğu için kimse seni doğrudan suçlayamaz, sadece dolaylı kalırsan.", en: "Never reveal this power exists; the silenced player doesn't know why they can't speak, and that confusion works in your favor. Watch the \"why can't they talk?\" discussion that follows a silencing, but never explain it. If questioned, never hint at who you silenced: share the same puzzled tone as everyone else with something like \"I'm wondering why they can't speak too.\" Never reveal your power — since the silence is purely mechanical, nobody can pin it on you directly as long as you stay indirect." },
       s4: { tr: "Kimi susturduğunu asla ima etme, hatta dolaylı yoldan bile — \"bugün X neden sessiz acaba\" gibi sorulara masum bir merakla katıl, asla bilgiç davranma. Susturma başarıyla bir Kahin/Şerif'in claim'ini engellediğinde bunu kutlama, sıradan bir gün gibi devam et.", en: "Never hint at who you silenced, not even indirectly — join questions like \"why is X so quiet today\" with innocent curiosity, never sounding like you know more. When a silencing successfully blocks a Seer/Sheriff's claim, don't celebrate it — carry on like it's just an ordinary day." },
       related_list: { tr: "<li><a href=\"/roles/muhafiz.html\">Muhafız (Escort)</a> — Muhafız'ın bloğu gece fazında, seninki gündüz fazında etkili — ikisi tamamlayıcı.</li><li><a href=\"/roles/serif.html\">Şerif (Sheriff)</a> — Şerif'in claim'ini tam zamanında susturmak, köyün en değerli bilgisini geciktirir.</li><li><a href=\"/roles/kahin.html\">Kahin (Seer)</a> — Kahin'in kritik bir açıklama yapacağı günü tahmin edip susturmak oyunu değiştirebilir.</li>", en: "<li><a href=\"/roles/muhafiz.html\">Muhafız (Escort)</a> — The Escort's block hits the night phase, yours hits the day phase — complementary tools.</li><li><a href=\"/roles/serif.html\">Şerif (Sheriff)</a> — Silencing the Sheriff's claim at the right moment delays the village's most valuable information.</li><li><a href=\"/roles/kahin.html\">Kahin (Seer)</a> — Predicting and silencing the day the Seer plans a critical reveal can change the game.</li>" },
     };

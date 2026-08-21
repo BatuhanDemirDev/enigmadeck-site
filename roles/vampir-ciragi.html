@@ -24,6 +24,10 @@
     --gold: #f5c263;
     --mx: 50%;
     --my: 20%;
+    --align-village: #7bc98d;
+    --align-vampire: #e0526a;
+    --align-neutral: #5b9fe0;
+    --align-lovers: #f291d0;
   }
   * { box-sizing: border-box; }
   html { color-scheme: dark; }
@@ -173,6 +177,49 @@
   .role-grid a { font-weight: 600; color: var(--paper); text-decoration: none; }
   .role-grid a:hover { color: var(--gold); }
   .role-grid .teaser { color: var(--muted); font-size: 14px; }
+
+  /* Alignment chips: reuse the site's pill/tag aesthetic, tinted per faction */
+  .kicker-chip {
+    display: inline-flex; align-items: center;
+    border: 1px solid var(--line); background: var(--panel);
+    padding: 5px 12px; border-radius: 100px;
+  }
+  .kicker-chip.align-koy { color: var(--align-village); border-color: rgba(123,201,141,.35); background: rgba(123,201,141,.08); }
+  .kicker-chip.align-vam { color: var(--align-vampire); border-color: rgba(224,82,106,.35); background: rgba(224,82,106,.08); }
+  .kicker-chip.align-not { color: var(--align-neutral); border-color: rgba(91,159,224,.35); background: rgba(91,159,224,.08); }
+  .kicker-chip.align-ask { color: var(--align-lovers); border-color: rgba(242,145,208,.35); background: rgba(242,145,208,.08); }
+  .panel .tab.align-koy { color: var(--align-village); }
+  .panel .tab.align-vam { color: var(--align-vampire); }
+  .panel .tab.align-not { color: var(--align-neutral); }
+  .panel .tab.align-ask { color: var(--align-lovers); }
+
+  /* Role emblem: gradient badge matching .wordmark .glyph, gold glyph on top */
+  .role-hero { display: flex; align-items: center; gap: 18px; margin: 0 0 12px; }
+  .role-hero h1 { margin: 0; }
+  .role-icon {
+    flex-shrink: 0; width: 64px; height: 64px; border-radius: 18px;
+    background: linear-gradient(135deg, var(--violet), var(--magenta));
+    border: 1px solid var(--line);
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 8px 22px rgba(139,92,246,.28);
+  }
+  .role-icon svg { width: 34px; height: 34px; color: var(--gold); display: block; }
+
+  /* Small role emblem + alignment ring, used in the roles/index.html lists */
+  .role-mini {
+    width: 30px; height: 30px; border-radius: 9px; flex-shrink: 0; margin-top: 1px;
+    display: flex; align-items: center; justify-content: center;
+    border: 1px solid var(--line); background: var(--panel);
+  }
+  .role-mini svg { width: 16px; height: 16px; color: var(--gold); display: block; }
+  .role-mini.align-koy { border-color: rgba(123,201,141,.4); background: rgba(123,201,141,.10); }
+  .role-mini.align-vam { border-color: rgba(224,82,106,.4); background: rgba(224,82,106,.10); }
+  .role-mini.align-not { border-color: rgba(91,159,224,.4); background: rgba(91,159,224,.10); }
+  .role-mini.align-ask { border-color: rgba(242,145,208,.4); background: rgba(242,145,208,.10); }
+  .role-grid li { display: flex; align-items: flex-start; gap: 12px; }
+  .role-grid .role-text { flex: 1; }
+
+  .icon-credit { color: var(--muted); font-size: 13px; }
 </style>
 </head>
 <body>
@@ -196,8 +243,11 @@
   </header>
 
   <main class="wrap">
-    <p class="mono-label" data-i18n="p_kicker">Rol Dosyası — Vampir Hizalı</p>
-    <h1 data-i18n="p_h1">Vampir Çırağı</h1>
+    <p class="mono-label kicker-chip align-vam" data-i18n="p_kicker">Rol Dosyası — Vampir Hizalı</p>
+    <div class="role-hero">
+      <span class="role-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M23.25 19.875c38.22 44.005 38.98 90.112 16 132.344 75.61-33.06 158.24-45.382 238.844-45.407 2.933 0 5.854 0 8.78.03 45.98.49 91.18 4.898 133.938 11.626C295.842 26.31 154.954 21.397 23.25 19.874zm251.5 105.75c-75.736.388-152.785 11.91-223.03 41.563 39.527 25.086 44.946 85.016 30.78 130.156 81.86-82.396 213.783-137.65 326.688-161.72-43.14-6.38-88.547-10.234-134.438-10zm139.28 28.094C303.25 177.412 172.427 233.127 94.44 312c59.466-5.64 111.354 40.075 96.25 97.844C256.44 302.84 326.538 224.834 414.03 153.72zm11.126 15.06c-84.76 68.95-152.326 143.842-216.187 247 86.224-47.916 190.35-14.365 189.405 76.126h89.53L362.096 328.78l-3.345-4.31 2.156-5.064 64.25-150.625zm10.313 23.407L380.25 321.72l113.875 147.655V435.03c-59.59-92.815-68.082-170.762-58.656-242.842z"/></svg></span>
+      <h1 data-i18n="p_h1">Vampir Çırağı</h1>
+    </div>
     <p class="updated" data-i18n="p_sub">(İngilizce: Fledgling Vampire)</p>
     <p class="lede" data-i18n="p_lede">Takımının gizli sigortası. Görünüşte zararsızsın, ta ki bir vampir ölene kadar.</p>
 
@@ -227,7 +277,7 @@
     <div class="panel" id="claim">
       <div class="tab" data-i18n="sec3_tab">İletişim Taktiği</div>
       <h2 data-i18n="sec3_h2">Ne Claim Etmeli</h2>
-      <p data-i18n="s3">Vampir Çırağı olduğunu asla açık etme. Terfi etmeden önce bir köylü gibi konuşman gerekiyor çünkü gerçekten öylesin — hiçbir gece bilgin, hiçbir vampir bağlantın yok. Terfi ettikten sonra da elbette vampir hizanı gizlemeye devam et.</p>
+      <p data-i18n="s3">Vampir Çırağı olduğunu asla açık etme. Terfi etmeden önce bir köylü gibi konuşman gerekiyor çünkü gerçekten öylesin — hiçbir gece bilgin, hiçbir vampir bağlantın yok. Terfi ettikten sonra da elbette vampir hizanı gizlemeye devam et. Terfi etmeden önce sorgulanırsan yalan söylemene bile gerek yok: "Hiçbir gece bilgim yok, tamamen köylü gibiyim" — bu doğru, çünkü henüz saldıramıyorsun. Terfi ettikten sonra da aynı köylü tavrını sürdür; ani bir davranış değişikliği (birden agresifleşmek) en büyük ipucun olur.</p>
     </div>
 
     <div class="panel" id="davranis">
@@ -246,7 +296,10 @@
   <footer>
     <div class="wrap">
       <span data-i18n="footer_copy">© 2026 Batuhan Demir — EnigmaDeck</span>
-      <a href="/roles/" data-i18n="nav_roles">Rol Rehberi</a>
+      <span style="display:flex; align-items:center; gap:16px;">
+        <a href="/roles/" data-i18n="nav_roles">Rol Rehberi</a>
+        <a class="icon-credit" href="https://game-icons.net" target="_blank" rel="noopener" data-i18n="icon_credit">İkonlar: game-icons.net</a>
+      </span>
     </div>
   </footer>
 
@@ -272,13 +325,14 @@
       toc4: { tr: "Nasıl Davranmalı", en: "Behavior & Tells" },
       toc5: { tr: "İlgili Roller", en: "Related Roles" },
       footer_copy: { tr: "© 2026 Batuhan Demir — EnigmaDeck", en: "© 2026 Batuhan Demir — EnigmaDeck" },
+      icon_credit: { tr: "İkonlar: game-icons.net", en: "Icons: game-icons.net" },
       p_kicker: { tr: "Rol Dosyası — Vampir Hizalı", en: "Role File — Vampire-Aligned" },
       p_h1: { tr: "Vampir Çırağı", en: "Fledgling Vampire" },
       p_sub: { tr: "(İngilizce: Fledgling Vampire)", en: "(Turkish: Vampir Çırağı)" },
       p_lede: { tr: "Takımının gizli sigortası. Görünüşte zararsızsın, ta ki bir vampir ölene kadar.", en: "Your team's hidden insurance policy. You look harmless — until a vampire dies." },
       s1: { tr: "Henüz saldıramazsın. Ama herhangi bir vampir (normal ya da Alfa) ölürse, sen otomatik ve anında tam yetkili, saldırabilen bir Vampir olursun. Takımın kayıp yaşasa bile öldürme gücünün canlı kalmasını sağlayan gizli bir yedek.", en: "You can't attack yet. But if any vampire (regular or Alpha) dies, you automatically and instantly become a full attacking Vampire. A hidden backup that keeps the vampire team's killing power alive even after losses." },
       s2: { tr: "Vampir hayattayken tamamen bir köylü gibi görün ve davran — hatta gece vampir sohbetine dahil olmadığın için diğer vampirlerin planından bile habersizsin. Bir vampir öldüğü anda rolün değişir; o geceden itibaren saldırı oylamasına katılmaya başlarsın.", en: "While vampires are alive, look and act exactly like a villager — you're not even part of the vampire night chat, so you're unaware of the others' plans. The moment a vampire dies, your role changes; from that night on you start participating in the attack vote." },
-      s3: { tr: "Vampir Çırağı olduğunu asla açık etme. Terfi etmeden önce bir köylü gibi konuşman gerekiyor çünkü gerçekten öylesin — hiçbir gece bilgin, hiçbir vampir bağlantın yok. Terfi ettikten sonra da elbette vampir hizanı gizlemeye devam et.", en: "Never claim you're the Fledgling Vampire. Before your promotion you genuinely should talk like a villager, because you effectively are one — no night information, no vampire connection. After promotion, obviously keep hiding your vampire alignment just as any vampire would." },
+      s3: { tr: "Vampir Çırağı olduğunu asla açık etme. Terfi etmeden önce bir köylü gibi konuşman gerekiyor çünkü gerçekten öylesin — hiçbir gece bilgin, hiçbir vampir bağlantın yok. Terfi ettikten sonra da elbette vampir hizanı gizlemeye devam et. Terfi etmeden önce sorgulanırsan yalan söylemene bile gerek yok: \"Hiçbir gece bilgim yok, tamamen köylü gibiyim\" — bu doğru, çünkü henüz saldıramıyorsun. Terfi ettikten sonra da aynı köylü tavrını sürdür; ani bir davranış değişikliği (birden agresifleşmek) en büyük ipucun olur.", en: "Never claim you're the Fledgling Vampire. Before your promotion you genuinely should talk like a villager, because you effectively are one — no night information, no vampire connection. After promotion, obviously keep hiding your vampire alignment just as any vampire would. If questioned before you're promoted, you don't even need to lie: \"I have no night info, I'm just like a Villager\" — which is literally true, since you can't attack yet. After promotion, keep the exact same villager demeanor; a sudden shift in behavior (getting abruptly aggressive) is your biggest tell." },
       s4: { tr: "Bir vampir öldüğünde köyün rahatlamasına dikkatlice katıl — asla farkında olmadan tavrını değiştirme. Terfi sonrası ilk saldırı oyuna katılırken acele etme; ani bir davranış değişikliği (aniden savunmacı ya da agresif olmak) fark edilebilir.", en: "When a vampire dies, carefully join in the village's relief — don't let your demeanor shift without noticing it yourself. When you first join an attack vote after promotion, don't rush; a sudden change in behavior — turning abruptly defensive or aggressive — can be noticed." },
       related_list: { tr: "<li><a href=\"/roles/vampir.html\">Vampir (Vampire)</a> — Senin terfin, doğrudan bir vampirin ölümüne bağlı.</li><li><a href=\"/roles/alfa-vampir.html\">Alfa Vampir (Alpha Vampire)</a> — Alfa ölse bile, takımın öldürme gücünü sen devralırsın.</li>", en: "<li><a href=\"/roles/vampir.html\">Vampir (Vampire)</a> — Your promotion is directly tied to a vampire's death.</li><li><a href=\"/roles/alfa-vampir.html\">Alfa Vampir (Alpha Vampire)</a> — Even if the Alpha dies, you're the one who inherits the team's killing power.</li>" },
     };

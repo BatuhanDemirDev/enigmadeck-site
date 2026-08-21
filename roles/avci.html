@@ -24,6 +24,10 @@
     --gold: #f5c263;
     --mx: 50%;
     --my: 20%;
+    --align-village: #7bc98d;
+    --align-vampire: #e0526a;
+    --align-neutral: #5b9fe0;
+    --align-lovers: #f291d0;
   }
   * { box-sizing: border-box; }
   html { color-scheme: dark; }
@@ -173,6 +177,49 @@
   .role-grid a { font-weight: 600; color: var(--paper); text-decoration: none; }
   .role-grid a:hover { color: var(--gold); }
   .role-grid .teaser { color: var(--muted); font-size: 14px; }
+
+  /* Alignment chips: reuse the site's pill/tag aesthetic, tinted per faction */
+  .kicker-chip {
+    display: inline-flex; align-items: center;
+    border: 1px solid var(--line); background: var(--panel);
+    padding: 5px 12px; border-radius: 100px;
+  }
+  .kicker-chip.align-koy { color: var(--align-village); border-color: rgba(123,201,141,.35); background: rgba(123,201,141,.08); }
+  .kicker-chip.align-vam { color: var(--align-vampire); border-color: rgba(224,82,106,.35); background: rgba(224,82,106,.08); }
+  .kicker-chip.align-not { color: var(--align-neutral); border-color: rgba(91,159,224,.35); background: rgba(91,159,224,.08); }
+  .kicker-chip.align-ask { color: var(--align-lovers); border-color: rgba(242,145,208,.35); background: rgba(242,145,208,.08); }
+  .panel .tab.align-koy { color: var(--align-village); }
+  .panel .tab.align-vam { color: var(--align-vampire); }
+  .panel .tab.align-not { color: var(--align-neutral); }
+  .panel .tab.align-ask { color: var(--align-lovers); }
+
+  /* Role emblem: gradient badge matching .wordmark .glyph, gold glyph on top */
+  .role-hero { display: flex; align-items: center; gap: 18px; margin: 0 0 12px; }
+  .role-hero h1 { margin: 0; }
+  .role-icon {
+    flex-shrink: 0; width: 64px; height: 64px; border-radius: 18px;
+    background: linear-gradient(135deg, var(--violet), var(--magenta));
+    border: 1px solid var(--line);
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 8px 22px rgba(139,92,246,.28);
+  }
+  .role-icon svg { width: 34px; height: 34px; color: var(--gold); display: block; }
+
+  /* Small role emblem + alignment ring, used in the roles/index.html lists */
+  .role-mini {
+    width: 30px; height: 30px; border-radius: 9px; flex-shrink: 0; margin-top: 1px;
+    display: flex; align-items: center; justify-content: center;
+    border: 1px solid var(--line); background: var(--panel);
+  }
+  .role-mini svg { width: 16px; height: 16px; color: var(--gold); display: block; }
+  .role-mini.align-koy { border-color: rgba(123,201,141,.4); background: rgba(123,201,141,.10); }
+  .role-mini.align-vam { border-color: rgba(224,82,106,.4); background: rgba(224,82,106,.10); }
+  .role-mini.align-not { border-color: rgba(91,159,224,.4); background: rgba(91,159,224,.10); }
+  .role-mini.align-ask { border-color: rgba(242,145,208,.4); background: rgba(242,145,208,.10); }
+  .role-grid li { display: flex; align-items: flex-start; gap: 12px; }
+  .role-grid .role-text { flex: 1; }
+
+  .icon-credit { color: var(--muted); font-size: 13px; }
 </style>
 </head>
 <body>
@@ -196,8 +243,11 @@
   </header>
 
   <main class="wrap">
-    <p class="mono-label" data-i18n="p_kicker">Rol Dosyası — Köylü Hizalı</p>
-    <h1 data-i18n="p_h1">Avcı</h1>
+    <p class="mono-label kicker-chip align-koy" data-i18n="p_kicker">Rol Dosyası — Köylü Hizalı</p>
+    <div class="role-hero">
+      <span class="role-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M247 32v23.21C143.25 59.8 59.798 143.25 55.21 247H32v18h23.21C59.8 368.75 143.25 452.202 247 456.79V480h18v-23.21C368.75 452.2 452.202 368.75 456.79 265H480v-18h-23.21C452.2 143.25 368.75 59.798 265 55.21V32h-18zm0 41.223V128h18V73.223C359 77.76 434.24 153 438.777 247H384v18h54.777C434.24 359 359 434.24 265 438.777V384h-18v54.777C153 434.24 77.76 359 73.223 265H128v-18H73.223C77.76 153 153 77.76 247 73.223zM247 224v23h-23v18h23v23h18v-23h23v-18h-23v-23h-18z"/></svg></span>
+      <h1 data-i18n="p_h1">Avcı</h1>
+    </div>
     <p class="updated" data-i18n="p_sub">(İngilizce: Hunter)</p>
     <p class="lede" data-i18n="p_lede">Ölümü bile bir silah olan tek rol. Kimseye zarar vermeden gezersin, ta ki biri seni öldürmeye çalışana kadar.</p>
 
@@ -227,7 +277,7 @@
     <div class="panel" id="claim">
       <div class="tab" data-i18n="sec3_tab">İletişim Taktiği</div>
       <h2 data-i18n="sec3_h2">Ne Claim Etmeli</h2>
-      <p data-i18n="s3">Avcı olduğunu açık etmek gündüz için güçlü bir caydırıcı — kimse "bedava intikam kurşunu" tetikleyecek birini linçlemek istemez. Ama aynı zamanda seni vampirler için öncelikli gece hedefi yapar, çünkü ölü bir Avcı bile takımlarına bir can daha mal olabilir.</p>
+      <p data-i18n="s3">Avcı olduğunu açık etmek gündüz için güçlü bir caydırıcı — kimse "bedava intikam kurşunu" tetikleyecek birini linçlemek istemez. Ama aynı zamanda seni vampirler için öncelikli gece hedefi yapar, çünkü ölü bir Avcı bile takımlarına bir can daha mal olabilir. Sorgulanırsan yeteneğini açıkça hatırlat, bu senin en güçlü kalkanın: "Beni linç ederseniz son sözüm olur, dikkatli seçin." Bu tehdit tek başına bazı oyları caydırabilir; ama bunu abartıp herkesi tehdit etme, yoksa panik yaratıp tam tersi bir linç dalgası başlatabilirsin.</p>
     </div>
 
     <div class="panel" id="davranis">
@@ -246,7 +296,10 @@
   <footer>
     <div class="wrap">
       <span data-i18n="footer_copy">© 2026 Batuhan Demir — EnigmaDeck</span>
-      <a href="/roles/" data-i18n="nav_roles">Rol Rehberi</a>
+      <span style="display:flex; align-items:center; gap:16px;">
+        <a href="/roles/" data-i18n="nav_roles">Rol Rehberi</a>
+        <a class="icon-credit" href="https://game-icons.net" target="_blank" rel="noopener" data-i18n="icon_credit">İkonlar: game-icons.net</a>
+      </span>
     </div>
   </footer>
 
@@ -272,13 +325,14 @@
       toc4: { tr: "Nasıl Davranmalı", en: "Behavior & Tells" },
       toc5: { tr: "İlgili Roller", en: "Related Roles" },
       footer_copy: { tr: "© 2026 Batuhan Demir — EnigmaDeck", en: "© 2026 Batuhan Demir — EnigmaDeck" },
+      icon_credit: { tr: "İkonlar: game-icons.net", en: "Icons: game-icons.net" },
       p_kicker: { tr: "Rol Dosyası — Köylü Hizalı", en: "Role File — Village-Aligned" },
       p_h1: { tr: "Avcı", en: "Hunter" },
       p_sub: { tr: "(İngilizce: Hunter)", en: "(Turkish: Avcı)" },
       p_lede: { tr: "Ölümü bile bir silah olan tek rol. Kimseye zarar vermeden gezersin, ta ki biri seni öldürmeye çalışana kadar.", en: "The one role whose death is itself a weapon. You walk around harmless — until someone tries to kill you." },
       s1: { tr: "Gece yeteneğin yok. Ama herhangi bir şekilde ölürsen — linç ile ya da gece saldırısıyla — ölmene rağmen bir son hamle hakkın olur: yaşayan bir oyuncuyu seçip anında eler.", en: "You have no night action. But whenever you die — by lynch or by night attack — you get one final act despite being dead: pick a living player and eliminate them on the spot." },
       s2: { tr: "İntikam hedefini önceden zihninde belirle, çünkü karar anı geldiğinde düşünecek vaktin olmayabilir. En çok şüphelendiğin, ya da seni öldürten kişi (linçte sana oy veren çoğunluk, gece saldırısında muhtemel vampir) en mantıklı seçim.", en: "Decide your revenge target in your head ahead of time, because when the moment comes you may not have time to think. Whoever you suspect most, or whoever caused your death (the lynch majority, or a likely vampire on a night kill), is the most logical pick." },
-      s3: { tr: "Avcı olduğunu açık etmek gündüz için güçlü bir caydırıcı — kimse \"bedava intikam kurşunu\" tetikleyecek birini linçlemek istemez. Ama aynı zamanda seni vampirler için öncelikli gece hedefi yapar, çünkü ölü bir Avcı bile takımlarına bir can daha mal olabilir.", en: "Revealing you're the Hunter is a strong daytime deterrent — nobody wants to trigger a \"free revenge shot\" by lynching you. But it also makes you a priority night target for vampires, since even a dead Hunter can still cost their team one more life." },
+      s3: { tr: "Avcı olduğunu açık etmek gündüz için güçlü bir caydırıcı — kimse \"bedava intikam kurşunu\" tetikleyecek birini linçlemek istemez. Ama aynı zamanda seni vampirler için öncelikli gece hedefi yapar, çünkü ölü bir Avcı bile takımlarına bir can daha mal olabilir. Sorgulanırsan yeteneğini açıkça hatırlat, bu senin en güçlü kalkanın: \"Beni linç ederseniz son sözüm olur, dikkatli seçin.\" Bu tehdit tek başına bazı oyları caydırabilir; ama bunu abartıp herkesi tehdit etme, yoksa panik yaratıp tam tersi bir linç dalgası başlatabilirsin.", en: "Revealing you're the Hunter is a strong daytime deterrent — nobody wants to trigger a \"free revenge shot\" by lynching you. But it also makes you a priority night target for vampires, since even a dead Hunter can still cost their team one more life. If questioned, remind people of your ability openly — it's your best shield: \"If you lynch me, I get the last word — choose carefully.\" That threat alone can deter votes, but don't overuse it on everyone at once, or you risk causing a panic that triggers the very lynch wave you're trying to avoid." },
       s4: { tr: "Claim etmeden önce kimin gerçek tehdit olduğuna dair sağlam bir okuman olsun, çünkü intikam hamlen büyük ihtimalle tek şansın. Vampirler seni erken avlamaya çalışabilir; eğer gece saldırısında öleceğini hissediyorsan, kimseye söylemeden zihninde bir \"yedek hedef\" listesi tut.", en: "Before claiming, have a solid read on who the real threat is, since your revenge shot is likely your only real shot. Vampires may try to hunt you early; if you sense you're about to die to a night attack, keep a mental \"backup target\" list without telling anyone." },
       related_list: { tr: "<li><a href=\"/roles/koruyucu.html\">Koruyucu (Bodyguard)</a> — İkiniz de bir saldırıyı 'cezalandıran' rollersiniz.</li><li><a href=\"/roles/soytari.html\">Soytarı (Jester)</a> — Soytarı da ölümü davet eder, ama tam tersi bir sebeple.</li><li><a href=\"/roles/cadi.html\">Cadı (Witch)</a> — Cadı'nın gecikmeli zehri, senin anlık intikamına benzer bir tehdit yaratır.</li>", en: "<li><a href=\"/roles/koruyucu.html\">Koruyucu (Bodyguard)</a> — You're both roles that punish an attack rather than just absorb it.</li><li><a href=\"/roles/soytari.html\">Soytarı (Jester)</a> — The Jester also invites death, but for the opposite reason.</li><li><a href=\"/roles/cadi.html\">Cadı (Witch)</a> — The Witch's delayed poison creates a threat similar to your instant revenge.</li>" },
     };

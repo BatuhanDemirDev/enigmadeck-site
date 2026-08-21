@@ -24,6 +24,10 @@
     --gold: #f5c263;
     --mx: 50%;
     --my: 20%;
+    --align-village: #7bc98d;
+    --align-vampire: #e0526a;
+    --align-neutral: #5b9fe0;
+    --align-lovers: #f291d0;
   }
   * { box-sizing: border-box; }
   html { color-scheme: dark; }
@@ -173,6 +177,49 @@
   .role-grid a { font-weight: 600; color: var(--paper); text-decoration: none; }
   .role-grid a:hover { color: var(--gold); }
   .role-grid .teaser { color: var(--muted); font-size: 14px; }
+
+  /* Alignment chips: reuse the site's pill/tag aesthetic, tinted per faction */
+  .kicker-chip {
+    display: inline-flex; align-items: center;
+    border: 1px solid var(--line); background: var(--panel);
+    padding: 5px 12px; border-radius: 100px;
+  }
+  .kicker-chip.align-koy { color: var(--align-village); border-color: rgba(123,201,141,.35); background: rgba(123,201,141,.08); }
+  .kicker-chip.align-vam { color: var(--align-vampire); border-color: rgba(224,82,106,.35); background: rgba(224,82,106,.08); }
+  .kicker-chip.align-not { color: var(--align-neutral); border-color: rgba(91,159,224,.35); background: rgba(91,159,224,.08); }
+  .kicker-chip.align-ask { color: var(--align-lovers); border-color: rgba(242,145,208,.35); background: rgba(242,145,208,.08); }
+  .panel .tab.align-koy { color: var(--align-village); }
+  .panel .tab.align-vam { color: var(--align-vampire); }
+  .panel .tab.align-not { color: var(--align-neutral); }
+  .panel .tab.align-ask { color: var(--align-lovers); }
+
+  /* Role emblem: gradient badge matching .wordmark .glyph, gold glyph on top */
+  .role-hero { display: flex; align-items: center; gap: 18px; margin: 0 0 12px; }
+  .role-hero h1 { margin: 0; }
+  .role-icon {
+    flex-shrink: 0; width: 64px; height: 64px; border-radius: 18px;
+    background: linear-gradient(135deg, var(--violet), var(--magenta));
+    border: 1px solid var(--line);
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 8px 22px rgba(139,92,246,.28);
+  }
+  .role-icon svg { width: 34px; height: 34px; color: var(--gold); display: block; }
+
+  /* Small role emblem + alignment ring, used in the roles/index.html lists */
+  .role-mini {
+    width: 30px; height: 30px; border-radius: 9px; flex-shrink: 0; margin-top: 1px;
+    display: flex; align-items: center; justify-content: center;
+    border: 1px solid var(--line); background: var(--panel);
+  }
+  .role-mini svg { width: 16px; height: 16px; color: var(--gold); display: block; }
+  .role-mini.align-koy { border-color: rgba(123,201,141,.4); background: rgba(123,201,141,.10); }
+  .role-mini.align-vam { border-color: rgba(224,82,106,.4); background: rgba(224,82,106,.10); }
+  .role-mini.align-not { border-color: rgba(91,159,224,.4); background: rgba(91,159,224,.10); }
+  .role-mini.align-ask { border-color: rgba(242,145,208,.4); background: rgba(242,145,208,.10); }
+  .role-grid li { display: flex; align-items: flex-start; gap: 12px; }
+  .role-grid .role-text { flex: 1; }
+
+  .icon-credit { color: var(--muted); font-size: 13px; }
 </style>
 </head>
 <body>
@@ -196,8 +243,11 @@
   </header>
 
   <main class="wrap">
-    <p class="mono-label" data-i18n="p_kicker">Rol Dosyası — Köylü Hizalı</p>
-    <h1 data-i18n="p_h1">Kahin</h1>
+    <p class="mono-label kicker-chip align-koy" data-i18n="p_kicker">Rol Dosyası — Köylü Hizalı</p>
+    <div class="role-hero">
+      <span class="role-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M254.563 20.75c-42.96 0-85.918 16.387-118.688 49.156-65.54 65.54-65.852 172.15-.313 237.688 65.54 65.54 172.15 65.226 237.688-.313 65.54-65.538 65.54-171.835 0-237.374-32.77-32.77-75.728-49.156-118.688-49.156zm-.157 18.47c25.68.053 51.363 6.724 74.313 19.968-13.573-3.984-26.266-2.455-34.22 5.5-14.437 14.437-7.796 44.485 14.813 67.093 22.608 22.61 52.625 29.22 67.062 14.782 8.523-8.522 9.706-22.468 4.594-37.125 36.352 57.684 29.586 134.6-20.69 184.875-29.158 29.16-67.353 43.773-105.56 43.813 9.436-2.3 17.762-6.732 24.436-13.406 28.885-28.886 15.64-88.954-29.594-134.19-45.234-45.233-105.302-58.51-134.187-29.624-4.052 4.052-7.266 8.723-9.688 13.875 3.092-33.537 17.473-66.222 43.157-91.905 29.198-29.2 67.384-43.737 105.562-43.656zM386.97 319.28c-.205.206-.39.422-.595.626-72.78 72.78-191.252 73.155-264.03.375-.278-.275-.54-.565-.814-.842-11.987 9.483-18.81 20.384-18.81 32 0 36.523 67.315 66.125 151.343 66.125 84.027 0 152.093-29.6 152.093-66.125 0-11.68-6.97-22.637-19.187-32.157zm39.717 54.564c-22.225 32.29-91.192 55.906-172.625 55.906-81.172 0-149.954-23.46-172.406-55.594-12.638 11.3-19.72 24.052-19.72 37.563.002 46.928 85.546 85.03 192.064 85.03 106.518 0 192.97-38.1 192.97-85.03 0-13.637-7.313-26.498-20.283-37.876z"/></svg></span>
+      <h1 data-i18n="p_h1">Kahin</h1>
+    </div>
     <p class="updated" data-i18n="p_sub">(İngilizce: Seer)</p>
     <p class="lede" data-i18n="p_lede">Köyün en değerli bilgi kaynağı. Sonuçların gerçekten kesin — bu da seni oyundaki en öncelikli suikast hedeflerinden biri yapar.</p>
 
@@ -227,7 +277,7 @@
     <div class="panel" id="claim">
       <div class="tab" data-i18n="sec3_tab">İletişim Taktiği</div>
       <h2 data-i18n="sec3_h2">Ne Claim Etmeli</h2>
-      <p data-i18n="s3">Bir vampir bulduğun gece claim etmek klasik bir açılış hamlesi — köyü hızlıca doğru linçe yönlendirir, ama seni de anında öncelikli hedef yapar. Alternatif, sessiz kalıp bilgini biriktirmek ve büyük bir çoğunluk oy anında (ya da kendine yönelik bir suçlama savunmasında) açığa çıkarmak; riskli ama sürpriz etkisi yüksek.</p>
+      <p data-i18n="s3">Bir vampir bulduğun gece claim etmek klasik bir açılış hamlesi — köyü hızlıca doğru linçe yönlendirir, ama seni de anında öncelikli hedef yapar. Alternatif, sessiz kalıp bilgini biriktirmek ve büyük bir çoğunluk oy anında (ya da kendine yönelik bir suçlama savunmasında) açığa çıkarmak; riskli ama sürpriz etkisi yüksek. Hemen claim edip kanıtla gitmek istersen şöyle söyle: "Dün gece X'i inceledim, sonuç vampir — kanıtım kesin, hemen oy verelim." Bir tur daha saklanmayı seçersen bunun yerine dolaylı kal: "Henüz konuşmaya hazır değilim, ama bugünkü oyda bana güvenin" diyerek bilgini açık etmeden yönlendirme yap — iki seçenek de geçerli, hangisini seçtiğin masadaki tempoya bağlı.</p>
     </div>
 
     <div class="panel" id="davranis">
@@ -246,7 +296,10 @@
   <footer>
     <div class="wrap">
       <span data-i18n="footer_copy">© 2026 Batuhan Demir — EnigmaDeck</span>
-      <a href="/roles/" data-i18n="nav_roles">Rol Rehberi</a>
+      <span style="display:flex; align-items:center; gap:16px;">
+        <a href="/roles/" data-i18n="nav_roles">Rol Rehberi</a>
+        <a class="icon-credit" href="https://game-icons.net" target="_blank" rel="noopener" data-i18n="icon_credit">İkonlar: game-icons.net</a>
+      </span>
     </div>
   </footer>
 
@@ -272,13 +325,14 @@
       toc4: { tr: "Nasıl Davranmalı", en: "Behavior & Tells" },
       toc5: { tr: "İlgili Roller", en: "Related Roles" },
       footer_copy: { tr: "© 2026 Batuhan Demir — EnigmaDeck", en: "© 2026 Batuhan Demir — EnigmaDeck" },
+      icon_credit: { tr: "İkonlar: game-icons.net", en: "Icons: game-icons.net" },
       p_kicker: { tr: "Rol Dosyası — Köylü Hizalı", en: "Role File — Village-Aligned" },
       p_h1: { tr: "Kahin", en: "Seer" },
       p_sub: { tr: "(İngilizce: Seer)", en: "(Turkish: Kahin)" },
       p_lede: { tr: "Köyün en değerli bilgi kaynağı. Sonuçların gerçekten kesin — bu da seni oyundaki en öncelikli suikast hedeflerinden biri yapar.", en: "The village's most valuable source of information. Your results are genuinely exact — which also makes you one of the game's top assassination targets." },
       s1: { tr: "Her gece bir oyuncuyu incelersin ve kesin bir sonuç alırsın: \"vampir\" ya da \"vampir değil\". Bu implementasyonda Kahin'in sonucu gerçekten doğrudur — tek istisna Çerçeveleyici'nin o gece o hedefi çerçevelemiş olması ya da hedefinin ilk kez incelenen bir Alfa Vampir olması (tek seferlik bağışıklık).", en: "Each night you investigate one player and get an exact result: \"vampire\" or \"not a vampire.\" In this implementation the Seer's result is genuinely accurate — the only exceptions are if the Framer framed that exact target that same night, or your target is an Alpha Vampire being checked for the very first time (a one-time immunity)." },
       s2: { tr: "Hedefini stratejik seç: en çok şüphe çeken, en çok konuşan ya da en sessiz kalan oyunculara öncelik ver. Bir sonucu aldığında hemen paylaşıp paylaşmayacağına karar vermen gerekir — bu kararın zamanlaması Kahin oynamanın en kritik parçası.", en: "Choose targets strategically: prioritize the most suspicious player, the loudest talker, or the quietest one. The moment you get a result, you have to decide whether to share it immediately — timing that decision is the single most critical part of playing Seer." },
-      s3: { tr: "Bir vampir bulduğun gece claim etmek klasik bir açılış hamlesi — köyü hızlıca doğru linçe yönlendirir, ama seni de anında öncelikli hedef yapar. Alternatif, sessiz kalıp bilgini biriktirmek ve büyük bir çoğunluk oy anında (ya da kendine yönelik bir suçlama savunmasında) açığa çıkarmak; riskli ama sürpriz etkisi yüksek.", en: "Claiming the night you find a vampire is the classic opening move — it fast-tracks the village to a correct lynch, but instantly makes you the top priority kill. The alternative is staying silent, stacking up information, and revealing it at a critical vote (or in your own defense against an accusation) — riskier, but with a much bigger surprise payoff." },
+      s3: { tr: "Bir vampir bulduğun gece claim etmek klasik bir açılış hamlesi — köyü hızlıca doğru linçe yönlendirir, ama seni de anında öncelikli hedef yapar. Alternatif, sessiz kalıp bilgini biriktirmek ve büyük bir çoğunluk oy anında (ya da kendine yönelik bir suçlama savunmasında) açığa çıkarmak; riskli ama sürpriz etkisi yüksek. Hemen claim edip kanıtla gitmek istersen şöyle söyle: \"Dün gece X'i inceledim, sonuç vampir — kanıtım kesin, hemen oy verelim.\" Bir tur daha saklanmayı seçersen bunun yerine dolaylı kal: \"Henüz konuşmaya hazır değilim, ama bugünkü oyda bana güvenin\" diyerek bilgini açık etmeden yönlendirme yap — iki seçenek de geçerli, hangisini seçtiğin masadaki tempoya bağlı.", en: "Claiming the night you find a vampire is the classic opening move — it fast-tracks the village to a correct lynch, but instantly makes you the top priority kill. The alternative is staying silent, stacking up information, and revealing it at a critical vote (or in your own defense against an accusation) — riskier, but with a much bigger surprise payoff. If you want to claim immediately with receipts: \"I checked X last night, the result was vampire — my evidence is exact, let's vote now.\" If you'd rather stay hidden one more round: \"I'm not ready to say more yet, but trust my vote today\" — steering the room without revealing your info. Both are legitimate; which one you pick depends on the table's tempo." },
       s4: { tr: "Erken claim ettiysen, o geceden sonra bir Koruyucu ya da güvendiğin bir müttefikten korunmayı iste — hayatta kalman köyün tüm bilgi avantajını taşır. Şerif'in de var olduğu oyunlarda, onun \"şüpheli/temiz\" sonuçlarıyla senin kesin sonuçların çelişirse sessiz kalmak yerine ısrarla kendi kanıtının netliğini vurgula; senin sonucun kelimenin tam anlamıyla kesin, onunki değil.", en: "If you claimed early, ask a Bodyguard or a trusted ally to protect you afterward — your survival carries the village's entire information advantage. In games where a Sheriff also exists, if their \"suspicious/clean\" reads conflict with your exact result, don't go quiet — insist on the precision of your evidence; yours is literally exact, theirs isn't." },
       related_list: { tr: "<li><a href=\"/roles/serif.html\">Şerif (Sheriff)</a> — Şerif aynı gerçeği daha belirsiz ifadeyle görür — claim çatışmasına dikkat.</li><li><a href=\"/roles/cerceveleyici.html\">Çerçeveleyici (Framer)</a> — Çerçeveleyici, tam senin sonuçlarını hedef alan tek karşı güç.</li><li><a href=\"/roles/cirak.html\">Çırak (Apprentice)</a> — Çırak, sen ölürsen yerini alacak gizli yedek.</li>", en: "<li><a href=\"/roles/serif.html\">Şerif (Sheriff)</a> — The Sheriff sees the same truth with vaguer wording — watch for claim conflicts.</li><li><a href=\"/roles/cerceveleyici.html\">Çerçeveleyici (Framer)</a> — The Framer is the one power built specifically to corrupt your results.</li><li><a href=\"/roles/cirak.html\">Çırak (Apprentice)</a> — The Apprentice is the hidden backup who replaces you if you die.</li>" },
     };

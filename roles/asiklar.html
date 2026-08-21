@@ -24,6 +24,10 @@
     --gold: #f5c263;
     --mx: 50%;
     --my: 20%;
+    --align-village: #7bc98d;
+    --align-vampire: #e0526a;
+    --align-neutral: #5b9fe0;
+    --align-lovers: #f291d0;
   }
   * { box-sizing: border-box; }
   html { color-scheme: dark; }
@@ -173,6 +177,49 @@
   .role-grid a { font-weight: 600; color: var(--paper); text-decoration: none; }
   .role-grid a:hover { color: var(--gold); }
   .role-grid .teaser { color: var(--muted); font-size: 14px; }
+
+  /* Alignment chips: reuse the site's pill/tag aesthetic, tinted per faction */
+  .kicker-chip {
+    display: inline-flex; align-items: center;
+    border: 1px solid var(--line); background: var(--panel);
+    padding: 5px 12px; border-radius: 100px;
+  }
+  .kicker-chip.align-koy { color: var(--align-village); border-color: rgba(123,201,141,.35); background: rgba(123,201,141,.08); }
+  .kicker-chip.align-vam { color: var(--align-vampire); border-color: rgba(224,82,106,.35); background: rgba(224,82,106,.08); }
+  .kicker-chip.align-not { color: var(--align-neutral); border-color: rgba(91,159,224,.35); background: rgba(91,159,224,.08); }
+  .kicker-chip.align-ask { color: var(--align-lovers); border-color: rgba(242,145,208,.35); background: rgba(242,145,208,.08); }
+  .panel .tab.align-koy { color: var(--align-village); }
+  .panel .tab.align-vam { color: var(--align-vampire); }
+  .panel .tab.align-not { color: var(--align-neutral); }
+  .panel .tab.align-ask { color: var(--align-lovers); }
+
+  /* Role emblem: gradient badge matching .wordmark .glyph, gold glyph on top */
+  .role-hero { display: flex; align-items: center; gap: 18px; margin: 0 0 12px; }
+  .role-hero h1 { margin: 0; }
+  .role-icon {
+    flex-shrink: 0; width: 64px; height: 64px; border-radius: 18px;
+    background: linear-gradient(135deg, var(--violet), var(--magenta));
+    border: 1px solid var(--line);
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 8px 22px rgba(139,92,246,.28);
+  }
+  .role-icon svg { width: 34px; height: 34px; color: var(--gold); display: block; }
+
+  /* Small role emblem + alignment ring, used in the roles/index.html lists */
+  .role-mini {
+    width: 30px; height: 30px; border-radius: 9px; flex-shrink: 0; margin-top: 1px;
+    display: flex; align-items: center; justify-content: center;
+    border: 1px solid var(--line); background: var(--panel);
+  }
+  .role-mini svg { width: 16px; height: 16px; color: var(--gold); display: block; }
+  .role-mini.align-koy { border-color: rgba(123,201,141,.4); background: rgba(123,201,141,.10); }
+  .role-mini.align-vam { border-color: rgba(224,82,106,.4); background: rgba(224,82,106,.10); }
+  .role-mini.align-not { border-color: rgba(91,159,224,.4); background: rgba(91,159,224,.10); }
+  .role-mini.align-ask { border-color: rgba(242,145,208,.4); background: rgba(242,145,208,.10); }
+  .role-grid li { display: flex; align-items: flex-start; gap: 12px; }
+  .role-grid .role-text { flex: 1; }
+
+  .icon-credit { color: var(--muted); font-size: 13px; }
 </style>
 </head>
 <body>
@@ -196,8 +243,11 @@
   </header>
 
   <main class="wrap">
-    <p class="mono-label" data-i18n="p_kicker">Rol Dosyası — Çapraz Mekanik</p>
-    <h1 data-i18n="p_h1">Aşıklar</h1>
+    <p class="mono-label kicker-chip align-ask" data-i18n="p_kicker">Rol Dosyası — Çapraz Mekanik</p>
+    <div class="role-hero">
+      <span class="role-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M372.48 31.215c-77.65 0-116.48 65.73-116.48 65.73s-38.83-65.72-116.48-65.72c-37.14 0-107.77 33.72-107.77 125.13 0 161.24 224.25 324.43 224.25 324.43s224.25-163.19 224.25-324.43c0-91.42-70.63-125.13-107.77-125.14zM160 129h192v18H160v-18zm23 31h18v176h-18V160zm33 0h80s-8 80-40 80-40-80-40-80zm95 0h18v176h-18V160zm-55 96c32 0 40 80 40 80h-80s8-80 40-80zm-96 93h192v18H160v-18z"/></svg></span>
+      <h1 data-i18n="p_h1">Aşıklar</h1>
+    </div>
     <p class="updated" data-i18n="p_sub">(İngilizce: Lovers)</p>
     <p class="lede" data-i18n="p_lede">Bu bir rol değil, herhangi iki oyuncunun üstüne eklenen ekstra bir kader. Rolün ne olursa olsun, artık koruman gereken ikinci bir hayat var.</p>
 
@@ -227,7 +277,7 @@
     <div class="panel" id="claim">
       <div class="tab" data-i18n="sec3_tab">İletişim Taktiği</div>
       <h2 data-i18n="sec3_h2">Ne Claim Etmeli</h2>
-      <p data-i18n="s3">Eşleşmeni açık etmek büyük bir bilgi sızıntısı — rakiplerin, sevgilini tehdit ederek seni dolaylı olarak etkileyebileceğini (ya da tam tersi) öğrenir. Genelde sessiz kalmak, ikinizin de birbirinizi fark ettirmeden savunmasını sürdürmesine izin verir.</p>
+      <p data-i18n="s3">Eşleşmeni açık etmek büyük bir bilgi sızıntısı — rakiplerin, sevgilini tehdit ederek seni dolaylı olarak etkileyebileceğini (ya da tam tersi) öğrenir. Genelde sessiz kalmak, ikinizin de birbirinizi fark ettirmeden savunmasını sürdürmesine izin verir. Birisi "neden sürekli X'i savunuyorsun?" diye sorarsa asla gerçek sebebi (Aşık olduğunuzu) açığa vurma; bunun yerine mantıklı bir gerekçe uydur: "Çünkü X'in bugüne kadarki oyları tutarlıydı, bana güvenilir geldi" gibi role dayalı, ilişkiden bağımsız bir açıklama ver — ne kadar doğal dursa o kadar iyi.</p>
     </div>
 
     <div class="panel" id="davranis">
@@ -246,7 +296,10 @@
   <footer>
     <div class="wrap">
       <span data-i18n="footer_copy">© 2026 Batuhan Demir — EnigmaDeck</span>
-      <a href="/roles/" data-i18n="nav_roles">Rol Rehberi</a>
+      <span style="display:flex; align-items:center; gap:16px;">
+        <a href="/roles/" data-i18n="nav_roles">Rol Rehberi</a>
+        <a class="icon-credit" href="https://game-icons.net" target="_blank" rel="noopener" data-i18n="icon_credit">İkonlar: game-icons.net</a>
+      </span>
     </div>
   </footer>
 
@@ -272,13 +325,14 @@
       toc4: { tr: "Nasıl Davranmalı", en: "Behavior & Tells" },
       toc5: { tr: "İlgili Roller", en: "Related Roles" },
       footer_copy: { tr: "© 2026 Batuhan Demir — EnigmaDeck", en: "© 2026 Batuhan Demir — EnigmaDeck" },
+      icon_credit: { tr: "İkonlar: game-icons.net", en: "Icons: game-icons.net" },
       p_kicker: { tr: "Rol Dosyası — Çapraz Mekanik", en: "Role File — Cross-Cutting Mechanic" },
       p_h1: { tr: "Aşıklar", en: "Lovers" },
       p_sub: { tr: "(İngilizce: Lovers)", en: "(Turkish: Aşıklar)" },
       p_lede: { tr: "Bu bir rol değil, herhangi iki oyuncunun üstüne eklenen ekstra bir kader. Rolün ne olursa olsun, artık koruman gereken ikinci bir hayat var.", en: "This isn't a role — it's an extra fate layered onto two random players. Whatever your role is, you now have a second life to protect." },
       s1: { tr: "Bu bağımsız bir rol değil, oyunun başında rastgele seçilen İKİ oyuncuya (herhangi bir rolden/hizadan olabilir, köy-vampir dengesi gözetilmez) eklenen çapraz bir mekanik. Biri herhangi bir şekilde ölürse, diğeri de aynı anda kederden ölür — hiçbir koruma bunu engelleyemez. Her iki oyuncu da kendi orijinal rolünü ve kazanma koşulunu korur; bu sadece üstüne eklenen ekstra bir kaybetme koşulu.", en: "This isn't a standalone role — it's a cross-cutting mechanic layered onto two randomly chosen players at game start (any role/alignment, with no village/vampire balancing). If one dies, by any means, the other dies immediately too, of grief — no protection can stop it. Both players keep their own original role and win condition; this is purely an extra loss-condition layered on top." },
       s2: { tr: "Rolün ne olursa olsun, artık ikinci bir hayatta kalma önceliğin var: sevgilinin yaşaması. Eğer sen bir vampirsen ve sevgilin köylüyse (ya da tam tersi), takım hedeflerinle kişisel hayatta kalma hedefin çelişebilir — bu çelişkiyi nasıl yöneteceğine baştan karar ver.", en: "Whatever your role, you now have a second survival priority: keeping your lover alive. If you're a vampire and your lover is a villager (or vice versa), your team's goals can conflict with your personal survival goal — decide early how you'll navigate that tension." },
-      s3: { tr: "Eşleşmeni açık etmek büyük bir bilgi sızıntısı — rakiplerin, sevgilini tehdit ederek seni dolaylı olarak etkileyebileceğini (ya da tam tersi) öğrenir. Genelde sessiz kalmak, ikinizin de birbirinizi fark ettirmeden savunmasını sürdürmesine izin verir.", en: "Revealing your pairing is a major information leak — opponents learn they can threaten you indirectly by threatening your lover (or vice versa). Generally, staying quiet lets both of you keep defending each other without giving that away." },
+      s3: { tr: "Eşleşmeni açık etmek büyük bir bilgi sızıntısı — rakiplerin, sevgilini tehdit ederek seni dolaylı olarak etkileyebileceğini (ya da tam tersi) öğrenir. Genelde sessiz kalmak, ikinizin de birbirinizi fark ettirmeden savunmasını sürdürmesine izin verir. Birisi \"neden sürekli X'i savunuyorsun?\" diye sorarsa asla gerçek sebebi (Aşık olduğunuzu) açığa vurma; bunun yerine mantıklı bir gerekçe uydur: \"Çünkü X'in bugüne kadarki oyları tutarlıydı, bana güvenilir geldi\" gibi role dayalı, ilişkiden bağımsız bir açıklama ver — ne kadar doğal dursa o kadar iyi.", en: "Revealing your pairing is a major information leak — opponents learn they can threaten you indirectly by threatening your lover (or vice versa). Generally, staying quiet lets both of you keep defending each other without giving that away. If someone asks \"why do you keep defending X?\", never reveal the real reason (that you're Lovers); instead invent a reasonable justification: \"Because X's votes have been consistent so far, they've read as trustworthy to me\" — a role-based explanation, unrelated to the relationship. The more natural it sounds, the better it holds up." },
       s4: { tr: "Sevgilini şüpheden savunurken çok agresif olma — bu ittifak izlenimi yaratıp ikinizi birden şüpheli gösterebilir, hatta hizalarınız farklıysa çok tehlikeli bir ipucu olur. Oy davranışınızı hafifçe koordine et ama fark edilmeyecek kadar ince yap; birbirinize asla oy vermemeniz bile başlı başına bir örüntü oluşturabilir.", en: "Don't defend your lover too aggressively when they're under suspicion — it reads as an alliance and can make you both look suspicious, especially dangerous if your alignments differ. Coordinate your voting behavior subtly, but keep it too fine to notice; even consistently never voting for each other can itself become a pattern others pick up on." },
       related_list: { tr: "<li><a href=\"/roles/kahin.html\">Kahin (Seer)</a> — Bir Aşık çifti herhangi bir role düşebilir — mesela sevgilin Kahin'se, sonucu onun hayatta kalmasına da bağlı hale gelir.</li><li><a href=\"/roles/vampir.html\">Vampir (Vampire)</a> — Çapraz hizalı bir eşleşme (bir köylü + bir vampir) imkansız seçimler yaratabilir.</li>", en: "<li><a href=\"/roles/kahin.html\">Kahin (Seer)</a> — A Lover pair can land on any role — if your lover is the Seer, their survival becomes tied to yours too.</li><li><a href=\"/roles/vampir.html\">Vampir (Vampire)</a> — A cross-alignment pairing (a villager + a vampire) can create impossible choices.</li>" },
     };

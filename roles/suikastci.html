@@ -24,6 +24,10 @@
     --gold: #f5c263;
     --mx: 50%;
     --my: 20%;
+    --align-village: #7bc98d;
+    --align-vampire: #e0526a;
+    --align-neutral: #5b9fe0;
+    --align-lovers: #f291d0;
   }
   * { box-sizing: border-box; }
   html { color-scheme: dark; }
@@ -173,6 +177,49 @@
   .role-grid a { font-weight: 600; color: var(--paper); text-decoration: none; }
   .role-grid a:hover { color: var(--gold); }
   .role-grid .teaser { color: var(--muted); font-size: 14px; }
+
+  /* Alignment chips: reuse the site's pill/tag aesthetic, tinted per faction */
+  .kicker-chip {
+    display: inline-flex; align-items: center;
+    border: 1px solid var(--line); background: var(--panel);
+    padding: 5px 12px; border-radius: 100px;
+  }
+  .kicker-chip.align-koy { color: var(--align-village); border-color: rgba(123,201,141,.35); background: rgba(123,201,141,.08); }
+  .kicker-chip.align-vam { color: var(--align-vampire); border-color: rgba(224,82,106,.35); background: rgba(224,82,106,.08); }
+  .kicker-chip.align-not { color: var(--align-neutral); border-color: rgba(91,159,224,.35); background: rgba(91,159,224,.08); }
+  .kicker-chip.align-ask { color: var(--align-lovers); border-color: rgba(242,145,208,.35); background: rgba(242,145,208,.08); }
+  .panel .tab.align-koy { color: var(--align-village); }
+  .panel .tab.align-vam { color: var(--align-vampire); }
+  .panel .tab.align-not { color: var(--align-neutral); }
+  .panel .tab.align-ask { color: var(--align-lovers); }
+
+  /* Role emblem: gradient badge matching .wordmark .glyph, gold glyph on top */
+  .role-hero { display: flex; align-items: center; gap: 18px; margin: 0 0 12px; }
+  .role-hero h1 { margin: 0; }
+  .role-icon {
+    flex-shrink: 0; width: 64px; height: 64px; border-radius: 18px;
+    background: linear-gradient(135deg, var(--violet), var(--magenta));
+    border: 1px solid var(--line);
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 8px 22px rgba(139,92,246,.28);
+  }
+  .role-icon svg { width: 34px; height: 34px; color: var(--gold); display: block; }
+
+  /* Small role emblem + alignment ring, used in the roles/index.html lists */
+  .role-mini {
+    width: 30px; height: 30px; border-radius: 9px; flex-shrink: 0; margin-top: 1px;
+    display: flex; align-items: center; justify-content: center;
+    border: 1px solid var(--line); background: var(--panel);
+  }
+  .role-mini svg { width: 16px; height: 16px; color: var(--gold); display: block; }
+  .role-mini.align-koy { border-color: rgba(123,201,141,.4); background: rgba(123,201,141,.10); }
+  .role-mini.align-vam { border-color: rgba(224,82,106,.4); background: rgba(224,82,106,.10); }
+  .role-mini.align-not { border-color: rgba(91,159,224,.4); background: rgba(91,159,224,.10); }
+  .role-mini.align-ask { border-color: rgba(242,145,208,.4); background: rgba(242,145,208,.10); }
+  .role-grid li { display: flex; align-items: flex-start; gap: 12px; }
+  .role-grid .role-text { flex: 1; }
+
+  .icon-credit { color: var(--muted); font-size: 13px; }
 </style>
 </head>
 <body>
@@ -196,8 +243,11 @@
   </header>
 
   <main class="wrap">
-    <p class="mono-label" data-i18n="p_kicker">Rol Dosyası — Vampir Hizalı</p>
-    <h1 data-i18n="p_h1">Suikastçı</h1>
+    <p class="mono-label kicker-chip align-vam" data-i18n="p_kicker">Rol Dosyası — Vampir Hizalı</p>
+    <div class="role-hero">
+      <span class="role-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M332.031 66.13c-28.807-.01-55.439 14.149-67.88 40.65 20.79 1.744 16 55.07 16 55.07-11.814 16.687-24.73 33.186-36.589 50.146 0 0-99.046 132.283-178.378 168.025-28.049 22.593-33.305 36.532-44.137 52.649-4.877 9.54 9.257 14.324 11.701 13.2 22.726-10.461 25.176-20.866 47.07-35.675 12.805-5.026 23.839-15.9 31.854-11.049 34.962 20.86 107.556 44.28 118.271 38.706 17.857-9.263-5.78-43.585 16.174-89.057 31.97-3.352 58.916-.885 88.332-12.094 3.483 50.279 10.106 54.59 6.766 107.092l71.2 1.045.698-14.61-41.814-11.105c11.528-56.054 11.816-78.996 4.672-127.996-.956-6.622-53.746-8.275-81.012-3.79 24.449-24.202 40.274-45.24 47.506-68.44l.027.189c7.637 15.923 30.083 33.958 35.336 37.125 27.704 11.048 38.214 7.982 62.955 3.887 4.907-.784 27.47 24.537 44.807 9.597 2.642-20.238 16.522-20.369-4.938-32.71-4.847-2.73-27.063 7.462-31.418 6.898-20.21-2.481-30.954-5.211-58.45-12.703-10.23-13.187-32.676-56.136-55.43-59.744 6.535-14.15 28.226-53.108 73.664-66.237-20.943-26.54-49.925-39.057-76.987-39.068zm82.405 46.722c-46.658 19.516-58.266 50.4-58.266 50.4l9.916 7.644s9.646-4.765 48.35-58.044zm23.04 160.005l-4.658 11.418c5.233-.083 10.425.47 15.328 1.608-12.774 30.856-23.938 59.635-28.181 93.094l-.908 7.558 4.863-5.889c20.805-25.671 32.303-55.25 44.95-85.78 4.203 2.656 8.24 5.885 12.071 9.35l4.78-11.374-20.518-8.526-31.767 66.579 24.062-69.713-20.021-8.325z"/></svg></span>
+      <h1 data-i18n="p_h1">Suikastçı</h1>
+    </div>
     <p class="updated" data-i18n="p_sub">(İngilizce: Assassin)</p>
     <p class="lede" data-i18n="p_lede">Vampir takımının gizli yedek bıçağı. Takım oyu tıkandığında sahneye çıkarsın.</p>
 
@@ -227,7 +277,7 @@
     <div class="panel" id="claim">
       <div class="tab" data-i18n="sec3_tab">İletişim Taktiği</div>
       <h2 data-i18n="sec3_h2">Ne Claim Etmeli</h2>
-      <p data-i18n="s3">Bu gücün varlığını ASLA açığa vurma, ne köye ne de kendi takımına gerekmedikçe. Sürpriz etkisi tek avantajın; bir kez kullanıldığında köy bunu geriye dönük analiz eder, o yüzden kullanmadan önceki sessizliğin kritik.</p>
+      <p data-i18n="s3">Bu gücün varlığını ASLA açığa vurma, ne köye ne de kendi takımına gerekmedikçe. Sürpriz etkisi tek avantajın; bir kez kullanıldığında köy bunu geriye dönük analiz eder, o yüzden kullanmadan önceki sessizliğin kritik. Sorgulanırsan sıradan bir köylü gibi davran ve gücünü asla ima etme: "Elimde özel bir bilgi yok, ben de sizin kadar tahmin ediyorum." Gücünü kullandıktan sonra bile bunu kimseye açıklama; ölüm nasıl gerçekleşti diye sorulduğunda kafan karışmış gibi davran, sanki sen de köy gibi şaşırmışsın.</p>
     </div>
 
     <div class="panel" id="davranis">
@@ -246,7 +296,10 @@
   <footer>
     <div class="wrap">
       <span data-i18n="footer_copy">© 2026 Batuhan Demir — EnigmaDeck</span>
-      <a href="/roles/" data-i18n="nav_roles">Rol Rehberi</a>
+      <span style="display:flex; align-items:center; gap:16px;">
+        <a href="/roles/" data-i18n="nav_roles">Rol Rehberi</a>
+        <a class="icon-credit" href="https://game-icons.net" target="_blank" rel="noopener" data-i18n="icon_credit">İkonlar: game-icons.net</a>
+      </span>
     </div>
   </footer>
 
@@ -272,13 +325,14 @@
       toc4: { tr: "Nasıl Davranmalı", en: "Behavior & Tells" },
       toc5: { tr: "İlgili Roller", en: "Related Roles" },
       footer_copy: { tr: "© 2026 Batuhan Demir — EnigmaDeck", en: "© 2026 Batuhan Demir — EnigmaDeck" },
+      icon_credit: { tr: "İkonlar: game-icons.net", en: "Icons: game-icons.net" },
       p_kicker: { tr: "Rol Dosyası — Vampir Hizalı", en: "Role File — Vampire-Aligned" },
       p_h1: { tr: "Suikastçı", en: "Assassin" },
       p_sub: { tr: "(İngilizce: Assassin)", en: "(Turkish: Suikastçı)" },
       p_lede: { tr: "Vampir takımının gizli yedek bıçağı. Takım oyu tıkandığında sahneye çıkarsın.", en: "The vampire team's hidden backup blade. You step in when the team vote hits a wall." },
       s1: { tr: "Oyun boyunca bir kez, vampir takımının gece oyundan tamamen bağımsız olarak bir hedefi öldürebilirsin — çoğunluk anlaşmasına gerek yok. Takımın oyu kilitlenirse ya da hedef iyi korunuyorsa devreye giren bir yedek öldürme kaynağısın.", en: "Once per game, you can kill a target completely independently of the vampire team's nightly vote — no need for majority agreement. You're a backup kill source for when the team's vote is deadlocked or the target is too well-protected." },
       s2: { tr: "Bu gücü erken harcama — asıl değeri, normal saldırı planı işe yaramayacağı anlarda ortaya çıkar: iyi korunan kilit bir hedef, ya da vampir takımının oyu bölünmüşse. Tam o anı bekle.", en: "Don't spend this power early — its real value shows up exactly when the normal attack plan won't work: a well-guarded key target, or a split vote within the vampire team. Wait for that exact moment." },
-      s3: { tr: "Bu gücün varlığını ASLA açığa vurma, ne köye ne de kendi takımına gerekmedikçe. Sürpriz etkisi tek avantajın; bir kez kullanıldığında köy bunu geriye dönük analiz eder, o yüzden kullanmadan önceki sessizliğin kritik.", en: "NEVER reveal this power exists, not even to the village and not to your own team unless necessary. Surprise is your only edge; once used, the village will analyze it in hindsight, so your silence beforehand is critical." },
+      s3: { tr: "Bu gücün varlığını ASLA açığa vurma, ne köye ne de kendi takımına gerekmedikçe. Sürpriz etkisi tek avantajın; bir kez kullanıldığında köy bunu geriye dönük analiz eder, o yüzden kullanmadan önceki sessizliğin kritik. Sorgulanırsan sıradan bir köylü gibi davran ve gücünü asla ima etme: \"Elimde özel bir bilgi yok, ben de sizin kadar tahmin ediyorum.\" Gücünü kullandıktan sonra bile bunu kimseye açıklama; ölüm nasıl gerçekleşti diye sorulduğunda kafan karışmış gibi davran, sanki sen de köy gibi şaşırmışsın.", en: "NEVER reveal this power exists, not even to the village and not to your own team unless necessary. Surprise is your only edge; once used, the village will analyze it in hindsight, so your silence beforehand is critical. If questioned, act like an ordinary Villager and never hint at your power: \"I don't have any special info, I'm guessing same as everyone.\" Even after you've used your kill, don't explain it to anyone — if people ask how the death happened, act as confused as the rest of the village." },
       s4: { tr: "Gündüz sıradan bir vampir gibi davran — takımının normal saldırı oylamasına katılıyormuş gibi görün. Gücünü kullandığın gece, hedefin kim olduğunu asla ima etme; bu kararı sadece o anki taktik gereksinim belirlesin, önceden planlanmış gibi görünmesin.", en: "During the day, act like an ordinary vampire — appear to participate normally in your team's attack vote. On the night you use your power, never hint at who the target will be; let the decision look driven purely by that moment's tactical need, not a plan telegraphed in advance." },
       related_list: { tr: "<li><a href=\"/roles/alfa-vampir.html\">Alfa Vampir (Alpha Vampire)</a> — Alfa'nın tiebreak gücüyle senin bağımsız öldürmen, takımın iki farklı 'kesin sonuç' aracı.</li><li><a href=\"/roles/cadi.html\">Cadı (Witch)</a> — Cadı'nın zehri de takım oyundan bağımsız bir öldürme yolu — köy tarafında senin eşleniğin.</li><li><a href=\"/roles/seri-katil.html\">Seri Katil (Serial Killer)</a> — Seri Katil de bağımsız öldürür, ama her gece ve tamamen yalnız.</li>", en: "<li><a href=\"/roles/alfa-vampir.html\">Alfa Vampir (Alpha Vampire)</a> — The Alpha's tiebreak power and your independent kill are the team's two different 'guaranteed result' tools.</li><li><a href=\"/roles/cadi.html\">Cadı (Witch)</a> — The Witch's poison is also a kill independent of a team vote — your village-side counterpart.</li><li><a href=\"/roles/seri-katil.html\">Seri Katil (Serial Killer)</a> — The Serial Killer also kills independently, but every night and completely alone.</li>" },
     };

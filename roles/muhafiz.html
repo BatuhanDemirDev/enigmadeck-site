@@ -24,6 +24,10 @@
     --gold: #f5c263;
     --mx: 50%;
     --my: 20%;
+    --align-village: #7bc98d;
+    --align-vampire: #e0526a;
+    --align-neutral: #5b9fe0;
+    --align-lovers: #f291d0;
   }
   * { box-sizing: border-box; }
   html { color-scheme: dark; }
@@ -173,6 +177,49 @@
   .role-grid a { font-weight: 600; color: var(--paper); text-decoration: none; }
   .role-grid a:hover { color: var(--gold); }
   .role-grid .teaser { color: var(--muted); font-size: 14px; }
+
+  /* Alignment chips: reuse the site's pill/tag aesthetic, tinted per faction */
+  .kicker-chip {
+    display: inline-flex; align-items: center;
+    border: 1px solid var(--line); background: var(--panel);
+    padding: 5px 12px; border-radius: 100px;
+  }
+  .kicker-chip.align-koy { color: var(--align-village); border-color: rgba(123,201,141,.35); background: rgba(123,201,141,.08); }
+  .kicker-chip.align-vam { color: var(--align-vampire); border-color: rgba(224,82,106,.35); background: rgba(224,82,106,.08); }
+  .kicker-chip.align-not { color: var(--align-neutral); border-color: rgba(91,159,224,.35); background: rgba(91,159,224,.08); }
+  .kicker-chip.align-ask { color: var(--align-lovers); border-color: rgba(242,145,208,.35); background: rgba(242,145,208,.08); }
+  .panel .tab.align-koy { color: var(--align-village); }
+  .panel .tab.align-vam { color: var(--align-vampire); }
+  .panel .tab.align-not { color: var(--align-neutral); }
+  .panel .tab.align-ask { color: var(--align-lovers); }
+
+  /* Role emblem: gradient badge matching .wordmark .glyph, gold glyph on top */
+  .role-hero { display: flex; align-items: center; gap: 18px; margin: 0 0 12px; }
+  .role-hero h1 { margin: 0; }
+  .role-icon {
+    flex-shrink: 0; width: 64px; height: 64px; border-radius: 18px;
+    background: linear-gradient(135deg, var(--violet), var(--magenta));
+    border: 1px solid var(--line);
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 8px 22px rgba(139,92,246,.28);
+  }
+  .role-icon svg { width: 34px; height: 34px; color: var(--gold); display: block; }
+
+  /* Small role emblem + alignment ring, used in the roles/index.html lists */
+  .role-mini {
+    width: 30px; height: 30px; border-radius: 9px; flex-shrink: 0; margin-top: 1px;
+    display: flex; align-items: center; justify-content: center;
+    border: 1px solid var(--line); background: var(--panel);
+  }
+  .role-mini svg { width: 16px; height: 16px; color: var(--gold); display: block; }
+  .role-mini.align-koy { border-color: rgba(123,201,141,.4); background: rgba(123,201,141,.10); }
+  .role-mini.align-vam { border-color: rgba(224,82,106,.4); background: rgba(224,82,106,.10); }
+  .role-mini.align-not { border-color: rgba(91,159,224,.4); background: rgba(91,159,224,.10); }
+  .role-mini.align-ask { border-color: rgba(242,145,208,.4); background: rgba(242,145,208,.10); }
+  .role-grid li { display: flex; align-items: flex-start; gap: 12px; }
+  .role-grid .role-text { flex: 1; }
+
+  .icon-credit { color: var(--muted); font-size: 13px; }
 </style>
 </head>
 <body>
@@ -196,8 +243,11 @@
   </header>
 
   <main class="wrap">
-    <p class="mono-label" data-i18n="p_kicker">Rol Dosyası — Köylü Hizalı</p>
-    <h1 data-i18n="p_h1">Muhafız</h1>
+    <p class="mono-label kicker-chip align-koy" data-i18n="p_kicker">Rol Dosyası — Köylü Hizalı</p>
+    <div class="role-hero">
+      <span class="role-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M147.406 20.03c-1.046-.002-2.094.05-3.156.157-4.238.433-8.576 1.774-12.656 4.125-.008.005-.023-.004-.03 0l-29.783 17.22c-7.858 4.534-12.662 12.15-13.874 19.78-1.212 7.63.62 15.126 4.22 21.47.11.197.227.397.343.593l-11.72 40.22c-1.79 1.224-3.467 2.613-5 4.124-5.196 5.117-9.01 11.83-9.844 19.56-.835 7.732 1.923 16.39 8.406 22.876L98.626 194.5c6.633 6.63 15.296 9.602 23.188 9.03 4.63-.333 8.935-1.755 12.78-3.905l7.095 6.688c-2.305 2.97-4.1 6.49-5.157 10.437l-1.624 6.03 18.063 4.845 1.624-6.063c1.06-3.953 2.712-5.37 5.125-6.437 1.205-.533 2.67-.867 4.28-.938 1.61-.07 3.366.126 5.063.594 3.393.938 6.375 2.963 7.968 5.157 1.594 2.195 2.284 4.266 1.282 8l-1.625 6.032 18.063 4.843 1.625-6.032c2.35-8.762.32-17.56-4.22-23.81-4.537-6.253-11.093-10.28-18.124-12.22-3.514-.97-7.204-1.417-10.905-1.25-1.67.075-3.34.28-5 .625l-10.344-9.75c2.06-3.75 3.42-7.944 3.75-12.438.586-7.917-2.42-16.574-9.093-23.25l-24.343-24.312c-4.677-4.68-10.516-7.357-16.313-8.156l6.157-21.095c.177.072.353.15.532.22 7.25 2.806 16.336 2.394 24.28-2.19l29.813-17.186c6.104-3.528 10.526-8.694 12.968-14.345l21.095 5.938c-.88 3.745-1.122 7.688-.5 11.687 1.194 7.683 6.06 15.35 14 19.938l29.813 17.218c3.8 2.195 7.813 3.47 11.78 3.97L255 140.78c-2.735 1.553-5.224 3.477-7.438 5.657-5.195 5.12-8.977 11.833-9.812 19.563-.835 7.73 1.89 16.39 8.375 22.875l4.22 4.22 13.218-13.22-4.22-4.22c-2.893-2.893-3.314-5.032-3.03-7.655.283-2.623 1.867-5.78 4.375-8.25 2.507-2.47 5.77-4.06 8.468-4.344.337-.035.68-.052 1-.062 2.252-.07 4.17.544 6.563 2.937v.032l4.217 4.188 13.188-13.188-4.188-4.218c-4.76-4.763-10.75-7.442-16.656-8.188l-3.25-18.28c4.92-2.895 8.87-7.066 11.658-11.845 3.74-6.412 5.516-14.137 4.03-21.936-1.484-7.8-6.637-15.374-14.812-20.094l-29.78-17.188c-3.93-2.27-8.145-3.506-12.282-3.812-4.137-.306-8.206.305-11.813 1.688-4.304 1.65-8.01 4.21-11.093 7.343l-29.093-8.186c-.762-3.026-1.937-5.915-3.47-8.594-3.684-6.445-9.47-11.856-16.968-14.47-2.81-.98-5.862-1.488-9-1.5zm-.187 18.564c1.063.03 2.05.252 3.03.593 2.614.912 5.225 3.153 6.906 6.094 1.682 2.942 2.312 6.365 1.78 9.126-.528 2.756-1.805 5.11-5.717 7.375-.01.006-.024-.004-.032 0l-29.782 17.19c-3.545 2.044-5.726 1.89-8.187.936-.648-.25-1.318-.603-1.97-1.03l.094-.345-.906-.25c-1.53-1.183-2.977-2.804-4.063-4.718-1.737-3.06-2.425-6.634-2-9.312.425-2.678 1.4-4.598 4.75-6.53v-.032l29.78-17.188h.032c2.02-1.166 3.688-1.72 5.188-1.875.375-.038.74-.04 1.094-.03zM226.5 62.22c.31-.02.618-.024.938 0 1.276.09 2.637.53 4.312 1.5v.03l29.813 17.188c4.04 2.332 5.294 4.686 5.812 7.406.518 2.72-.138 6.105-1.844 9.03-1.705 2.927-4.343 5.174-7 6.095-2.654.92-5.316 1.02-9.25-1.25L219.47 85c-3.544-2.048-4.47-3.985-4.876-6.594-.406-2.608.28-6.09 2.062-9.125 1.783-3.034 4.532-5.435 7.063-6.405.948-.364 1.85-.598 2.78-.656zM98.344 136.624c2.246-.065 4.14.575 6.53 2.97l24.345 24.31c3.296 3.3 3.89 5.896 3.686 8.657-.204 2.762-1.688 5.865-4.094 8.25-2.405 2.386-5.54 3.892-8.343 4.094-2.805.203-5.415-.415-8.626-3.625L87.53 156.97c-2.89-2.895-3.313-5.065-3.03-7.69.283-2.622 1.867-5.778 4.375-8.25 2.508-2.47 5.773-4.06 8.47-4.343.336-.035.678-.053 1-.062zM320 149.875l-62.094 62.094 48.844 48.843 26.938-26.938.343.344c.976-1.104 1.977-2.196 3.033-3.25 27.69-27.693 72.59-27.693 100.28 0 27.205 27.203 27.684 71.022 1.438 98.81-.004.014-.025.02-.03.033-1.03 2.514-1.372 4.965-1.28 7.343.18 4.757 2.415 9.505 5.936 13.063 3.52 3.556 8.17 5.75 12.875 5.936 3.614.144 7.41-.73 11.47-3.625 37.58-42.338 36.114-107.29-4.438-147.842-29.2-29.2-71.177-37.894-108.062-26.563l-5.375 1.656-3.97-3.968L320 149.875zm-11.75 40.688l18.313 18.312-13.22 13.22-18.312-18.314 13.22-13.218zm-186.53 48l-17.876 66.78 36.78 9.844-.124.47c1.445.292 2.9.612 4.344 1 37.828 10.135 60.26 49.015 50.125 86.843-9.962 37.175-47.675 59.485-84.876 50.625-2.695.375-4.986 1.326-7 2.594-4.03 2.533-7.024 6.796-8.344 11.624-1.32 4.828-.908 9.988 1.28 14.156 1.686 3.206 4.35 6.085 8.907 8.156 55.445 11.366 110.96-22.407 125.813-77.78.003-.01-.003-.022 0-.032 10.673-39.878-2.783-80.572-31.03-106.844l-4.126-3.844 1.437-5.437 9.5-35.44-84.81-22.717zm159.655 23.28c-6.083 33.48 3.736 69.08 29.72 95.063 36.204 36.205 91.507 41.554 133.06 15.625-5.342-2.01-10.13-5.214-14.06-9.186-5.135-5.186-8.89-11.79-10.47-19.156-26.67 13.713-60.22 9.406-82.563-12.938-14.735-14.735-21.633-34.33-20.687-53.625l-3 3-6.625 6.625-6.594-6.625-18.78-18.78zm-131.656 4.094l18.06 4.844-6.686 25.033-18.063-4.844 6.69-25.033zm-59.47 17.938c-32.02 11.48-57.93 37.8-67.438 73.28-13.252 49.46 9.77 100.012 53 123.033-.936-5.626-.568-11.36.907-16.75 1.923-7.036 5.783-13.63 11.374-18.688C62.872 428.512 49.82 397.34 58 366.812c5.395-20.134 18.935-35.924 36.125-44.75L90 320.97l-9.03-2.44 2.405-9.03 6.875-25.625z"/></svg></span>
+      <h1 data-i18n="p_h1">Muhafız</h1>
+    </div>
     <p class="updated" data-i18n="p_sub">(İngilizce: Escort)</p>
     <p class="lede" data-i18n="p_lede">Görünmeyen bir el fren. Hedefin ne olduğunu asla öğrenmez, sen de bunu güvenle claim edebilirsin.</p>
 
@@ -227,7 +277,7 @@
     <div class="panel" id="claim">
       <div class="tab" data-i18n="sec3_tab">İletişim Taktiği</div>
       <h2 data-i18n="sec3_h2">Ne Claim Etmeli</h2>
-      <p data-i18n="s3">Roleblok hedefe asla görünmediği için, bunu açıkça claim etmek hedefine hiçbir şey ifşa etmez — bu yüzden Muhafız claim'i diğer rollere göre daha güvenli. Kimi bloklayacağını önceden söylemekten kaçın, ama geçmişte kimi bloklayıp ne olduğunu paylaşmak (özellikle bir saldırı boşa çıktıysa) güçlü kanıt sunar.</p>
+      <p data-i18n="s3">Roleblok hedefe asla görünmediği için, bunu açıkça claim etmek hedefine hiçbir şey ifşa etmez — bu yüzden Muhafız claim'i diğer rollere göre daha güvenli. Kimi bloklayacağını önceden söylemekten kaçın, ama geçmişte kimi bloklayıp ne olduğunu paylaşmak (özellikle bir saldırı boşa çıktıysa) güçlü kanıt sunar. Sorgulanırsan claim etmekten çekinme, çünkü hedefin senin bloğunu asla fark etmez: "Dün gece birini bloke ettim, kimi söylemeyeceğim ama o gece o taraftan hiçbir gece aksiyonu gelmedi" gibi dolaylı bir kanıt sun. Kimi bloklayacağını önceden asla söyleme.</p>
     </div>
 
     <div class="panel" id="davranis">
@@ -246,7 +296,10 @@
   <footer>
     <div class="wrap">
       <span data-i18n="footer_copy">© 2026 Batuhan Demir — EnigmaDeck</span>
-      <a href="/roles/" data-i18n="nav_roles">Rol Rehberi</a>
+      <span style="display:flex; align-items:center; gap:16px;">
+        <a href="/roles/" data-i18n="nav_roles">Rol Rehberi</a>
+        <a class="icon-credit" href="https://game-icons.net" target="_blank" rel="noopener" data-i18n="icon_credit">İkonlar: game-icons.net</a>
+      </span>
     </div>
   </footer>
 
@@ -272,13 +325,14 @@
       toc4: { tr: "Nasıl Davranmalı", en: "Behavior & Tells" },
       toc5: { tr: "İlgili Roller", en: "Related Roles" },
       footer_copy: { tr: "© 2026 Batuhan Demir — EnigmaDeck", en: "© 2026 Batuhan Demir — EnigmaDeck" },
+      icon_credit: { tr: "İkonlar: game-icons.net", en: "Icons: game-icons.net" },
       p_kicker: { tr: "Rol Dosyası — Köylü Hizalı", en: "Role File — Village-Aligned" },
       p_h1: { tr: "Muhafız", en: "Escort" },
       p_sub: { tr: "(İngilizce: Escort)", en: "(Turkish: Muhafız)" },
       p_lede: { tr: "Görünmeyen bir el fren. Hedefin ne olduğunu asla öğrenmez, sen de bunu güvenle claim edebilirsin.", en: "An invisible handbrake. Your target never learns what happened, which means you can safely claim this role out loud." },
       s1: { tr: "Her gece bir oyuncuyu roleblok edersin — o kişinin o geceki tüm gece aksiyonu sessizce iptal olur, hedef bloklandığını asla öğrenmez.", en: "Each night you roleblock one player — their entire night action for that round is silently canceled, and the target is never told they were blocked." },
       s2: { tr: "Şüphelendiğin bir vampiri bloklamak, o gece saldırıyı engelleyebilir (özellikle vampir sayısı azsa). Ama dikkat: kendi takımından bir Doktor, Koruyucu ya da Cadı'yı yanlışlıkla bloklarsan, o gece kritik bir koruma ya da iksir boşa gider — bu bir can maliyetine dönüşebilir.", en: "Blocking a suspected vampire can prevent that night's attack entirely (especially if the vampire count is low). But be careful: accidentally blocking your own team's Doctor, Bodyguard, or Witch wastes a critical protection or potion that night — that can cost a life." },
-      s3: { tr: "Roleblok hedefe asla görünmediği için, bunu açıkça claim etmek hedefine hiçbir şey ifşa etmez — bu yüzden Muhafız claim'i diğer rollere göre daha güvenli. Kimi bloklayacağını önceden söylemekten kaçın, ama geçmişte kimi bloklayıp ne olduğunu paylaşmak (özellikle bir saldırı boşa çıktıysa) güçlü kanıt sunar.", en: "Since a roleblock is never visible to the target, openly claiming it reveals nothing to that person — which makes an Escort claim safer than most. Avoid announcing who you'll block in advance, but sharing who you blocked in the past and what happened (especially if it foiled an attack) is strong evidence." },
+      s3: { tr: "Roleblok hedefe asla görünmediği için, bunu açıkça claim etmek hedefine hiçbir şey ifşa etmez — bu yüzden Muhafız claim'i diğer rollere göre daha güvenli. Kimi bloklayacağını önceden söylemekten kaçın, ama geçmişte kimi bloklayıp ne olduğunu paylaşmak (özellikle bir saldırı boşa çıktıysa) güçlü kanıt sunar. Sorgulanırsan claim etmekten çekinme, çünkü hedefin senin bloğunu asla fark etmez: \"Dün gece birini bloke ettim, kimi söylemeyeceğim ama o gece o taraftan hiçbir gece aksiyonu gelmedi\" gibi dolaylı bir kanıt sun. Kimi bloklayacağını önceden asla söyleme.", en: "Since a roleblock is never visible to the target, openly claiming it reveals nothing to that person — which makes an Escort claim safer than most. Avoid announcing who you'll block in advance, but sharing who you blocked in the past and what happened (especially if it foiled an attack) is strong evidence. If questioned, don't be afraid to claim — your target never even knows they were blocked: \"I blocked someone last night, won't say who, but no night action came from their side that night,\" offering indirect proof. Never announce who you're about to block in advance." },
       s4: { tr: "Hedefini seçerken vampir olmasından şüphelendiğin ama henüz kanıtın olmayan kişilere öncelik ver — bloke etmek onlara riske sokmaz ama bir gece güçlerini boşa çıkarabilir. Kendi köy rollerini not tutarak, iddia edilmiş Doktor/Cadı/Koruyucu'yu asla yanlışlıkla bloklamamaya özen göster.", en: "When choosing a target, prioritize players you suspect of being a vampire but can't yet prove — blocking them costs them no risk from your side, but may waste their power for a night. Keep a mental note of claimed village roles so you never accidentally block a claimed Doctor/Witch/Bodyguard." },
       related_list: { tr: "<li><a href=\"/roles/sessizlestirici.html\">Sessizleştirici (Blackmailer)</a> — Sessizleştirici de görünmez biçimde birini etkisiz bırakır, ama gündüz fazında.</li><li><a href=\"/roles/gozcu.html\">Gözcü (Lookout)</a> — Gözcü, senin bloğunu gece trafiğinde 'görebilecek' tek rol.</li>", en: "<li><a href=\"/roles/sessizlestirici.html\">Sessizleştirici (Blackmailer)</a> — The Blackmailer also disables someone invisibly, just in the day phase.</li><li><a href=\"/roles/gozcu.html\">Gözcü (Lookout)</a> — The Lookout is the one role that can actually 'see' your block in the night traffic.</li>" },
     };

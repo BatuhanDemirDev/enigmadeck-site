@@ -24,6 +24,10 @@
     --gold: #f5c263;
     --mx: 50%;
     --my: 20%;
+    --align-village: #7bc98d;
+    --align-vampire: #e0526a;
+    --align-neutral: #5b9fe0;
+    --align-lovers: #f291d0;
   }
   * { box-sizing: border-box; }
   html { color-scheme: dark; }
@@ -173,6 +177,49 @@
   .role-grid a { font-weight: 600; color: var(--paper); text-decoration: none; }
   .role-grid a:hover { color: var(--gold); }
   .role-grid .teaser { color: var(--muted); font-size: 14px; }
+
+  /* Alignment chips: reuse the site's pill/tag aesthetic, tinted per faction */
+  .kicker-chip {
+    display: inline-flex; align-items: center;
+    border: 1px solid var(--line); background: var(--panel);
+    padding: 5px 12px; border-radius: 100px;
+  }
+  .kicker-chip.align-koy { color: var(--align-village); border-color: rgba(123,201,141,.35); background: rgba(123,201,141,.08); }
+  .kicker-chip.align-vam { color: var(--align-vampire); border-color: rgba(224,82,106,.35); background: rgba(224,82,106,.08); }
+  .kicker-chip.align-not { color: var(--align-neutral); border-color: rgba(91,159,224,.35); background: rgba(91,159,224,.08); }
+  .kicker-chip.align-ask { color: var(--align-lovers); border-color: rgba(242,145,208,.35); background: rgba(242,145,208,.08); }
+  .panel .tab.align-koy { color: var(--align-village); }
+  .panel .tab.align-vam { color: var(--align-vampire); }
+  .panel .tab.align-not { color: var(--align-neutral); }
+  .panel .tab.align-ask { color: var(--align-lovers); }
+
+  /* Role emblem: gradient badge matching .wordmark .glyph, gold glyph on top */
+  .role-hero { display: flex; align-items: center; gap: 18px; margin: 0 0 12px; }
+  .role-hero h1 { margin: 0; }
+  .role-icon {
+    flex-shrink: 0; width: 64px; height: 64px; border-radius: 18px;
+    background: linear-gradient(135deg, var(--violet), var(--magenta));
+    border: 1px solid var(--line);
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 8px 22px rgba(139,92,246,.28);
+  }
+  .role-icon svg { width: 34px; height: 34px; color: var(--gold); display: block; }
+
+  /* Small role emblem + alignment ring, used in the roles/index.html lists */
+  .role-mini {
+    width: 30px; height: 30px; border-radius: 9px; flex-shrink: 0; margin-top: 1px;
+    display: flex; align-items: center; justify-content: center;
+    border: 1px solid var(--line); background: var(--panel);
+  }
+  .role-mini svg { width: 16px; height: 16px; color: var(--gold); display: block; }
+  .role-mini.align-koy { border-color: rgba(123,201,141,.4); background: rgba(123,201,141,.10); }
+  .role-mini.align-vam { border-color: rgba(224,82,106,.4); background: rgba(224,82,106,.10); }
+  .role-mini.align-not { border-color: rgba(91,159,224,.4); background: rgba(91,159,224,.10); }
+  .role-mini.align-ask { border-color: rgba(242,145,208,.4); background: rgba(242,145,208,.10); }
+  .role-grid li { display: flex; align-items: flex-start; gap: 12px; }
+  .role-grid .role-text { flex: 1; }
+
+  .icon-credit { color: var(--muted); font-size: 13px; }
 </style>
 </head>
 <body>
@@ -196,8 +243,11 @@
   </header>
 
   <main class="wrap">
-    <p class="mono-label" data-i18n="p_kicker">Rol Dosyası — Vampir Hizalı</p>
-    <h1 data-i18n="p_h1">Çerçeveleyici</h1>
+    <p class="mono-label kicker-chip align-vam" data-i18n="p_kicker">Rol Dosyası — Vampir Hizalı</p>
+    <div class="role-hero">
+      <span class="role-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M100.3 19.86l-36.62 2.02-.72 13.1a16 16 0 0 1 5.18-.86 16 16 0 0 1 16 16 16 16 0 0 1-16 16 16 16 0 0 1-16-16 16 16 0 0 1 2.38-8.4l-6.44-18.98-15.63.86-.78 377.3 23.01-.8.55-105.9 12.23 105.5 46.84-1.6zm353.5 11.6L121.5 41.71l2.6 58.39L485 85.15l3.5-36.38zm7 72.74l-25.4 1-15 39-13.2-37.8-22.5 1-2.8 83.3 7.6 34-9.5 24.1-7.5 226.6 14.1.7 11.3-33.5 11.3 34.7 4.7.3 14.1-21.1 4.6 22 18.3 1zm-61.1 299a16 16 0 0 1 16 16 16 16 0 0 1-16 16 16 16 0 0 1-16-16 16 16 0 0 1 16-16zm85.3.8l-14.1.5-1.9 75.2 16.2-.1zm-128.3 4.2l-93 3-43.7 20.3-22-18.1-174.24 5.7-.28 63.8 330.82-2.3 1.3-40c-12.9-.3-87.9-2.3-89.6-2.3-1.6 0 69-9.9 90.1-13zM103 431.7a16 16 0 0 1 16 16 16 16 0 0 1-16 16 16 16 0 0 1-15.96-16 16 16 0 0 1 15.96-16zm-51.48.3a16 16 0 0 1 16 16 16 16 0 0 1-16 16 16 16 0 0 1-16-16 16 16 0 0 1 16-16z"/></svg></span>
+      <h1 data-i18n="p_h1">Çerçeveleyici</h1>
+    </div>
     <p class="updated" data-i18n="p_sub">(İngilizce: Framer)</p>
     <p class="lede" data-i18n="p_lede">Kahin ve Şerif'in en büyük kabusu. Gerçeği çarpıtman, köyün kendi araştırmacılarına güvenini yerle bir edebilir.</p>
 
@@ -227,7 +277,7 @@
     <div class="panel" id="claim">
       <div class="tab" data-i18n="sec3_tab">İletişim Taktiği</div>
       <h2 data-i18n="sec3_h2">Ne Claim Etmeli</h2>
-      <p data-i18n="s3">Bu gücün varlığını asla açığa vurma. Bir Kahin/Şerif "temiz" birini "vampir" olarak rapor ettiğinde bu senin işin olabilir — ama bunu bilen tek sen olduğun için asla ima etme, köyün kafası karışsın, senin değil.</p>
+      <p data-i18n="s3">Bu gücün varlığını asla açığa vurma. Bir Kahin/Şerif "temiz" birini "vampir" olarak rapor ettiğinde bu senin işin olabilir — ama bunu bilen tek sen olduğun için asla ima etme, köyün kafası karışsın, senin değil. Sorgulanırsan tamamen köylü gibi konuş: "Ben de şaşkınım, Kahin'in sonucunun neden yanlış çıktığını bilmiyorum." Bir çerçeveleme sonucu ortaya çıktığında asla "aslında ben yaptım" havasına girme — köyün kafası karışsın, sen sadece izleyen biri gibi görün.</p>
     </div>
 
     <div class="panel" id="davranis">
@@ -246,7 +296,10 @@
   <footer>
     <div class="wrap">
       <span data-i18n="footer_copy">© 2026 Batuhan Demir — EnigmaDeck</span>
-      <a href="/roles/" data-i18n="nav_roles">Rol Rehberi</a>
+      <span style="display:flex; align-items:center; gap:16px;">
+        <a href="/roles/" data-i18n="nav_roles">Rol Rehberi</a>
+        <a class="icon-credit" href="https://game-icons.net" target="_blank" rel="noopener" data-i18n="icon_credit">İkonlar: game-icons.net</a>
+      </span>
     </div>
   </footer>
 
@@ -272,13 +325,14 @@
       toc4: { tr: "Nasıl Davranmalı", en: "Behavior & Tells" },
       toc5: { tr: "İlgili Roller", en: "Related Roles" },
       footer_copy: { tr: "© 2026 Batuhan Demir — EnigmaDeck", en: "© 2026 Batuhan Demir — EnigmaDeck" },
+      icon_credit: { tr: "İkonlar: game-icons.net", en: "Icons: game-icons.net" },
       p_kicker: { tr: "Rol Dosyası — Vampir Hizalı", en: "Role File — Vampire-Aligned" },
       p_h1: { tr: "Çerçeveleyici", en: "Framer" },
       p_sub: { tr: "(İngilizce: Framer)", en: "(Turkish: Çerçeveleyici)" },
       p_lede: { tr: "Kahin ve Şerif'in en büyük kabusu. Gerçeği çarpıtman, köyün kendi araştırmacılarına güvenini yerle bir edebilir.", en: "The Seer and Sheriff's worst nightmare. Bending the truth can shatter the village's trust in its own investigators." },
       s1: { tr: "Her gece bir hedef seçersin; o gece herhangi bir Kahin/Şerif incelemesi o hedefe yönelikse \"vampir\" sonucu döner — gerçek sonucu geçersiz kılar. Masum birine köyün güvenini kırmak, ya da takım arkadaşını bekleyen bir incelemeden kurtarmak (onun yerine başka birini çerçeveleyerek dikkat dağıtmak) için kullanılır.", en: "Each night you pick a target; any Seer/Sheriff investigation resolving that same night against that target shows \"vampire,\" overriding the true result. Used to burn the village's trust in an innocent, or to protect a teammate from a pending investigation by framing someone else as a decoy that same night." },
       s2: { tr: "Hangi köylünün o gece incelenme ihtimali yüksek görünüyorsa (aktif Kahin/Şerif claim'i varsa) onu çerçevele — bu yanlış pozitif, köyü kendi araştırıcısına karşı şüpheye düşürebilir. Ya da bir takım arkadaşın incelenme riskindeyse, farklı birini çerçeveleyerek dikkati dağıt.", en: "Frame whichever villager seems likely to be investigated that night (someone with an active Seer/Sheriff claim) — the false positive can turn the village against its own investigator. Or, if a teammate is at risk of investigation, frame someone else instead to divert attention." },
-      s3: { tr: "Bu gücün varlığını asla açığa vurma. Bir Kahin/Şerif \"temiz\" birini \"vampir\" olarak rapor ettiğinde bu senin işin olabilir — ama bunu bilen tek sen olduğun için asla ima etme, köyün kafası karışsın, senin değil.", en: "Never reveal this power exists. When a Seer/Sheriff reports someone \"clean\" as \"vampire,\" it might be your doing — but since you're the only one who knows that, never hint at it; let the village be confused, not you." },
+      s3: { tr: "Bu gücün varlığını asla açığa vurma. Bir Kahin/Şerif \"temiz\" birini \"vampir\" olarak rapor ettiğinde bu senin işin olabilir — ama bunu bilen tek sen olduğun için asla ima etme, köyün kafası karışsın, senin değil. Sorgulanırsan tamamen köylü gibi konuş: \"Ben de şaşkınım, Kahin'in sonucunun neden yanlış çıktığını bilmiyorum.\" Bir çerçeveleme sonucu ortaya çıktığında asla \"aslında ben yaptım\" havasına girme — köyün kafası karışsın, sen sadece izleyen biri gibi görün.", en: "Never reveal this power exists. When a Seer/Sheriff reports someone \"clean\" as \"vampire,\" it might be your doing — but since you're the only one who knows that, never hint at it; let the village be confused, not you. If questioned, talk purely like a Villager: \"I'm just as confused as anyone why the Seer's result turned out wrong.\" When a frame result surfaces, never give off an \"actually, that was me\" vibe — let the village stay confused while you act like just another bystander." },
       s4: { tr: "Bir çerçeveleme sonucu köyde kaos yarattığında, sen de o kaosa şaşırmış gibi katıl — asla \"aslında ben...\" gibi bir ipucu verme. Kimi çerçeveleyeceğine karar verirken, o kişinin zaten şüpheli görünüp görünmediğini hesaba kat; şüpheli birini çerçevelemek daha inandırıcı, tertemiz görünen birini çerçevelemek riskli ama daha yıkıcı olabilir.", en: "When a frame result throws the village into chaos, join that confusion like everyone else — never drop a hint like \"actually, I...\" When deciding who to frame, factor in whether they already look suspicious; framing someone already suspicious is more believable, while framing someone squeaky-clean is riskier but far more devastating." },
       related_list: { tr: "<li><a href=\"/roles/kahin.html\">Kahin (Seer)</a> — Senin asıl hedefin onun sonuçlarını bozmak.</li><li><a href=\"/roles/serif.html\">Şerif (Sheriff)</a> — Şerif'i çerçevelemek daha az fark edilir, çünkü sonucu zaten belirsiz.</li><li><a href=\"/roles/alfa-vampir.html\">Alfa Vampir (Alpha Vampire)</a> — Alfa'nın ilk-inceleme bağışıklığıyla senin çerçeven, takımı araştırmalara karşı iki kat güvenli kılar.</li>", en: "<li><a href=\"/roles/kahin.html\">Kahin (Seer)</a> — Your entire purpose is corrupting their results.</li><li><a href=\"/roles/serif.html\">Şerif (Sheriff)</a> — Framing the Sheriff is less noticeable, since their result is already vague.</li><li><a href=\"/roles/alfa-vampir.html\">Alfa Vampir (Alpha Vampire)</a> — The Alpha's first-check immunity plus your frame make the team doubly safe against investigation.</li>" },
     };

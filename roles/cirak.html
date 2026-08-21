@@ -24,6 +24,10 @@
     --gold: #f5c263;
     --mx: 50%;
     --my: 20%;
+    --align-village: #7bc98d;
+    --align-vampire: #e0526a;
+    --align-neutral: #5b9fe0;
+    --align-lovers: #f291d0;
   }
   * { box-sizing: border-box; }
   html { color-scheme: dark; }
@@ -173,6 +177,49 @@
   .role-grid a { font-weight: 600; color: var(--paper); text-decoration: none; }
   .role-grid a:hover { color: var(--gold); }
   .role-grid .teaser { color: var(--muted); font-size: 14px; }
+
+  /* Alignment chips: reuse the site's pill/tag aesthetic, tinted per faction */
+  .kicker-chip {
+    display: inline-flex; align-items: center;
+    border: 1px solid var(--line); background: var(--panel);
+    padding: 5px 12px; border-radius: 100px;
+  }
+  .kicker-chip.align-koy { color: var(--align-village); border-color: rgba(123,201,141,.35); background: rgba(123,201,141,.08); }
+  .kicker-chip.align-vam { color: var(--align-vampire); border-color: rgba(224,82,106,.35); background: rgba(224,82,106,.08); }
+  .kicker-chip.align-not { color: var(--align-neutral); border-color: rgba(91,159,224,.35); background: rgba(91,159,224,.08); }
+  .kicker-chip.align-ask { color: var(--align-lovers); border-color: rgba(242,145,208,.35); background: rgba(242,145,208,.08); }
+  .panel .tab.align-koy { color: var(--align-village); }
+  .panel .tab.align-vam { color: var(--align-vampire); }
+  .panel .tab.align-not { color: var(--align-neutral); }
+  .panel .tab.align-ask { color: var(--align-lovers); }
+
+  /* Role emblem: gradient badge matching .wordmark .glyph, gold glyph on top */
+  .role-hero { display: flex; align-items: center; gap: 18px; margin: 0 0 12px; }
+  .role-hero h1 { margin: 0; }
+  .role-icon {
+    flex-shrink: 0; width: 64px; height: 64px; border-radius: 18px;
+    background: linear-gradient(135deg, var(--violet), var(--magenta));
+    border: 1px solid var(--line);
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 8px 22px rgba(139,92,246,.28);
+  }
+  .role-icon svg { width: 34px; height: 34px; color: var(--gold); display: block; }
+
+  /* Small role emblem + alignment ring, used in the roles/index.html lists */
+  .role-mini {
+    width: 30px; height: 30px; border-radius: 9px; flex-shrink: 0; margin-top: 1px;
+    display: flex; align-items: center; justify-content: center;
+    border: 1px solid var(--line); background: var(--panel);
+  }
+  .role-mini svg { width: 16px; height: 16px; color: var(--gold); display: block; }
+  .role-mini.align-koy { border-color: rgba(123,201,141,.4); background: rgba(123,201,141,.10); }
+  .role-mini.align-vam { border-color: rgba(224,82,106,.4); background: rgba(224,82,106,.10); }
+  .role-mini.align-not { border-color: rgba(91,159,224,.4); background: rgba(91,159,224,.10); }
+  .role-mini.align-ask { border-color: rgba(242,145,208,.4); background: rgba(242,145,208,.10); }
+  .role-grid li { display: flex; align-items: flex-start; gap: 12px; }
+  .role-grid .role-text { flex: 1; }
+
+  .icon-credit { color: var(--muted); font-size: 13px; }
 </style>
 </head>
 <body>
@@ -196,8 +243,11 @@
   </header>
 
   <main class="wrap">
-    <p class="mono-label" data-i18n="p_kicker">Rol Dosyası — Köylü Hizalı</p>
-    <h1 data-i18n="p_h1">Çırak</h1>
+    <p class="mono-label kicker-chip align-koy" data-i18n="p_kicker">Rol Dosyası — Köylü Hizalı</p>
+    <div class="role-hero">
+      <span class="role-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M103.432 17.844c-1.118.005-2.234.032-3.348.08-2.547.11-5.083.334-7.604.678-20.167 2.747-39.158 13.667-52.324 33.67-24.613 37.4 2.194 98.025 56.625 98.025.536 0 1.058-.012 1.583-.022v.704h60.565c-10.758 31.994-30.298 66.596-52.448 101.43-2.162 3.4-4.254 6.878-6.29 10.406l34.878 35.733-56.263 9.423c-32.728 85.966-27.42 182.074 48.277 182.074v-.002l9.31.066c23.83-.57 46.732-4.298 61.325-12.887 4.174-2.458 7.63-5.237 10.467-8.42h-32.446c-20.33 5.95-40.8-6.94-47.396-25.922-8.956-25.77 7.52-52.36 31.867-60.452 5.803-1.93 11.723-2.834 17.565-2.834v-.406h178.33c-.57-44.403 16.35-90.125 49.184-126 23.955-26.176 42.03-60.624 51.3-94.846l-41.225-24.932 38.272-6.906-43.37-25.807h-.005l.002-.002.002.002 52.127-8.85c-5.232-39.134-28.84-68.113-77.37-68.113C341.14 32.26 222.11 35.29 149.34 28.496c-14.888-6.763-30.547-10.723-45.908-10.652zm.464 18.703c13.137.043 27.407 3.804 41.247 10.63l.033-.07c4.667 4.735 8.542 9.737 11.68 14.985H82.92l10.574 14.78c10.608 14.83 19.803 31.99 21.09 42.024.643 5.017-.11 7.167-1.814 8.836-1.705 1.67-6.228 3.875-15.99 3.875-40.587 0-56.878-44.952-41.012-69.06C66.238 46.64 79.582 39.22 95.002 37.12c2.89-.395 5.863-.583 8.894-.573zM118.5 80.78h46.28c4.275 15.734 3.656 33.07-.544 51.51H131.52c1.9-5.027 2.268-10.574 1.6-15.77-1.527-11.913-7.405-24.065-14.62-35.74zm101.553 317.095c6.44 6.84 11.192 15.31 13.37 24.914 3.797 16.736 3.092 31.208-1.767 43.204-4.526 11.175-12.576 19.79-22.29 26h237.19c14.448 0 24.887-5.678 32.2-14.318 7.312-8.64 11.2-20.514 10.705-32.352-.186-4.473-.978-8.913-2.407-13.18l-69.91-8.205 42.017-20.528c-8.32-3.442-18.64-5.537-31.375-5.537H220.053zm-42.668.506c-1.152-.003-2.306.048-3.457.153-2.633.242-5.256.775-7.824 1.63-15.11 5.02-25.338 21.54-20.11 36.583 3.673 10.57 15.347 17.71 25.654 13.938l1.555-.57h43.354c.946-6.36.754-13.882-1.358-23.192-3.71-16.358-20.543-28.483-37.815-28.54z"/></svg></span>
+      <h1 data-i18n="p_h1">Çırak</h1>
+    </div>
     <p class="updated" data-i18n="p_sub">(İngilizce: Apprentice)</p>
     <p class="lede" data-i18n="p_lede">Görünüşte tamamen sıradan bir köylüsün — ta ki Kahin düşene kadar. O anda köyün bilgi zincirinin son halkası sen olursun.</p>
 
@@ -227,7 +277,7 @@
     <div class="panel" id="claim">
       <div class="tab" data-i18n="sec3_tab">İletişim Taktiği</div>
       <h2 data-i18n="sec3_h2">Ne Claim Etmeli</h2>
-      <p data-i18n="s3">Çırak olduğunu ASLA açık etme. Bunu yapmak Kahin'e ek bir hedef işareti koyar — akıllı bir vampir takımı, Kahin'i öldürüp senin de kim olduğunu bilirse ikinizi birden avlamaya çalışır. Terfi edene kadar sessiz kal.</p>
+      <p data-i18n="s3">Çırak olduğunu ASLA açık etme. Bunu yapmak Kahin'e ek bir hedef işareti koyar — akıllı bir vampir takımı, Kahin'i öldürüp senin de kim olduğunu bilirse ikinizi birden avlamaya çalışır. Terfi edene kadar sessiz kal. Kahin hayattayken sorgulanırsan tamamen sıradan bir köylü gibi cevap ver: "Yeteneğim yok, gözlemlerime güveniyorum" — bu doğrudan doğru, çünkü henüz terfi etmedin. Kahin öldükten sonra bile hemen açık etme; ilk sonucunu aldıktan sonra normal bir Kahin gibi zamanlamanı düşünüp öyle claim et.</p>
     </div>
 
     <div class="panel" id="davranis">
@@ -246,7 +296,10 @@
   <footer>
     <div class="wrap">
       <span data-i18n="footer_copy">© 2026 Batuhan Demir — EnigmaDeck</span>
-      <a href="/roles/" data-i18n="nav_roles">Rol Rehberi</a>
+      <span style="display:flex; align-items:center; gap:16px;">
+        <a href="/roles/" data-i18n="nav_roles">Rol Rehberi</a>
+        <a class="icon-credit" href="https://game-icons.net" target="_blank" rel="noopener" data-i18n="icon_credit">İkonlar: game-icons.net</a>
+      </span>
     </div>
   </footer>
 
@@ -272,13 +325,14 @@
       toc4: { tr: "Nasıl Davranmalı", en: "Behavior & Tells" },
       toc5: { tr: "İlgili Roller", en: "Related Roles" },
       footer_copy: { tr: "© 2026 Batuhan Demir — EnigmaDeck", en: "© 2026 Batuhan Demir — EnigmaDeck" },
+      icon_credit: { tr: "İkonlar: game-icons.net", en: "Icons: game-icons.net" },
       p_kicker: { tr: "Rol Dosyası — Köylü Hizalı", en: "Role File — Village-Aligned" },
       p_h1: { tr: "Çırak", en: "Apprentice" },
       p_sub: { tr: "(İngilizce: Apprentice)", en: "(Turkish: Çırak)" },
       p_lede: { tr: "Görünüşte tamamen sıradan bir köylüsün — ta ki Kahin düşene kadar. O anda köyün bilgi zincirinin son halkası sen olursun.", en: "On the surface you're an ordinary villager — until the Seer falls. At that moment, you become the village's last link in the information chain." },
       s1: { tr: "Gece yeteneğin yok. Ama Kahin herhangi bir sebeple ölürse, sen otomatik ve anında yeni Kahin olursun — yeteneğin bir sonraki geceden itibaren aktif hale gelir.", en: "You have no night action. But if the Seer dies for any reason, you automatically and instantly become the new Seer — your ability activates starting the following night." },
       s2: { tr: "Kahin hayattayken tamamen sıradan bir Köylü gibi oyna, çünkü sensin bu yeteneği bekleyen tek kişi. Kahin öldüğü anda rolün değişir; artık her gece bir hedef seçip kesin vampir sonucu alacaksın — bu andan itibaren Kahin gibi düşün.", en: "While the Seer is alive, play exactly like an ordinary Villager, since you're the only one waiting on this power. The moment the Seer dies, your role changes — from then on you pick a target each night and get an exact vampire result, so start thinking like a Seer from that point." },
-      s3: { tr: "Çırak olduğunu ASLA açık etme. Bunu yapmak Kahin'e ek bir hedef işareti koyar — akıllı bir vampir takımı, Kahin'i öldürüp senin de kim olduğunu bilirse ikinizi birden avlamaya çalışır. Terfi edene kadar sessiz kal.", en: "NEVER claim you're the Apprentice. Doing so paints an extra target on the Seer — a sharp vampire team, knowing who you are, might hunt you both once they kill the Seer. Stay silent until (if) you're promoted." },
+      s3: { tr: "Çırak olduğunu ASLA açık etme. Bunu yapmak Kahin'e ek bir hedef işareti koyar — akıllı bir vampir takımı, Kahin'i öldürüp senin de kim olduğunu bilirse ikinizi birden avlamaya çalışır. Terfi edene kadar sessiz kal. Kahin hayattayken sorgulanırsan tamamen sıradan bir köylü gibi cevap ver: \"Yeteneğim yok, gözlemlerime güveniyorum\" — bu doğrudan doğru, çünkü henüz terfi etmedin. Kahin öldükten sonra bile hemen açık etme; ilk sonucunu aldıktan sonra normal bir Kahin gibi zamanlamanı düşünüp öyle claim et.", en: "NEVER claim you're the Apprentice. Doing so paints an extra target on the Seer — a sharp vampire team, knowing who you are, might hunt you both once they kill the Seer. Stay silent until (if) you're promoted. While the Seer is alive and you're questioned, answer exactly like a plain Villager: \"No ability, I just trust my reads\" — which is literally true, since you haven't been promoted yet. Even after the Seer dies, don't reveal it right away; wait for your first result and then time your claim the way a real Seer would." },
       s4: { tr: "Kahin canlıyken tamamen görünmez ol, sıradan bir köylü gibi davran. Kahin öldükten sonra bile terfini hemen ilan etme — bir gece bekleyip ilk sonucunu al, sonra normal bir Kahin gibi claim zamanlamasını değerlendir.", en: "While the Seer is alive, stay completely invisible, behaving like an ordinary villager. Even after the Seer dies, don't announce your promotion immediately — wait a night, get your first result, then weigh your claim timing the way any Seer would." },
       related_list: { tr: "<li><a href=\"/roles/kahin.html\">Kahin (Seer)</a> — Kahin ölürse doğrudan onun yerini alırsın.</li><li><a href=\"/roles/serif.html\">Şerif (Sheriff)</a> — Şerif, Kahin sahadan çıktıktan sonra tek bilgi kaynağın olabilir, ona güven.</li>", en: "<li><a href=\"/roles/kahin.html\">Kahin (Seer)</a> — You directly inherit the Seer's role if they die.</li><li><a href=\"/roles/serif.html\">Şerif (Sheriff)</a> — The Sheriff may be your only information source once the Seer is gone — lean on them.</li>" },
     };

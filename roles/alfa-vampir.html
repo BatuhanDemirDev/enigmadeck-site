@@ -24,6 +24,10 @@
     --gold: #f5c263;
     --mx: 50%;
     --my: 20%;
+    --align-village: #7bc98d;
+    --align-vampire: #e0526a;
+    --align-neutral: #5b9fe0;
+    --align-lovers: #f291d0;
   }
   * { box-sizing: border-box; }
   html { color-scheme: dark; }
@@ -173,6 +177,49 @@
   .role-grid a { font-weight: 600; color: var(--paper); text-decoration: none; }
   .role-grid a:hover { color: var(--gold); }
   .role-grid .teaser { color: var(--muted); font-size: 14px; }
+
+  /* Alignment chips: reuse the site's pill/tag aesthetic, tinted per faction */
+  .kicker-chip {
+    display: inline-flex; align-items: center;
+    border: 1px solid var(--line); background: var(--panel);
+    padding: 5px 12px; border-radius: 100px;
+  }
+  .kicker-chip.align-koy { color: var(--align-village); border-color: rgba(123,201,141,.35); background: rgba(123,201,141,.08); }
+  .kicker-chip.align-vam { color: var(--align-vampire); border-color: rgba(224,82,106,.35); background: rgba(224,82,106,.08); }
+  .kicker-chip.align-not { color: var(--align-neutral); border-color: rgba(91,159,224,.35); background: rgba(91,159,224,.08); }
+  .kicker-chip.align-ask { color: var(--align-lovers); border-color: rgba(242,145,208,.35); background: rgba(242,145,208,.08); }
+  .panel .tab.align-koy { color: var(--align-village); }
+  .panel .tab.align-vam { color: var(--align-vampire); }
+  .panel .tab.align-not { color: var(--align-neutral); }
+  .panel .tab.align-ask { color: var(--align-lovers); }
+
+  /* Role emblem: gradient badge matching .wordmark .glyph, gold glyph on top */
+  .role-hero { display: flex; align-items: center; gap: 18px; margin: 0 0 12px; }
+  .role-hero h1 { margin: 0; }
+  .role-icon {
+    flex-shrink: 0; width: 64px; height: 64px; border-radius: 18px;
+    background: linear-gradient(135deg, var(--violet), var(--magenta));
+    border: 1px solid var(--line);
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 8px 22px rgba(139,92,246,.28);
+  }
+  .role-icon svg { width: 34px; height: 34px; color: var(--gold); display: block; }
+
+  /* Small role emblem + alignment ring, used in the roles/index.html lists */
+  .role-mini {
+    width: 30px; height: 30px; border-radius: 9px; flex-shrink: 0; margin-top: 1px;
+    display: flex; align-items: center; justify-content: center;
+    border: 1px solid var(--line); background: var(--panel);
+  }
+  .role-mini svg { width: 16px; height: 16px; color: var(--gold); display: block; }
+  .role-mini.align-koy { border-color: rgba(123,201,141,.4); background: rgba(123,201,141,.10); }
+  .role-mini.align-vam { border-color: rgba(224,82,106,.4); background: rgba(224,82,106,.10); }
+  .role-mini.align-not { border-color: rgba(91,159,224,.4); background: rgba(91,159,224,.10); }
+  .role-mini.align-ask { border-color: rgba(242,145,208,.4); background: rgba(242,145,208,.10); }
+  .role-grid li { display: flex; align-items: flex-start; gap: 12px; }
+  .role-grid .role-text { flex: 1; }
+
+  .icon-credit { color: var(--muted); font-size: 13px; }
 </style>
 </head>
 <body>
@@ -196,8 +243,11 @@
   </header>
 
   <main class="wrap">
-    <p class="mono-label" data-i18n="p_kicker">Rol Dosyası — Vampir Hizalı</p>
-    <h1 data-i18n="p_h1">Alfa Vampir</h1>
+    <p class="mono-label kicker-chip align-vam" data-i18n="p_kicker">Rol Dosyası — Vampir Hizalı</p>
+    <div class="role-hero">
+      <span class="role-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 29c-8 0-15.6 4.345-21.73 12.719C228.139 50.092 224 62.317 224 76s4.139 25.908 10.27 34.281C240.4 118.655 248 123 256 123s15.6-4.345 21.73-12.719C283.861 101.908 288 89.683 288 76s-4.139-25.908-10.27-34.281C271.6 33.345 264 29 256 29zm-95.193 17.709c5.36 11.73 10.839 23.721 17.06 34.92 9.615 17.307 20.842 31.662 34.158 38.32l11.79 5.895a56.89 56.89 0 0 1-4.069-4.93C211.038 109.02 206 93.244 206 76c0-5.837.59-11.5 1.691-16.906-14.322-2.912-29.655-7.03-46.884-12.385zm190.386 0c-17.229 5.355-32.562 9.473-46.884 12.385A84.694 84.694 0 0 1 306 76c0 17.245-5.038 33.02-13.746 44.914a56.89 56.89 0 0 1-4.068 4.93l11.789-5.895c13.316-6.658 24.543-21.013 34.158-38.32 6.221-11.199 11.7-23.19 17.06-34.92zm-124.523 82.02l-14.645 7.322c-17.61 8.805-37.942 12.78-52.865 18.377-7.461 2.798-13.401 5.966-16.96 9.347-3.56 3.382-5.2 6.475-5.2 12.225 0 37.6 15.54 83.15 29.61 129.379 14.069 46.228 26.816 93.388 18.216 136.387l-.238 1.181-.537 1.078c-8.94 17.879-22.705 29.286-37.586 37.79-3.661 2.091-7.398 4.026-11.178 5.878 23.968-.33 48.317-4.023 66.35-22.056L208 459.27l6.363 6.366c8 8 15.805 15.74 23.037 21.164 3.413 2.56 6.625 4.506 9.6 5.873V244c0-1-1.397-6.713-4.414-13.21-3.017-6.498-7.362-14.25-12.219-22.02-9.714-15.543-21.79-31.467-28.73-38.407l-8.83-8.828 11.168-5.586c14.926-7.463 21.56-14.477 24.537-18.941 1.488-2.232 2.083-3.851 2.334-4.73.011-.041.006-.01.015-.044a51.013 51.013 0 0 1-4.191-3.506zm58.66 0a51.013 51.013 0 0 1-4.191 3.505c.01.035.004.003.015.043.251.88.846 2.499 2.334 4.73 2.976 4.465 9.61 11.479 24.537 18.942l11.168 5.586-8.83 8.828c-6.94 6.94-19.016 22.864-28.73 38.407-4.857 7.77-9.204 15.522-12.22 22.02C266.394 237.286 265 243 265 244v248.674c2.975-1.367 6.187-3.313 9.6-5.873 7.232-5.424 15.037-13.164 23.037-21.164L304 459.27l6.363 6.366c18.033 18.033 42.382 21.726 66.35 22.056-3.78-1.852-7.517-3.787-11.178-5.879-14.881-8.503-28.647-19.91-37.586-37.789l-.537-1.078-.238-1.181c-8.6-42.999 4.147-90.159 18.217-136.387C359.46 259.15 375 213.6 375 176c0-5.75-1.64-8.843-5.2-12.225-3.559-3.381-9.499-6.55-16.96-9.347-14.923-5.596-35.255-9.572-52.865-18.377zM246.736 141a37.331 37.331 0 0 1-3.248 5.992c-3.909 5.864-10.58 12.602-21.33 19.326 7.528 9.042 15.934 20.847 23.475 32.912.47.752.911 1.496 1.367 2.245V141zM265 141v60.475c.456-.749.898-1.493 1.367-2.245 7.541-12.065 15.947-23.87 23.475-32.912-10.75-6.724-17.421-13.462-21.33-19.326a37.331 37.331 0 0 1-3.248-5.992z"/></svg></span>
+      <h1 data-i18n="p_h1">Alfa Vampir</h1>
+    </div>
     <p class="updated" data-i18n="p_sub">(İngilizce: Alpha Vampire)</p>
     <p class="lede" data-i18n="p_lede">Vampir takımının lideri. Kararsızlığı senin lehine çevirirsin, ve ilk kontrolden temiz çıkarsın.</p>
 
@@ -227,7 +277,7 @@
     <div class="panel" id="claim">
       <div class="tab" data-i18n="sec3_tab">İletişim Taktiği</div>
       <h2 data-i18n="sec3_h2">Ne Claim Etmeli</h2>
-      <p data-i18n="s3">Vampir hizanı asla açık etme. İlk kontrolden temiz çıkman, seni sessiz kalıp sosyal riski başkalarına bırakmak için çok güvenli bir konum yapar — kimse seni erken şüphelenmez çünkü "kontrol edildi ve temizdi" diyen biri varsa o sensin.</p>
+      <p data-i18n="s3">Vampir hizanı asla açık etme. İlk kontrolden temiz çıkman, seni sessiz kalıp sosyal riski başkalarına bırakmak için çok güvenli bir konum yapar — kimse seni erken şüphelenmez çünkü "kontrol edildi ve temizdi" diyen biri varsa o sensin. Sorgulanırsan Köylü gibi davran, ama bir adım öteye git: "Zaten geçen tur biri beni inceledi ve temiz çıktım, hâlâ şüpheleniyorsanız bu tuhaf." Bu cümle, senin ilk-inceleme bağışıklığını doğal bir savunma cümlesine çevirir — yalan söylemiyorsun, gerçekten "temiz" çıktın, sadece sebebini saklıyorsun.</p>
     </div>
 
     <div class="panel" id="davranis">
@@ -246,7 +296,10 @@
   <footer>
     <div class="wrap">
       <span data-i18n="footer_copy">© 2026 Batuhan Demir — EnigmaDeck</span>
-      <a href="/roles/" data-i18n="nav_roles">Rol Rehberi</a>
+      <span style="display:flex; align-items:center; gap:16px;">
+        <a href="/roles/" data-i18n="nav_roles">Rol Rehberi</a>
+        <a class="icon-credit" href="https://game-icons.net" target="_blank" rel="noopener" data-i18n="icon_credit">İkonlar: game-icons.net</a>
+      </span>
     </div>
   </footer>
 
@@ -272,13 +325,14 @@
       toc4: { tr: "Nasıl Davranmalı", en: "Behavior & Tells" },
       toc5: { tr: "İlgili Roller", en: "Related Roles" },
       footer_copy: { tr: "© 2026 Batuhan Demir — EnigmaDeck", en: "© 2026 Batuhan Demir — EnigmaDeck" },
+      icon_credit: { tr: "İkonlar: game-icons.net", en: "Icons: game-icons.net" },
       p_kicker: { tr: "Rol Dosyası — Vampir Hizalı", en: "Role File — Vampire-Aligned" },
       p_h1: { tr: "Alfa Vampir", en: "Alpha Vampire" },
       p_sub: { tr: "(İngilizce: Alpha Vampire)", en: "(Turkish: Alfa Vampir)" },
       p_lede: { tr: "Vampir takımının lideri. Kararsızlığı senin lehine çevirirsin, ve ilk kontrolden temiz çıkarsın.", en: "The vampire faction's leader. You turn indecision in your favor, and you come back clean on the first check." },
       s1: { tr: "Vampir takımını yönetirsin: saldırı oyu berabere biterse, RASTGELE değil senin seçtiğin hedef kazanır. Ayrıca seni hedef alan İLK Kahin/Şerif incelemesinde \"temiz\" görünürsün (tek seferlik bağışıklık), sonrasında normal vampir gibi tespit edilebilirsin.", en: "You lead the vampire faction: if the attack vote ties, YOUR chosen target wins the tiebreak instead of a random one. You also show up \"clean\" on the FIRST Seer/Sheriff investigation ever aimed at you (a one-time immunity) — after that you're detectable like any normal vampire." },
       s2: { tr: "Takım oylaması berabere kalma ihtimali varsa, kendi tercihini net biçimde gece sohbetinde belirt — beraberlik anında sözün karar verir. İlk incelemenden bağışık olduğunu bil ama bunu asla açığa vurma; bu koz elinde kaldığı sürece değerli.", en: "If the team vote is likely to tie, state your preference clearly in the night chat — your word decides the tiebreak. Know that you're immune to your first investigation, but never reveal it — that card stays valuable only while it's still unspent." },
-      s3: { tr: "Vampir hizanı asla açık etme. İlk kontrolden temiz çıkman, seni sessiz kalıp sosyal riski başkalarına bırakmak için çok güvenli bir konum yapar — kimse seni erken şüphelenmez çünkü \"kontrol edildi ve temizdi\" diyen biri varsa o sensin.", en: "Never reveal your vampire alignment. Coming back clean on that first check makes it very safe for you to stay quiet and let others take the social risks — nobody suspects you early, because if anyone says \"I checked them and they were clean,\" it's you." },
+      s3: { tr: "Vampir hizanı asla açık etme. İlk kontrolden temiz çıkman, seni sessiz kalıp sosyal riski başkalarına bırakmak için çok güvenli bir konum yapar — kimse seni erken şüphelenmez çünkü \"kontrol edildi ve temizdi\" diyen biri varsa o sensin. Sorgulanırsan Köylü gibi davran, ama bir adım öteye git: \"Zaten geçen tur biri beni inceledi ve temiz çıktım, hâlâ şüpheleniyorsanız bu tuhaf.\" Bu cümle, senin ilk-inceleme bağışıklığını doğal bir savunma cümlesine çevirir — yalan söylemiyorsun, gerçekten \"temiz\" çıktın, sadece sebebini saklıyorsun.", en: "Never reveal your vampire alignment. Coming back clean on that first check makes it very safe for you to stay quiet and let others take the social risks — nobody suspects you early, because if anyone says \"I checked them and they were clean,\" it's you. If questioned, play the Villager card, but push it further: \"I was already checked last round and came back clean — still suspecting me seems odd.\" That line turns your one-time investigation immunity into a natural-sounding defense — you're not lying, you genuinely came back clean, you're just hiding why." },
       s4: { tr: "İlk bağışıklığını, hakkında araştırma yapılmış gibi davranmadan kullan — yani kendi kendine \"beni kontrol ettiler, temizim\" gibi cümleler kurma, bu doğal görünmez. Diğer vampirlerin senin liderliğini takip ettiğini gizle; gece koordinasyonunda son sözü sen söylüyor olsan da gündüz eşit bir oyuncu gibi konuş.", en: "Use your first-check immunity without acting like you know you were investigated — don't drop lines like \"I got checked and I'm clean,\" it reads unnaturally. Hide that the other vampires follow your lead; even though you have the final say in night coordination, talk during the day like just another equal player." },
       related_list: { tr: "<li><a href=\"/roles/vampir.html\">Vampir (Vampire)</a> — Sıradan vampirler, senin liderliğin altında oy verir.</li><li><a href=\"/roles/vampir-ciragi.html\">Vampir Çırağı (Fledgling Vampire)</a> — Sen ölürsen bile takımın öldürme gücü Çırak sayesinde sürer.</li><li><a href=\"/roles/suikastci.html\">Suikastçı (Assassin)</a> — Suikastçı, senin liderliğinden bağımsız hareket eden tek takım arkadaşın.</li>", en: "<li><a href=\"/roles/vampir.html\">Vampir (Vampire)</a> — Regular vampires vote under your leadership.</li><li><a href=\"/roles/vampir-ciragi.html\">Vampir Çırağı (Fledgling Vampire)</a> — Even if you die, your team's killing power continues through the Fledgling.</li><li><a href=\"/roles/suikastci.html\">Suikastçı (Assassin)</a> — The Assassin is the one teammate who can act independently of your leadership.</li>" },
     };
